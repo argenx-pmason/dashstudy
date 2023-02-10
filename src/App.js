@@ -93,8 +93,11 @@ const App = () => {
     [studyList, setStudyList] = useState(null),
     [selectedStudy, setSelectedStudy] = useState(null),
     selectStudy = (e) => {
-      console.log(e);
+      // console.log(e);
       setSelectedStudy(e.value);
+      const newUrl = href.split("?")[0] + "?file=" + e.value;
+      document.title = e.label.split("/")[2];
+      window.history.pushState({}, "Title", newUrl);
       handlePopClose();
     },
     studyListFile =
