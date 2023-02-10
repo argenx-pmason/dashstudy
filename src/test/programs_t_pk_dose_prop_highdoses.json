@@ -1,0 +1,10 @@
+[
+{
+"manifestname": "/clinical/argx-117/hv/argx-117-1901/biostat/staging/mad5_tables/manifest/job_t_pk_dose_prop_highdoses_test.mnf",
+"path": "/clinical/argx-117/hv/argx-117-1901/biostat/staging/mad5_tables/programs/t_pk_dose_prop_highdoses.sas",
+"sas_program": "t_pk_dose_prop_highdoses.sas",
+"headerfailmess": "All pass",
+"headersummary": "0 Fails, 5 Pass",
+"lastModifiedBy": "scadour"
+}
+]

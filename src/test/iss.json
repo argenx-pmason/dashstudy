@@ -1,0 +1,3305 @@
+[
+  {
+    "type": "T",
+    "tlfid": "14.1.1.1",
+    "domain": "GENERAL CHARACTERISTICS",
+    "status": "Sponsor: Ok",
+    "reviewer": "",
+    "title": "Analysis Sets",
+    "lastModified": "Aug 31, 2022, 10:24:58 PM"
+  },
+  {
+    "type": "T",
+    "tlfid": "14.1.1.2",
+    "domain": "",
+    "status": "CRO: Updated",
+    "reviewer": "",
+    "title": "Summary Disposition",
+    "lastModified": "Oct 19, 2022, 7:20:58 PM"
+  },
+  {
+    "type": "T",
+    "tlfid": "14.1.1.3",
+    "domain": "GENERAL CHARACTERISTICS",
+    "status": "Sponsor: Ok",
+    "reviewer": "",
+    "title": "First and Last Contact in the Study",
+    "lastModified": "Aug 31, 2022, 10:25:09 PM"
+  },
+  {
+    "type": "T",
+    "tlfid": "14.1.1.4.1",
+    "domain": "GENERAL CHARACTERISTICS",
+    "status": "CRO: Updated",
+    "reviewer": "",
+    "title": "Patient Disposition by Country - Stage A",
+    "lastModified": "Sep 19, 2022, 1:09:41 PM"
+  },
+  {
+    "type": "T",
+    "tlfid": "14.1.1.4.2",
+    "domain": "GENERAL CHARACTERISTICS",
+    "status": "CRO: Updated",
+    "reviewer": "",
+    "title": "Patient Disposition by Country - Stage B",
+    "lastModified": "Oct 19, 2022, 7:22:00 PM"
+  },
+  {
+    "type": "T",
+    "tlfid": "14.1.1.5.1",
+    "domain": "GENERAL CHARACTERISTICS",
+    "status": "CRO: Updated",
+    "reviewer": "",
+    "title": "Patient Disposition by Analysis Visit - Run-in",
+    "lastModified": "Sep 20, 2022, 12:02:55 PM"
+  },
+  {
+    "type": "T",
+    "tlfid": "14.1.1.5.2",
+    "domain": "GENERAL CHARACTERISTICS",
+    "status": "CRO: Updated",
+    "reviewer": "",
+    "title": "Patient Disposition by Analysis Visit - Stage A",
+    "lastModified": "Sep 19, 2022, 1:28:02 PM"
+  },
+  {
+    "type": "T",
+    "tlfid": "14.1.1.5.3",
+    "domain": "GENERAL CHARACTERISTICS",
+    "status": "CRO: Updated",
+    "reviewer": "",
+    "title": "Patient Disposition by Analysis Visit - Stage B",
+    "lastModified": "Sep 19, 2022, 1:29:46 PM"
+  },
+  {
+    "type": "T",
+    "tlfid": "14.1.1.6.1",
+    "domain": "GENERAL CHARACTERISTICS",
+    "status": "CRO: Updated",
+    "reviewer": "",
+    "title": "Analysis Phase/Period Duration - Run-in and Stage A",
+    "lastModified": "Sep 20, 2022, 12:04:00 PM"
+  },
+  {
+    "type": "T",
+    "tlfid": "14.1.1.6.2",
+    "domain": "GENERAL CHARACTERISTICS",
+    "status": "CRO: Updated",
+    "reviewer": "",
+    "title": "Analysis Phase/Period Duration - Stage B",
+    "lastModified": "Sep 19, 2022, 1:48:28 PM"
+  },
+  {
+    "type": "T",
+    "tlfid": "14.1.1.7.1",
+    "domain": "GENERAL CHARACTERISTICS",
+    "status": "CRO: comment",
+    "reviewer": "",
+    "title": "Study Discontinuation - Run-in",
+    "lastModified": "Oct 19, 2022, 7:24:12 PM"
+  },
+  {
+    "type": "T",
+    "tlfid": "14.1.1.7.2",
+    "domain": "GENERAL CHARACTERISTICS",
+    "status": "CRO: comment",
+    "reviewer": "",
+    "title": "Study Discontinuation - Stage A",
+    "lastModified": "Sep 20, 2022, 12:08:24 PM"
+  },
+  {
+    "type": "T",
+    "tlfid": "14.1.1.7.3",
+    "domain": "GENERAL CHARACTERISTICS",
+    "status": "CRO: comment",
+    "reviewer": "",
+    "title": "Study Discontinuation - Stage B",
+    "lastModified": "Sep 20, 2022, 12:10:31 PM"
+  },
+  {
+    "type": "T",
+    "tlfid": "14.1.1.8.1",
+    "domain": "GENERAL CHARACTERISTICS",
+    "status": "CRO: comment",
+    "reviewer": "",
+    "title": "Treatment Discontinuation - Stage A",
+    "lastModified": "Oct 19, 2022, 7:26:44 PM"
+  },
+  {
+    "type": "T",
+    "tlfid": "14.1.1.8.2",
+    "domain": "GENERAL CHARACTERISTICS",
+    "status": "CRO: comment",
+    "reviewer": "s",
+    "title": "Treatment Discontinuation - Stage B",
+    "lastModified": "Oct 19, 2022, 7:27:22 PM"
+  },
+  {
+    "type": "T",
+    "tlfid": "14.1.1.9.1",
+    "domain": "GENERAL CHARACTERISTICS",
+    "status": "CRO: Updated",
+    "reviewer": "",
+    "title": "Major Protocol Deviations - Run-in and Stage A",
+    "lastModified": "Sep 19, 2022, 3:08:59 PM"
+  },
+  {
+    "type": "T",
+    "tlfid": "14.1.1.9.2",
+    "domain": "GENERAL CHARACTERISTICS",
+    "status": "CRO: Updated",
+    "reviewer": "",
+    "title": "Major Protocol Deviations - Stage B",
+    "lastModified": "Sep 20, 2022, 12:23:09 PM"
+  },
+  {
+    "type": "T",
+    "tlfid": "14.1.2.1.1",
+    "domain": "GENERAL CHARACTERISTICS",
+    "status": "CRO: comment",
+    "reviewer": "",
+    "title": "Demographic Data - Stage A",
+    "lastModified": "Oct 19, 2022, 7:28:03 PM"
+  },
+  {
+    "type": "T",
+    "tlfid": "14.1.2.1.2",
+    "domain": "GENERAL CHARACTERISTICS",
+    "status": "CRO: comment",
+    "reviewer": "",
+    "title": "Demographic Data - Stage B - SAF-B",
+    "lastModified": "Oct 19, 2022, 7:28:37 PM"
+  },
+  {
+    "type": "T",
+    "tlfid": "14.1.2.1.3",
+    "domain": "GENERAL CHARACTERISTICS",
+    "status": "CRO: comment",
+    "reviewer": "",
+    "title": "Demographic Data - Stage B - mITT",
+    "lastModified": "Sep 20, 2022, 12:30:13 PM"
+  },
+  {
+    "type": "T",
+    "tlfid": "14.1.2.2.1",
+    "domain": "GENERAL CHARACTERISTICS",
+    "status": "CRO: comment",
+    "reviewer": "",
+    "title": "Baseline Disease Characteristics - Stage A",
+    "lastModified": "Oct 19, 2022, 7:29:28 PM"
+  },
+  {
+    "type": "T",
+    "tlfid": "14.1.2.2.2",
+    "domain": "GENERAL CHARACTERISTICS",
+    "status": "CRO: comment",
+    "reviewer": "",
+    "title": "Baseline Disease Characteristics - Stage B - SAF-B",
+    "lastModified": "Oct 19, 2022, 7:29:48 PM"
+  },
+  {
+    "type": "T",
+    "tlfid": "14.1.2.2.3",
+    "domain": "GENERAL CHARACTERISTICS",
+    "status": "CRO: comment",
+    "reviewer": "",
+    "title": "Baseline Disease Characteristics - Stage B - mITT",
+    "lastModified": "Oct 19, 2022, 7:30:09 PM"
+  },
+  {
+    "type": "T",
+    "tlfid": "14.1.2.3.1",
+    "domain": "GENERAL CHARACTERISTICS",
+    "status": "CRO: comment",
+    "reviewer": "",
+    "title": "Medical History - Stage A",
+    "lastModified": "Sep 20, 2022, 12:35:31 PM"
+  },
+  {
+    "type": "T",
+    "tlfid": "14.1.2.3.2",
+    "domain": "GENERAL CHARACTERISTICS",
+    "status": "CRO: Updated",
+    "reviewer": "",
+    "title": "Medical History - Stage B",
+    "lastModified": "Sep 20, 2022, 12:36:04 PM"
+  },
+  {
+    "type": "T",
+    "tlfid": "14.1.2.4.1",
+    "domain": "GENERAL CHARACTERISTICS",
+    "status": "CRO: Updated",
+    "reviewer": "",
+    "title": "Concomitant Diseases - Stage A",
+    "lastModified": "Sep 20, 2022, 9:08:50 AM"
+  },
+  {
+    "type": "T",
+    "tlfid": "14.1.2.4.2",
+    "domain": "GENERAL CHARACTERISTICS",
+    "status": "CRO: Updated",
+    "reviewer": "",
+    "title": "Concomitant Diseases - Stage B",
+    "lastModified": "Sep 20, 2022, 12:36:12 PM"
+  },
+  {
+    "type": "T",
+    "tlfid": "14.1.2.5.1",
+    "domain": "GENERAL CHARACTERISTICS",
+    "status": "CRO: Updated",
+    "reviewer": "",
+    "title": "Prior Therapies by ATC Class (Level 1 and Level 3) and Generic Term - Stage A",
+    "lastModified": "Sep 20, 2022, 9:10:26 AM"
+  },
+  {
+    "type": "T",
+    "tlfid": "14.1.2.5.2",
+    "domain": "GENERAL CHARACTERISTICS",
+    "status": "CRO: Updated",
+    "reviewer": "",
+    "title": "Prior Therapies by ATC Class (Level 1 and Level 3) and Generic Term - Stage B",
+    "lastModified": "Sep 20, 2022, 9:15:51 AM"
+  },
+  {
+    "type": "T",
+    "tlfid": "14.1.2.5.3",
+    "domain": "GENERAL CHARACTERISTICS",
+    "status": "Sponsor: comment",
+    "reviewer": "",
+    "title": "Number of Prior CIDP Therapies by Prior CIDP Medication - Stage A",
+    "lastModified": "Oct 19, 2022, 7:30:53 PM"
+  },
+  {
+    "type": "T",
+    "tlfid": "14.1.2.5.4",
+    "domain": "GENERAL CHARACTERISTICS",
+    "status": "Sponsor: comment",
+    "reviewer": "",
+    "title": "Number of Prior CIDP Therapies by Prior CIDP Medication - Stage B",
+    "lastModified": "Aug 30, 2022, 4:02:23 PM"
+  },
+  {
+    "type": "T",
+    "tlfid": "14.1.2.6.1",
+    "domain": "GENERAL CHARACTERISTICS",
+    "status": "CRO: Updated",
+    "reviewer": "",
+    "title": "Concomitant Therapies by ATC Class (Level 1 and Level 3) and Generic Term - Stage A",
+    "lastModified": "Sep 20, 2022, 9:15:57 AM"
+  },
+  {
+    "type": "T",
+    "tlfid": "14.1.2.6.2",
+    "domain": "GENERAL CHARACTERISTICS",
+    "status": "CRO: Updated",
+    "reviewer": "",
+    "title": "Concomitant Therapies by ATC Class (Level 1 and Level 3) and Generic Term - Stage B",
+    "lastModified": "Sep 20, 2022, 9:38:00 AM"
+  },
+  {
+    "type": "T",
+    "tlfid": "14.1.2.7.1",
+    "domain": "GENERAL CHARACTERISTICS",
+    "status": "CRO: comment",
+    "reviewer": "",
+    "title": "Study Drug Administration - Stage A",
+    "lastModified": "Oct 19, 2022, 12:57:15 PM"
+  },
+  {
+    "type": "T",
+    "tlfid": "14.1.2.7.2",
+    "domain": "GENERAL CHARACTERISTICS",
+    "status": "Sponsor: comment",
+    "reviewer": "",
+    "title": "Study Drug Administration - Stage B - SAF-B",
+    "lastModified": "Sep 26, 2022, 2:29:49 PM"
+  },
+  {
+    "type": "T",
+    "tlfid": "14.1.2.7.3",
+    "domain": "GENERAL CHARACTERISTICS",
+    "status": "CRO: comment",
+    "reviewer": "",
+    "title": "Study Drug Administration - Stage B - mITT",
+    "lastModified": "Oct 19, 2022, 7:33:34 PM"
+  },
+  {
+    "type": "T",
+    "tlfid": "14.1.2.8",
+    "domain": "GENERAL CHARACTERISTICS",
+    "status": "Sponsor: comment",
+    "reviewer": "",
+    "title": "Study Drug Self-Administration Training",
+    "lastModified": "Sep 20, 2022, 12:51:52 PM"
+  },
+  {
+    "type": "T",
+    "tlfid": "14.2.1.1",
+    "domain": "EFFICACY",
+    "status": "CRO: comment",
+    "reviewer": "",
+    "title": "Confirmed ECI Responders - Exact Clopper Pearson CI",
+    "lastModified": "Oct 12, 2022, 1:47:58 AM"
+  },
+  {
+    "type": "T",
+    "tlfid": "14.2.1.2",
+    "domain": "EFFICACY",
+    "status": "CRO: comment",
+    "reviewer": "",
+    "title": "Confirmed ECI Responders by Way of Deterioration During the Run-in Phase - Frequency Tabulation",
+    "lastModified": "Oct 12, 2022, 1:48:44 AM"
+  },
+  {
+    "type": "T",
+    "tlfid": "14.2.1.3",
+    "domain": "EFFICACY",
+    "status": "CRO: comment",
+    "reviewer": "",
+    "title": "Confirmed ECI Responders by Prior CIDP Medication - Frequency Tabulation",
+    "lastModified": "Oct 12, 2022, 1:49:31 AM"
+  },
+  {
+    "type": "T",
+    "tlfid": "14.2.1.4",
+    "domain": "EFFICACY",
+    "status": "CRO: comment",
+    "reviewer": "",
+    "title": "Confirmed ECI Responders by Analysis Visit - Frequency Tabulation",
+    "lastModified": "Nov 24, 2022, 11:48:43 AM"
+  },
+  {
+    "type": "T",
+    "tlfid": "14.2.2.1",
+    "domain": "EFFICACY",
+    "status": "CRO: comment",
+    "reviewer": "",
+    "title": "Time to Initial Confirmed ECI - Kaplan-Meier",
+    "lastModified": "Oct 19, 2022, 7:36:00 PM"
+  },
+  {
+    "type": "T",
+    "tlfid": "14.2.2.2",
+    "domain": "EFFICACY",
+    "status": "CRO: comment",
+    "reviewer": "",
+    "title": "Time to Initial Confirmed ECI by Prior CIDP Medication at Screening - Kaplan-Meier",
+    "lastModified": "Oct 12, 2022, 6:54:02 AM"
+  },
+  {
+    "type": "T",
+    "tlfid": "14.2.3.1",
+    "domain": "EFFICACY",
+    "status": "CRO: Updated",
+    "reviewer": "",
+    "title": "Time to First Improvement - Kaplan-Meier",
+    "lastModified": "Sep 21, 2022, 3:17:58 PM"
+  },
+  {
+    "type": "T",
+    "tlfid": "14.2.3.2",
+    "domain": "EFFICACY",
+    "status": "CRO: Updated",
+    "reviewer": "",
+    "title": "Time to First Improvement by Prior CIDP Medication at Screening - Kaplan-Meier",
+    "lastModified": "Sep 21, 2022, 2:54:47 PM"
+  },
+  {
+    "type": "T",
+    "tlfid": "14.2.4.1",
+    "domain": "EFFICACY",
+    "status": "CRO: Updated",
+    "reviewer": "",
+    "title": "Cross-tabulation of way of ECMD Deterioration During the Run-in Phase Versus Way of Confirmed ECI During Stage A",
+    "lastModified": "Sep 21, 2022, 2:53:52 PM"
+  },
+  {
+    "type": "T",
+    "tlfid": "14.2.5.1.1",
+    "domain": "EFFICACY",
+    "status": "Sponsor: comment",
+    "reviewer": "",
+    "title": "Time to Adjusted INCAT Deterioration Compared to Stage B Baseline (Primary Endpoint) - Cox Proportional Hazard Model - mITT",
+    "lastModified": "Aug 31, 2022, 8:50:16 PM"
+  },
+  {
+    "type": "T",
+    "tlfid": "14.2.5.1.2",
+    "domain": "EFFICACY",
+    "status": "Sponsor: comment",
+    "reviewer": "",
+    "title": "Time to Adjusted INCAT Deterioration Compared to Stage B Baseline - Cox Proportional Hazard Model - PP",
+    "lastModified": "Aug 31, 2022, 8:50:18 PM"
+  },
+  {
+    "type": "T",
+    "tlfid": "14.2.5.2.1",
+    "domain": "EFFICACY",
+    "status": "Sponsor: comment",
+    "reviewer": "",
+    "title": "Time to Adjusted INCAT Deterioration Compared to Stage B Baseline - Cox Proportional Hazard Model - mITT Excluding Patients Who Did Not Have Confirmed ECI in Stage A",
+    "lastModified": "Aug 31, 2022, 12:40:31 PM"
+  },
+  {
+    "type": "T",
+    "tlfid": "14.2.5.2.2",
+    "domain": "EFFICACY",
+    "status": "Sponsor: comment",
+    "reviewer": "",
+    "title": "Time to Adjusted INCAT Deterioration Compared to Stage B Baseline (Extreme-case Analysis) - Cox Proportional Hazard Model - mITT",
+    "lastModified": "Aug 31, 2022, 12:44:04 PM"
+  },
+  {
+    "type": "T",
+    "tlfid": "14.2.5.2.3",
+    "domain": "EFFICACY",
+    "status": "Sponsor: Ok",
+    "reviewer": "",
+    "title": "Time to Adjusted INCAT Deterioration Compared to Stage B Baseline (Mixed-Case Analysis) - Cox Proportional Hazard Model",
+    "lastModified": "Aug 31, 2022, 10:25:04 PM"
+  },
+  {
+    "type": "T",
+    "tlfid": "14.2.5.2.4",
+    "domain": "EFFICACY",
+    "status": "Sponsor: Ok",
+    "reviewer": "",
+    "title": "Time to Adjusted INCAT Deterioration Compared to Stage B Baseline (Based on Investigator�s Assessment) - Cox Proportional Hazard Model",
+    "lastModified": "Aug 31, 2022, 10:25:13 PM"
+  },
+  {
+    "type": "T",
+    "tlfid": "14.2.5.2.5",
+    "domain": "EFFICACY",
+    "status": "Sponsor: Ok",
+    "reviewer": "",
+    "title": "Time to Adjusted INCAT Deterioration Compared to Stage B Baseline (Using Actual Values of the Stratification Factors) - Cox Proportional Hazard Model",
+    "lastModified": "Aug 31, 2022, 10:25:18 PM"
+  },
+  {
+    "type": "T",
+    "tlfid": "14.2.5.3.1",
+    "domain": "EFFICACY",
+    "status": "Sponsor: Ok",
+    "reviewer": "",
+    "title": "Time to Adjusted INCAT Deterioration Compared to Stage B Baseline by Prior CIDP Medication - Cox Proportional Hazard Model",
+    "lastModified": "Aug 31, 2022, 10:25:23 PM"
+  },
+  {
+    "type": "T",
+    "tlfid": "14.2.5.3.2",
+    "domain": "EFFICACY",
+    "status": "Sponsor: comment",
+    "reviewer": "",
+    "title": "Time to Adjusted INCAT Deterioration Compared to Stage B Baseline by Decrease of Adjusted INCAT Score in Stage A - Cox Proportional Hazard Model",
+    "lastModified": "Aug 31, 2022, 12:47:39 PM"
+  },
+  {
+    "type": "T",
+    "tlfid": "14.2.5.3.3",
+    "domain": "EFFICACY",
+    "status": "Sponsor: Ok",
+    "reviewer": "",
+    "title": "Time to Adjusted INCAT Deterioration Compared to Stage B Baseline by Sex at Birth - Cox Proportional Hazard Model",
+    "lastModified": "Aug 31, 2022, 10:25:38 PM"
+  },
+  {
+    "type": "T",
+    "tlfid": "14.2.5.3.4",
+    "domain": "EFFICACY",
+    "status": "CRO: Updated",
+    "reviewer": "",
+    "title": "Time to Adjusted INCAT Deterioration Compared to Stage B Baseline by Region - Cox Proportional Hazard Model",
+    "lastModified": "Sep 22, 2022, 9:10:58 AM"
+  },
+  {
+    "type": "T",
+    "tlfid": "14.2.5.3.5",
+    "domain": "EFFICACY",
+    "status": "Sponsor: Ok",
+    "reviewer": "",
+    "title": "Time to Adjusted INCAT Deterioration Compared to Stage B Baseline by Race - Cox Proportional Hazard Model",
+    "lastModified": "Aug 31, 2022, 10:25:33 PM"
+  },
+  {
+    "type": "T",
+    "tlfid": "14.2.5.3.6",
+    "domain": "EFFICACY",
+    "status": "Sponsor: Ok",
+    "reviewer": "",
+    "title": "Time to Adjusted INCAT Deterioration Compared to Stage B Baseline by Age Group - Cox Proportional Hazard Model",
+    "lastModified": "Aug 31, 2022, 10:25:29 PM"
+  },
+  {
+    "type": "T",
+    "tlfid": "14.2.5.3.7",
+    "domain": "EFFICACY",
+    "status": "CRO: Updated",
+    "reviewer": "",
+    "title": "Time to Adjusted INCAT Deterioration Compared to Stage B Baseline by Body Weight - Cox Proportional Hazard Model",
+    "lastModified": "Sep 22, 2022, 9:15:04 AM"
+  },
+  {
+    "type": "T",
+    "tlfid": "14.2.5.3.8",
+    "domain": "EFFICACY",
+    "status": "CRO: Updated",
+    "reviewer": "",
+    "title": "Time to Adjusted INCAT Deterioration Compared to Stage B Baseline by CIDP Disease Activity Status - Cox Proportional Hazard Model",
+    "lastModified": "Sep 22, 2022, 9:15:39 AM"
+  },
+  {
+    "type": "T",
+    "tlfid": "14.2.5.4.1",
+    "domain": "EFFICACY",
+    "status": "Sponsor: Ok",
+    "reviewer": "",
+    "title": "Time to Adjusted INCAT Deterioration Compared to Stage B Baseline - Kaplan-Meier - mITT",
+    "lastModified": "Aug 31, 2022, 10:26:12 PM"
+  },
+  {
+    "type": "T",
+    "tlfid": "14.2.5.4.2",
+    "domain": "EFFICACY",
+    "status": "Sponsor: Ok",
+    "reviewer": "",
+    "title": "Time to Adjusted INCAT Deterioration Compared to Stage B Baseline - Kaplan-Meier - PP",
+    "lastModified": "Aug 31, 2022, 10:26:05 PM"
+  },
+  {
+    "type": "T",
+    "tlfid": "14.2.5.4.3",
+    "domain": "EFFICACY",
+    "status": "Sponsor: Ok",
+    "reviewer": "",
+    "title": "Time to Adjusted INCAT Deterioration Compared to Stage B Baseline - Kaplan-Meier - mITT Excluding Patients Who Did Not Have Confirmed ECI in Stage A",
+    "lastModified": "Aug 31, 2022, 10:26:00 PM"
+  },
+  {
+    "type": "T",
+    "tlfid": "14.2.5.5",
+    "domain": "EFFICACY",
+    "status": "Sponsor: Ok",
+    "reviewer": "",
+    "title": "Time to Adjusted INCAT Deterioration Compared to Stage B Baseline (Extreme-case Analysis) - Kaplan-Meier",
+    "lastModified": "Aug 31, 2022, 10:25:56 PM"
+  },
+  {
+    "type": "T",
+    "tlfid": "14.2.5.6",
+    "domain": "EFFICACY",
+    "status": "Sponsor: Ok",
+    "reviewer": "",
+    "title": "Time to Adjusted INCAT Deterioration Compared to Stage B Baseline (Mixed-Case Analysis) - Kaplan-Meier",
+    "lastModified": "Aug 31, 2022, 10:25:43 PM"
+  },
+  {
+    "type": "T",
+    "tlfid": "14.2.5.7",
+    "domain": "EFFICACY",
+    "status": "Sponsor: Ok",
+    "reviewer": "",
+    "title": "Time to Adjusted INCAT Deterioration Compared to Stage B Baseline (Based on Investigator�s Assessment) - Kaplan-Meier",
+    "lastModified": "Aug 31, 2022, 10:25:48 PM"
+  },
+  {
+    "type": "T",
+    "tlfid": "14.2.5.8",
+    "domain": "EFFICACY",
+    "status": "Sponsor: Ok",
+    "reviewer": "",
+    "title": "Time to Adjusted INCAT Deterioration Compared to Stage B Baseline (Using Actual Values of the Stratification Factors) - Kaplan-Meier",
+    "lastModified": "Aug 31, 2022, 10:25:51 PM"
+  },
+  {
+    "type": "T",
+    "tlfid": "14.2.5.9.1",
+    "domain": "EFFICACY",
+    "status": "CRO: comment",
+    "reviewer": "",
+    "title": "Time to Adjusted INCAT Deterioration Compared to Stage B Baseline by Prior CIDP Medication - Kaplan-Meier",
+    "lastModified": "Oct 19, 2022, 7:38:22 PM"
+  },
+  {
+    "type": "T",
+    "tlfid": "14.2.5.9.2",
+    "domain": "EFFICACY",
+    "status": "CRO: Updated",
+    "reviewer": "",
+    "title": "Time to Adjusted INCAT Deterioration Compared to Stage B Baseline by Decrease of Adjusted INCAT Score in Stage A - Kaplan-Meier",
+    "lastModified": "Sep 22, 2022, 11:40:18 AM"
+  },
+  {
+    "type": "T",
+    "tlfid": "14.2.5.9.3",
+    "domain": "EFFICACY",
+    "status": "Sponsor: Ok",
+    "reviewer": "",
+    "title": "Time to Adjusted INCAT Deterioration Compared to Stage B Baseline by Sex at Birth - Kaplan-Meier",
+    "lastModified": "Aug 31, 2022, 10:26:20 PM"
+  },
+  {
+    "type": "T",
+    "tlfid": "14.2.5.9.4",
+    "domain": "EFFICACY",
+    "status": "CRO: Updated",
+    "reviewer": "",
+    "title": "Time to Adjusted INCAT Deterioration Compared to Stage B Baseline by Region - Kaplan-Meier",
+    "lastModified": "Sep 22, 2022, 9:18:12 AM"
+  },
+  {
+    "type": "T",
+    "tlfid": "14.2.5.9.5",
+    "domain": "EFFICACY",
+    "status": "CRO: Updated",
+    "reviewer": "",
+    "title": "Time to Adjusted INCAT Deterioration Compared to Stage B Baseline by Race - Kaplan-Meier",
+    "lastModified": "Sep 22, 2022, 9:18:05 AM"
+  },
+  {
+    "type": "T",
+    "tlfid": "14.2.5.9.6",
+    "domain": "EFFICACY",
+    "status": "Sponsor: Ok",
+    "reviewer": "",
+    "title": "Time to Adjusted INCAT Deterioration Compared to Stage B Baseline by Age Group - Kaplan-Meier",
+    "lastModified": "Aug 31, 2022, 10:26:16 PM"
+  },
+  {
+    "type": "T",
+    "tlfid": "14.2.5.9.7",
+    "domain": "EFFICACY",
+    "status": "CRO: Updated",
+    "reviewer": "",
+    "title": "Time to Adjusted INCAT Deterioration Compared to Stage B Baseline by Body Weight - Kaplan-Meier",
+    "lastModified": "Sep 22, 2022, 9:18:21 AM"
+  },
+  {
+    "type": "T",
+    "tlfid": "14.2.5.9.8",
+    "domain": "EFFICACY",
+    "status": "Sponsor: Ok",
+    "reviewer": "",
+    "title": "Time to Adjusted INCAT Deterioration Compared to Stage B Baseline by CIDP Disease Activity Status - Kaplan-Meier",
+    "lastModified": "Aug 31, 2022, 10:26:41 PM"
+  },
+  {
+    "type": "T",
+    "tlfid": "14.2.6.1",
+    "domain": "EFFICACY",
+    "status": "Sponsor: Ok",
+    "reviewer": "",
+    "title": "Time to CIDP Disease Progression - Cox Proportional Hazard Model",
+    "lastModified": "Aug 31, 2022, 10:26:37 PM"
+  },
+  {
+    "type": "T",
+    "tlfid": "14.2.6.2.1",
+    "domain": "EFFICACY",
+    "status": "Sponsor: Ok",
+    "reviewer": "",
+    "title": "Time to CIDP Disease Progression by Prior CIDP Medication - Cox Proportional Hazard Model",
+    "lastModified": "Aug 31, 2022, 10:26:33 PM"
+  },
+  {
+    "type": "T",
+    "tlfid": "14.2.6.2.2",
+    "domain": "EFFICACY",
+    "status": "Sponsor: Ok",
+    "reviewer": "",
+    "title": "Time to CIDP Disease Progression by Decrease of Adjusted INCAT Score in Stage A - Cox Proportional Hazard Model",
+    "lastModified": "Aug 31, 2022, 10:27:23 PM"
+  },
+  {
+    "type": "T",
+    "tlfid": "14.2.6.2.3",
+    "domain": "EFFICACY",
+    "status": "Sponsor: Ok",
+    "reviewer": "",
+    "title": "Time to CIDP Disease Progression by Sex at Birth - Cox Proportional Hazard Model",
+    "lastModified": "Aug 31, 2022, 10:26:24 PM"
+  },
+  {
+    "type": "T",
+    "tlfid": "14.2.6.2.4",
+    "domain": "EFFICACY",
+    "status": "Sponsor: Ok",
+    "reviewer": "",
+    "title": "Time to CIDP Disease Progression by Region - Cox Proportional Hazard Model",
+    "lastModified": "Aug 31, 2022, 10:26:28 PM"
+  },
+  {
+    "type": "T",
+    "tlfid": "14.2.6.2.5",
+    "domain": "EFFICACY",
+    "status": "Sponsor: Ok",
+    "reviewer": "",
+    "title": "Time to CIDP Disease Progression by Race - Cox Proportional Hazard Model",
+    "lastModified": "Aug 31, 2022, 10:27:00 PM"
+  },
+  {
+    "type": "T",
+    "tlfid": "14.2.6.2.6",
+    "domain": "EFFICACY",
+    "status": "Sponsor: Ok",
+    "reviewer": "",
+    "title": "Time to CIDP Disease Progression by Age Group - Cox Proportional Hazard Model",
+    "lastModified": "Aug 31, 2022, 10:26:56 PM"
+  },
+  {
+    "type": "T",
+    "tlfid": "14.2.6.2.7",
+    "domain": "EFFICACY",
+    "status": "Sponsor: Ok",
+    "reviewer": "",
+    "title": "Time to CIDP Disease Progression by Body Weight - Cox Proportional Hazard Model",
+    "lastModified": "Aug 31, 2022, 10:26:45 PM"
+  },
+  {
+    "type": "T",
+    "tlfid": "14.2.6.2.8",
+    "domain": "EFFICACY",
+    "status": "Sponsor: Ok",
+    "reviewer": "",
+    "title": "Time to CIDP Disease Progression by CIDP Disease Activity Status - Cox Proportional Hazard Model",
+    "lastModified": "Aug 31, 2022, 10:26:53 PM"
+  },
+  {
+    "type": "T",
+    "tlfid": "14.2.6.3",
+    "domain": "EFFICACY",
+    "status": "CRO: comment",
+    "reviewer": "",
+    "title": "Time to CIDP Disease Progression - Kaplan-Meier",
+    "lastModified": "Oct 19, 2022, 7:44:06 PM"
+  },
+  {
+    "type": "T",
+    "tlfid": "14.2.6.4.1",
+    "domain": "EFFICACY",
+    "status": "Sponsor: Ok",
+    "reviewer": "",
+    "title": "Time to CIDP Disease Progression by Prior CIDP Medication - Kaplan-Meier",
+    "lastModified": "Aug 31, 2022, 10:26:48 PM"
+  },
+  {
+    "type": "T",
+    "tlfid": "14.2.6.4.2",
+    "domain": "EFFICACY",
+    "status": "CRO: Updated",
+    "reviewer": "",
+    "title": "Time to CIDP Disease Progression by Decrease of Adjusted INCAT Score in Stage A - Kaplan-Meier",
+    "lastModified": "Nov 3, 2022, 9:00:16 AM"
+  },
+  {
+    "type": "T",
+    "tlfid": "14.2.6.4.3",
+    "domain": "EFFICACY",
+    "status": "Sponsor: Ok",
+    "reviewer": "",
+    "title": "Time to CIDP Disease Progression by Sex at Birth - Kaplan-Meier",
+    "lastModified": "Aug 31, 2022, 10:27:03 PM"
+  },
+  {
+    "type": "T",
+    "tlfid": "14.2.6.4.4",
+    "domain": "EFFICACY",
+    "status": "Sponsor: Ok",
+    "reviewer": "",
+    "title": "Time to CIDP Disease Progression by Region - Kaplan-Meier",
+    "lastModified": "Aug 31, 2022, 10:27:07 PM"
+  },
+  {
+    "type": "T",
+    "tlfid": "14.2.6.4.5",
+    "domain": "EFFICACY",
+    "status": "Sponsor: Ok",
+    "reviewer": "",
+    "title": "Time to CIDP Disease Progression by Race - Kaplan-Meier",
+    "lastModified": "Aug 31, 2022, 10:27:19 PM"
+  },
+  {
+    "type": "T",
+    "tlfid": "14.2.6.4.6",
+    "domain": "EFFICACY",
+    "status": "Sponsor: Ok",
+    "reviewer": "",
+    "title": "Time to CIDP Disease Progression by Age Group - Kaplan-Meier",
+    "lastModified": "Aug 31, 2022, 10:27:11 PM"
+  },
+  {
+    "type": "T",
+    "tlfid": "14.2.6.4.7",
+    "domain": "EFFICACY",
+    "status": "Sponsor: Ok",
+    "reviewer": "",
+    "title": "Time to CIDP Disease Progression by Body Weight - Kaplan-Meier",
+    "lastModified": "Aug 31, 2022, 10:27:15 PM"
+  },
+  {
+    "type": "T",
+    "tlfid": "14.2.6.4.8",
+    "domain": "EFFICACY",
+    "status": "Sponsor: Ok",
+    "reviewer": "",
+    "title": "Time to CIDP Disease Progression by CIDP Disease Activity Status - Kaplan-Meier",
+    "lastModified": "Aug 31, 2022, 10:27:33 PM"
+  },
+  {
+    "type": "T",
+    "tlfid": "14.2.7.1",
+    "domain": "EFFICACY",
+    "status": "Sponsor: Ok",
+    "reviewer": "",
+    "title": "Improved Functional Level - Logistic Regression",
+    "lastModified": "Aug 31, 2022, 10:27:28 PM"
+  },
+  {
+    "type": "T",
+    "tlfid": "14.2.7.2.1",
+    "domain": "EFFICACY",
+    "status": "Sponsor: Ok",
+    "reviewer": "",
+    "title": "Improved Functional Level by Prior CIDP Medication - Logistic Regression",
+    "lastModified": "Aug 31, 2022, 10:27:55 PM"
+  },
+  {
+    "type": "T",
+    "tlfid": "14.2.7.2.2",
+    "domain": "EFFICACY",
+    "status": "Sponsor: Ok",
+    "reviewer": "",
+    "title": "Improved Functional Level by Decrease of Adjusted INCAT Score in Stage A - Logistic Regression",
+    "lastModified": "Aug 31, 2022, 10:28:27 PM"
+  },
+  {
+    "type": "T",
+    "tlfid": "14.2.7.2.3",
+    "domain": "EFFICACY",
+    "status": "Sponsor: Ok",
+    "reviewer": "",
+    "title": "Improved Functional Level by Sex at Birth - Logistic Regression",
+    "lastModified": "Aug 31, 2022, 10:28:32 PM"
+  },
+  {
+    "type": "T",
+    "tlfid": "14.2.7.2.4",
+    "domain": "EFFICACY",
+    "status": "Sponsor: Ok",
+    "reviewer": "",
+    "title": "Improved Functional Level by Region - Logistic Regression",
+    "lastModified": "Aug 31, 2022, 10:28:41 PM"
+  },
+  {
+    "type": "T",
+    "tlfid": "14.2.7.2.5",
+    "domain": "EFFICACY",
+    "status": "Sponsor: Ok",
+    "reviewer": "",
+    "title": "Improved Functional Level by Race - Logistic Regression",
+    "lastModified": "Aug 31, 2022, 10:28:37 PM"
+  },
+  {
+    "type": "T",
+    "tlfid": "14.2.7.2.6",
+    "domain": "EFFICACY",
+    "status": "Sponsor: Ok",
+    "reviewer": "",
+    "title": "Improved Functional Level by Age Group - Logistic Regression",
+    "lastModified": "Aug 31, 2022, 10:28:48 PM"
+  },
+  {
+    "type": "T",
+    "tlfid": "14.2.7.2.7",
+    "domain": "EFFICACY",
+    "status": "Sponsor: Ok",
+    "reviewer": "",
+    "title": "Improved Functional Level by Body Weight - Logistic Regression",
+    "lastModified": "Aug 31, 2022, 10:28:51 PM"
+  },
+  {
+    "type": "T",
+    "tlfid": "14.2.7.2.8",
+    "domain": "EFFICACY",
+    "status": "Sponsor: Ok",
+    "reviewer": "",
+    "title": "Improved Functional Level by CIDP Disease Activity Status - Logistic Regression",
+    "lastModified": "Aug 31, 2022, 10:30:10 PM"
+  },
+  {
+    "type": "T",
+    "tlfid": "14.2.8.1",
+    "domain": "EFFICACY",
+    "status": "Sponsor: Ok",
+    "reviewer": "",
+    "title": "Time to 10% Decrease in I-RODS - Kaplan-Meier",
+    "lastModified": "Aug 31, 2022, 10:29:38 PM"
+  },
+  {
+    "type": "T",
+    "tlfid": "14.2.9.1",
+    "domain": "EFFICACY",
+    "status": "Sponsor: Ok",
+    "reviewer": "",
+    "title": "Adjusted INCAT Disability Score: Descriptive Statistics of Actual Values and Changes from Stage A Baseline - Stage A",
+    "lastModified": "Aug 31, 2022, 10:29:18 PM"
+  },
+  {
+    "type": "T",
+    "tlfid": "14.2.9.2.1",
+    "domain": "EFFICACY",
+    "status": "CRO: Updated",
+    "reviewer": "",
+    "title": "Adjusted INCAT Disability Score: Descriptive Statistics of Actual Values and Changes from Stage A Baseline by Confirmed ECI Response - Stage A",
+    "lastModified": "Sep 22, 2022, 12:35:33 PM"
+  },
+  {
+    "type": "T",
+    "tlfid": "14.2.9.2.2",
+    "domain": "EFFICACY",
+    "status": "Sponsor: Ok",
+    "reviewer": "",
+    "title": "Adjusted INCAT Disability Score: Descriptive Statistics of Actual Values and Changes from Stage A Baseline by Prior CIDP Medication - Stage A",
+    "lastModified": "Aug 31, 2022, 10:29:15 PM"
+  },
+  {
+    "type": "T",
+    "tlfid": "14.2.9.2.3",
+    "domain": "EFFICACY",
+    "status": "Sponsor: Ok",
+    "reviewer": "",
+    "title": "Adjusted INCAT Disability Score: Descriptive Statistics of Actual Values and Changes from Stage A Baseline by ECMD Worsening on Adjusted INCAT - Stage A",
+    "lastModified": "Aug 31, 2022, 10:28:55 PM"
+  },
+  {
+    "type": "T",
+    "tlfid": "14.2.9.2.4",
+    "domain": "EFFICACY",
+    "status": "CRO: comment",
+    "reviewer": "",
+    "title": "Adjusted INCAT Disability Score: Descriptive Statistics of Actual Values and Changes from Stage A Baseline at Stage A Baseline and Last Assessment by Prior CIDP Medication for Patients with ECMD Worsening on Adjusted INCAT - Stage A",
+    "lastModified": "Sep 22, 2022, 1:23:14 PM"
+  },
+  {
+    "type": "T",
+    "tlfid": "14.2.9.3",
+    "domain": "EFFICACY",
+    "status": "Sponsor: Ok",
+    "reviewer": "",
+    "title": "Adjusted INCAT Disability Score: Descriptive Statistics of Actual Values and Changes from Stage A Baseline - Stage B",
+    "lastModified": "Aug 31, 2022, 10:28:58 PM"
+  },
+  {
+    "type": "T",
+    "tlfid": "14.2.9.4.1",
+    "domain": "EFFICACY",
+    "status": "Sponsor: Ok",
+    "reviewer": "",
+    "title": "Adjusted INCAT Disability Score: Descriptive Statistics of Actual Values and Changes from Stage A Baseline by Prior CIDP Medication - Stage B",
+    "lastModified": "Aug 31, 2022, 10:29:02 PM"
+  },
+  {
+    "type": "T",
+    "tlfid": "14.2.9.4.2",
+    "domain": "EFFICACY",
+    "status": "CRO: Updated",
+    "reviewer": "",
+    "title": "Adjusted INCAT Disability Score: Descriptive Statistics of Actual Values and Changes from Stage A Baseline by Decrease of Adjusted INCAT Score in Stage A - Stage B",
+    "lastModified": "Nov 3, 2022, 9:03:52 AM"
+  },
+  {
+    "type": "T",
+    "tlfid": "14.2.9.4.3",
+    "domain": "EFFICACY",
+    "status": "Sponsor: Ok",
+    "reviewer": "",
+    "title": "Adjusted INCAT Disability Score: Descriptive Statistics of Actual Values and Changes from Stage A Baseline by Sex at Birth - Stage B",
+    "lastModified": "Aug 31, 2022, 10:29:07 PM"
+  },
+  {
+    "type": "T",
+    "tlfid": "14.2.9.4.4",
+    "domain": "EFFICACY",
+    "status": "Sponsor: Ok",
+    "reviewer": "",
+    "title": "Adjusted INCAT Disability Score: Descriptive Statistics of Actual Values and Changes from Stage A Baseline by Region - Stage B",
+    "lastModified": "Aug 31, 2022, 10:29:10 PM"
+  },
+  {
+    "type": "T",
+    "tlfid": "14.2.9.4.5",
+    "domain": "EFFICACY",
+    "status": "Sponsor: Ok",
+    "reviewer": "",
+    "title": "Adjusted INCAT Disability Score: Descriptive Statistics of Actual Values and Changes from Stage A Baseline by Race - Stage B",
+    "lastModified": "Aug 31, 2022, 10:29:22 PM"
+  },
+  {
+    "type": "T",
+    "tlfid": "14.2.9.4.6",
+    "domain": "EFFICACY",
+    "status": "Sponsor: Ok",
+    "reviewer": "",
+    "title": "Adjusted INCAT Disability Score: Descriptive Statistics of Actual Values and Changes from Stage A Baseline by Age Group - Stage B",
+    "lastModified": "Aug 31, 2022, 10:29:25 PM"
+  },
+  {
+    "type": "T",
+    "tlfid": "14.2.9.4.7",
+    "domain": "EFFICACY",
+    "status": "CRO: Updated",
+    "reviewer": "",
+    "title": "Adjusted INCAT Disability Score: Descriptive Statistics of Actual Values and Changes from Stage A Baseline by Body Weight - Stage B",
+    "lastModified": "Sep 22, 2022, 1:24:01 PM"
+  },
+  {
+    "type": "T",
+    "tlfid": "14.2.9.4.8",
+    "domain": "EFFICACY",
+    "status": "Sponsor: Ok",
+    "reviewer": "",
+    "title": "Adjusted INCAT Disability Score: Descriptive Statistics of Actual Values and Changes from Stage A Baseline by CIDP Disease Activity Status - Stage B",
+    "lastModified": "Aug 31, 2022, 10:29:30 PM"
+  },
+  {
+    "type": "T",
+    "tlfid": "14.2.9.5",
+    "domain": "EFFICACY",
+    "status": "Sponsor: Ok",
+    "reviewer": "",
+    "title": "Adjusted INCAT Disability Score: Descriptive Statistics of Actual Values and Changes from Stage A Baseline at Last Assessment and at Best-Improvement - Stage B",
+    "lastModified": "Aug 31, 2022, 10:29:33 PM"
+  },
+  {
+    "type": "T",
+    "tlfid": "14.2.9.6.1",
+    "domain": "EFFICACY",
+    "status": "Sponsor: Ok",
+    "reviewer": "",
+    "title": "Adjusted INCAT Disability Score: Descriptive Statistics of Actual Values and Changes from Stage A Baseline at Last Assessment and at Best-Improvement by Prior CIDP Medication - Stage B",
+    "lastModified": "Aug 31, 2022, 10:29:53 PM"
+  },
+  {
+    "type": "T",
+    "tlfid": "14.2.9.6.2",
+    "domain": "EFFICACY",
+    "status": "Sponsor: Ok",
+    "reviewer": "",
+    "title": "Adjusted INCAT Disability Score: Descriptive Statistics of Actual Values and Changes from Stage A Baseline at Last Assessment and at Best-Improvement by Decrease of Adjusted INCAT Score in Stage A - Stage B",
+    "lastModified": "Aug 31, 2022, 10:29:47 PM"
+  },
+  {
+    "type": "T",
+    "tlfid": "14.2.9.6.3",
+    "domain": "EFFICACY",
+    "status": "Sponsor: Ok",
+    "reviewer": "",
+    "title": "Adjusted INCAT Disability Score: Descriptive Statistics of Actual Values and Changes from Stage A Baseline at Last Assessment and at Best-Improvement by Sex at Birth - Stage B",
+    "lastModified": "Aug 31, 2022, 10:29:43 PM"
+  },
+  {
+    "type": "T",
+    "tlfid": "14.2.9.6.4",
+    "domain": "EFFICACY",
+    "status": "Sponsor: Ok",
+    "reviewer": "",
+    "title": "Adjusted INCAT Disability Score: Descriptive Statistics of Actual Values and Changes from Stage A Baseline at Last Assessment and at Best-Improvement by Region - Stage B",
+    "lastModified": "Aug 31, 2022, 10:30:05 PM"
+  },
+  {
+    "type": "T",
+    "tlfid": "14.2.9.6.5",
+    "domain": "EFFICACY",
+    "status": "Sponsor: Ok",
+    "reviewer": "",
+    "title": "Adjusted INCAT Disability Score: Descriptive Statistics of Actual Values and Changes from Stage A Baseline at Last Assessment and at Best-Improvement by Race - Stage B",
+    "lastModified": "Aug 31, 2022, 10:30:01 PM"
+  },
+  {
+    "type": "T",
+    "tlfid": "14.2.9.6.6",
+    "domain": "EFFICACY",
+    "status": "Sponsor: Ok",
+    "reviewer": "",
+    "title": "Adjusted INCAT Disability Score: Descriptive Statistics of Actual Values and Changes from Stage A Baseline at Last Assessment and at Best-Improvement by Age Group - Stage B",
+    "lastModified": "Aug 31, 2022, 10:29:58 PM"
+  },
+  {
+    "type": "T",
+    "tlfid": "14.2.9.6.7",
+    "domain": "EFFICACY",
+    "status": "Sponsor: Ok",
+    "reviewer": "",
+    "title": "Adjusted INCAT Disability Score: Descriptive Statistics of Actual Values and Changes from Stage A Baseline at Last Assessment and at Best-Improvement by Body Weight - Stage B",
+    "lastModified": "Aug 31, 2022, 10:34:12 PM"
+  },
+  {
+    "type": "T",
+    "tlfid": "14.2.9.6.8",
+    "domain": "EFFICACY",
+    "status": "Sponsor: Ok",
+    "reviewer": "",
+    "title": "Adjusted INCAT Disability Score: Descriptive Statistics of Actual Values and Changes from Stage A Baseline at Last Assessment and at Best-Improvement by CIDP Disease Activity Status - Stage B",
+    "lastModified": "Aug 31, 2022, 10:34:18 PM"
+  },
+  {
+    "type": "T",
+    "tlfid": "14.2.9.7",
+    "domain": "EFFICACY",
+    "status": "Sponsor: Ok",
+    "reviewer": "",
+    "title": "Adjusted INCAT Disability Score: Descriptive Statistics of Actual Values and Changes from Stage B Baseline - Stage B",
+    "lastModified": "Aug 31, 2022, 10:34:21 PM"
+  },
+  {
+    "type": "T",
+    "tlfid": "14.2.9.8.1",
+    "domain": "EFFICACY",
+    "status": "Sponsor: Ok",
+    "reviewer": "",
+    "title": "Adjusted INCAT Disability Score: Descriptive Statistics of Actual Values and Changes from Stage B Baseline by Prior CIDP Medication - Stage B",
+    "lastModified": "Aug 31, 2022, 10:34:25 PM"
+  },
+  {
+    "type": "T",
+    "tlfid": "14.2.9.8.2",
+    "domain": "EFFICACY",
+    "status": "Sponsor: Ok",
+    "reviewer": "",
+    "title": "Adjusted INCAT Disability Score: Descriptive Statistics of Actual Values and Changes from Stage B Baseline by Decrease of Adjusted INCAT Score in Stage A - Stage B",
+    "lastModified": "Aug 31, 2022, 10:34:28 PM"
+  },
+  {
+    "type": "T",
+    "tlfid": "14.2.9.8.3",
+    "domain": "EFFICACY",
+    "status": "Sponsor: Ok",
+    "reviewer": "",
+    "title": "Adjusted INCAT Disability Score: Descriptive Statistics of Actual Values and Changes from Stage B Baseline by Sex at Birth - Stage B",
+    "lastModified": "Aug 31, 2022, 10:34:32 PM"
+  },
+  {
+    "type": "T",
+    "tlfid": "14.2.9.8.4",
+    "domain": "EFFICACY",
+    "status": "Sponsor: Ok",
+    "reviewer": "",
+    "title": "Adjusted INCAT Disability Score: Descriptive Statistics of Actual Values and Changes from Stage B Baseline by Region - Stage B",
+    "lastModified": "Aug 31, 2022, 10:34:01 PM"
+  },
+  {
+    "type": "T",
+    "tlfid": "14.2.9.8.5",
+    "domain": "EFFICACY",
+    "status": "Sponsor: Ok",
+    "reviewer": "",
+    "title": "Adjusted INCAT Disability Score: Descriptive Statistics of Actual Values and Changes from Stage B Baseline by Race - Stage B",
+    "lastModified": "Aug 31, 2022, 10:33:57 PM"
+  },
+  {
+    "type": "T",
+    "tlfid": "14.2.9.8.6",
+    "domain": "EFFICACY",
+    "status": "Sponsor: Ok",
+    "reviewer": "",
+    "title": "Adjusted INCAT Disability Score: Descriptive Statistics of Actual Values and Changes from Stage B Baseline by Age Group - Stage B",
+    "lastModified": "Aug 31, 2022, 10:33:53 PM"
+  },
+  {
+    "type": "T",
+    "tlfid": "14.2.9.8.7",
+    "domain": "EFFICACY",
+    "status": "Sponsor: Ok",
+    "reviewer": "",
+    "title": "Adjusted INCAT Disability Score: Descriptive Statistics of Actual Values and Changes from Stage B Baseline by Body Weight - Stage B",
+    "lastModified": "Aug 31, 2022, 10:33:49 PM"
+  },
+  {
+    "type": "T",
+    "tlfid": "14.2.9.8.8",
+    "domain": "EFFICACY",
+    "status": "Sponsor: Ok",
+    "reviewer": "",
+    "title": "Adjusted INCAT Disability Score: Descriptive Statistics of Actual Values and Changes from Stage B Baseline by CIDP Disease Activity Status - Stage B",
+    "lastModified": "Aug 31, 2022, 10:33:42 PM"
+  },
+  {
+    "type": "T",
+    "tlfid": "14.2.9.9",
+    "domain": "EFFICACY",
+    "status": "Sponsor: Ok",
+    "reviewer": "",
+    "title": "Adjusted INCAT Disability Score: Descriptive Statistics of Actual Values and Changes from Stage B Baseline at Last Assessment - Stage B",
+    "lastModified": "Aug 31, 2022, 10:33:38 PM"
+  },
+  {
+    "type": "T",
+    "tlfid": "14.2.9.10.1",
+    "domain": "EFFICACY",
+    "status": "Sponsor: Ok",
+    "reviewer": "",
+    "title": "Adjusted INCAT Disability Score: Descriptive Statistics of Actual Values and Changes from Stage B Baseline at Last Assessment by Prior CIDP Medication - Stage B",
+    "lastModified": "Aug 31, 2022, 10:33:33 PM"
+  },
+  {
+    "type": "T",
+    "tlfid": "14.2.9.10.2",
+    "domain": "EFFICACY",
+    "status": "Sponsor: Ok",
+    "reviewer": "",
+    "title": "Adjusted INCAT Disability Score: Descriptive Statistics of Actual Values and Changes from Stage B Baseline at Last Assessment by Decrease of Adjusted INCAT Score in Stage A - Stage B",
+    "lastModified": "Aug 31, 2022, 10:33:29 PM"
+  },
+  {
+    "type": "T",
+    "tlfid": "14.2.9.10.3",
+    "domain": "EFFICACY",
+    "status": "Sponsor: Ok",
+    "reviewer": "",
+    "title": "Adjusted INCAT Disability Score: Descriptive Statistics of Actual Values and Changes from Stage B Baseline at Last Assessment by Sex at Birth - Stage B",
+    "lastModified": "Aug 31, 2022, 10:33:24 PM"
+  },
+  {
+    "type": "T",
+    "tlfid": "14.2.9.10.4",
+    "domain": "EFFICACY",
+    "status": "Sponsor: Ok",
+    "reviewer": "",
+    "title": "Adjusted INCAT Disability Score: Descriptive Statistics of Actual Values and Changes from Stage B Baseline at Last Assessment by Region - Stage B",
+    "lastModified": "Aug 31, 2022, 10:33:20 PM"
+  },
+  {
+    "type": "T",
+    "tlfid": "14.2.9.10.5",
+    "domain": "EFFICACY",
+    "status": "Sponsor: Ok",
+    "reviewer": "",
+    "title": "Adjusted INCAT Disability Score: Descriptive Statistics of Actual Values and Changes from Stage B Baseline at Last Assessment by Race - Stage B",
+    "lastModified": "Aug 31, 2022, 10:33:16 PM"
+  },
+  {
+    "type": "T",
+    "tlfid": "14.2.9.10.6",
+    "domain": "EFFICACY",
+    "status": "Sponsor: Ok",
+    "reviewer": "",
+    "title": "Adjusted INCAT Disability Score: Descriptive Statistics of Actual Values and Changes from Stage B Baseline at Last Assessment by Age Group - Stage B",
+    "lastModified": "Aug 31, 2022, 10:33:10 PM"
+  },
+  {
+    "type": "T",
+    "tlfid": "14.2.9.10.7",
+    "domain": "EFFICACY",
+    "status": "Sponsor: Ok",
+    "reviewer": "",
+    "title": "Adjusted INCAT Disability Score: Descriptive Statistics of Actual Values and Changes from Stage B Baseline at Last Assessment by Body Weight - Stage B",
+    "lastModified": "Aug 31, 2022, 10:33:07 PM"
+  },
+  {
+    "type": "T",
+    "tlfid": "14.2.9.10.8",
+    "domain": "EFFICACY",
+    "status": "Sponsor: Ok",
+    "reviewer": "",
+    "title": "Adjusted INCAT Disability Score: Descriptive Statistics of Actual Values and Changes from Stage B Baseline at Last Assessment by CIDP Disease Activity Status - Stage B",
+    "lastModified": "Aug 31, 2022, 10:33:02 PM"
+  },
+  {
+    "type": "T",
+    "tlfid": "14.2.9.11",
+    "domain": "EFFICACY",
+    "status": "Sponsor: Ok",
+    "reviewer": "",
+    "title": "Adjusted INCAT Disability Score: Descriptive Statistics of Actual Values and Changes from Stage A Baseline - Stage A+B",
+    "lastModified": "Aug 31, 2022, 10:32:59 PM"
+  },
+  {
+    "type": "T",
+    "tlfid": "14.2.9.12",
+    "domain": "EFFICACY",
+    "status": "Sponsor: Ok",
+    "reviewer": "",
+    "title": "Adjusted INCAT Disability Score: Descriptive Statistics of Actual Values and Changes from Stage A Baseline at Last Assessment and at Best-Improvement - Stage A+B",
+    "lastModified": "Aug 31, 2022, 10:32:55 PM"
+  },
+  {
+    "type": "T",
+    "tlfid": "14.2.10.1",
+    "domain": "EFFICACY",
+    "status": "Sponsor: Ok",
+    "reviewer": "",
+    "title": "I-RODS: Descriptive Statistics of Actual Values and Changes from Stage A Baseline - Stage A",
+    "lastModified": "Aug 31, 2022, 10:32:52 PM"
+  },
+  {
+    "type": "T",
+    "tlfid": "14.2.10.2.1",
+    "domain": "EFFICACY",
+    "status": "Sponsor: Ok",
+    "reviewer": "",
+    "title": "I-RODS: Descriptive Statistics of Actual Values and Changes from Stage A Baseline by Confirmed ECI Response - Stage A",
+    "lastModified": "Aug 31, 2022, 10:31:33 PM"
+  },
+  {
+    "type": "T",
+    "tlfid": "14.2.10.2.2",
+    "domain": "EFFICACY",
+    "status": "Sponsor: Ok",
+    "reviewer": "",
+    "title": "I-RODS: Descriptive Statistics of Actual Values and Changes from Stage A Baseline by Prior CIDP Medication - Stage A",
+    "lastModified": "Aug 31, 2022, 10:31:36 PM"
+  },
+  {
+    "type": "T",
+    "tlfid": "14.2.10.2.3",
+    "domain": "EFFICACY",
+    "status": "Sponsor: Ok",
+    "reviewer": "",
+    "title": "I-RODS: Descriptive Statistics of Actual Values and Changes from Stage A Baseline ECMD Worsening on Adjusted INCAT - Stage A",
+    "lastModified": "Aug 31, 2022, 10:31:40 PM"
+  },
+  {
+    "type": "T",
+    "tlfid": "14.2.10.2.4",
+    "domain": "EFFICACY",
+    "status": "CRO: Updated",
+    "reviewer": "",
+    "title": "I-RODS: Descriptive Statistics of Actual Values and Changes from Stage A Baseline by ECMD Worsening on I-RODS - Stage A",
+    "lastModified": "Sep 22, 2022, 1:25:53 PM"
+  },
+  {
+    "type": "T",
+    "tlfid": "14.2.10.2.5",
+    "domain": "EFFICACY",
+    "status": "Sponsor: Ok",
+    "reviewer": "",
+    "title": "I-RODS: Descriptive Statistics of Actual Values and Changes from Stage A Baseline at Stage A Baseline and Last Assessment by Prior CIDP Medication for Patients with ECMD Worsening on I-RODS - Stage A",
+    "lastModified": "Aug 31, 2022, 10:31:44 PM"
+  },
+  {
+    "type": "T",
+    "tlfid": "14.2.10.3",
+    "domain": "EFFICACY",
+    "status": "Sponsor: Ok",
+    "reviewer": "",
+    "title": "I-RODS: Descriptive Statistics of Actual Values, Changes from Stage A Baseline and Changes from Stage B Baseline - Stage B",
+    "lastModified": "Aug 31, 2022, 10:31:48 PM"
+  },
+  {
+    "type": "T",
+    "tlfid": "14.2.10.4",
+    "domain": "EFFICACY",
+    "status": "Sponsor: Ok",
+    "reviewer": "",
+    "title": "I-RODS: Descriptive Statistics of Actual Values, Changes from Stage A Baseline and Changes from Stage B Baseline at Last Assessment - Stage B",
+    "lastModified": "Aug 31, 2022, 10:31:52 PM"
+  },
+  {
+    "type": "T",
+    "tlfid": "14.2.10.5",
+    "domain": "EFFICACY",
+    "status": "Sponsor: Ok",
+    "reviewer": "",
+    "title": "I-RODS: Descriptive Statistics of Actual Values and Changes from Stage A Baseline - Stage A+B",
+    "lastModified": "Aug 31, 2022, 10:31:55 PM"
+  },
+  {
+    "type": "T",
+    "tlfid": "14.2.10.6",
+    "domain": "EFFICACY",
+    "status": "Sponsor: Ok",
+    "reviewer": "",
+    "title": "I-RODS: Descriptive Statistics of Actual Values and Changes from Stage A Baseline at Last Assessment - Stage A+B",
+    "lastModified": "Aug 31, 2022, 10:31:59 PM"
+  },
+  {
+    "type": "T",
+    "tlfid": "14.2.11.1",
+    "domain": "EFFICACY",
+    "status": "CRO: Updated",
+    "reviewer": "",
+    "title": "Mean Grip Strength: Descriptive Statistics of Actual Values and Changes from Stage A Baseline - Stage A",
+    "lastModified": "Sep 22, 2022, 1:27:43 PM"
+  },
+  {
+    "type": "T",
+    "tlfid": "14.2.11.2.1",
+    "domain": "EFFICACY",
+    "status": "Sponsor: comment",
+    "reviewer": "",
+    "title": "Mean Grip Strength: Descriptive Statistics of Actual Values and Changes from Stage A Baseline by Confirmed ECI Response - Stage A",
+    "lastModified": "Aug 9, 2022, 1:40:50 AM"
+  },
+  {
+    "type": "T",
+    "tlfid": "14.2.11.2.2",
+    "domain": "EFFICACY",
+    "status": "Sponsor: comment",
+    "reviewer": "",
+    "title": "Mean Grip Strength: Descriptive Statistics of Actual Values and Changes from Stage A Baseline by Prior CIDP Medication - Stage A",
+    "lastModified": "Aug 9, 2022, 1:41:00 AM"
+  },
+  {
+    "type": "T",
+    "tlfid": "14.2.11.2.3",
+    "domain": "EFFICACY",
+    "status": "Sponsor: comment",
+    "reviewer": "",
+    "title": "Mean Grip Strength: Descriptive Statistics of Actual Values and Changes from Stage A Baseline by ECMD Worsening on Adjusted INCAT - Stage A",
+    "lastModified": "Aug 9, 2022, 1:41:11 AM"
+  },
+  {
+    "type": "T",
+    "tlfid": "14.2.11.2.4",
+    "domain": "EFFICACY",
+    "status": "Sponsor: comment",
+    "reviewer": "",
+    "title": "Mean Grip Strength: Descriptive Statistics of Actual Values and Changes from Stage A Baseline by ECMD Worsening on Mean Grip Strength - Stage A",
+    "lastModified": "Aug 9, 2022, 1:41:30 AM"
+  },
+  {
+    "type": "T",
+    "tlfid": "14.2.11.2.5",
+    "domain": "EFFICACY",
+    "status": "Sponsor: Ok",
+    "reviewer": "",
+    "title": "Mean Grip Strength: Descriptive Statistics of Actual Values and Changes from Stage A Baseline at Stage A Baseline and Last Assessment by Prior CIDP Medication for Patients with ECMD Worsening on Mean Grip Strength - Stage A",
+    "lastModified": "Aug 31, 2022, 10:32:03 PM"
+  },
+  {
+    "type": "T",
+    "tlfid": "14.2.11.3",
+    "domain": "EFFICACY",
+    "status": "Sponsor: Ok",
+    "reviewer": "",
+    "title": "Mean Grip Strength: Descriptive Statistics of Actual Values, Changes from Stage A Baseline and Changes from Stage B Baseline - Stage B",
+    "lastModified": "Aug 31, 2022, 10:32:06 PM"
+  },
+  {
+    "type": "T",
+    "tlfid": "14.2.11.4",
+    "domain": "EFFICACY",
+    "status": "Sponsor: Ok",
+    "reviewer": "",
+    "title": "Mean Grip Strength: Descriptive Statistics of Actual Values, Changes from Stage A Baseline and Changes from Stage B Baseline at Last Assessment - Stage B",
+    "lastModified": "Aug 31, 2022, 10:32:09 PM"
+  },
+  {
+    "type": "T",
+    "tlfid": "14.2.11.5",
+    "domain": "EFFICACY",
+    "status": "Sponsor: Ok",
+    "reviewer": "",
+    "title": "Mean Grip Strength: Descriptive Statistics of Actual Values and Changes from Stage A Baseline - Stage A+B",
+    "lastModified": "Aug 31, 2022, 10:32:17 PM"
+  },
+  {
+    "type": "T",
+    "tlfid": "14.2.11.6",
+    "domain": "EFFICACY",
+    "status": "Sponsor: Ok",
+    "reviewer": "",
+    "title": "Mean Grip Strength: Descriptive Statistics of Actual Values and Changes from Stage A Baseline at Last Assessment - Stage A+B",
+    "lastModified": "Aug 31, 2022, 10:32:21 PM"
+  },
+  {
+    "type": "T",
+    "tlfid": "14.2.12.1",
+    "domain": "EFFICACY",
+    "status": "Sponsor: Ok",
+    "reviewer": "",
+    "title": "Total MRC Sum Score: Descriptive Statistics of Actual Values and Changes from Stage A Baseline - Stage A",
+    "lastModified": "Aug 31, 2022, 10:32:13 PM"
+  },
+  {
+    "type": "T",
+    "tlfid": "14.2.12.2",
+    "domain": "EFFICACY",
+    "status": "Sponsor: Ok",
+    "reviewer": "",
+    "title": "Total MRC Sum Score: Descriptive Statistics of Actual Values, Changes from Stage A Baseline and Changes from Stage B Baseline - Stage B",
+    "lastModified": "Aug 31, 2022, 10:32:25 PM"
+  },
+  {
+    "type": "T",
+    "tlfid": "14.2.12.3",
+    "domain": "EFFICACY",
+    "status": "Sponsor: Ok",
+    "reviewer": "",
+    "title": "Total MRC Sum Score: Descriptive Statistics of Actual Values, Changes from Stage A Baseline and Changes from Stage B Baseline at Last Assessment - Stage B",
+    "lastModified": "Aug 31, 2022, 10:32:46 PM"
+  },
+  {
+    "type": "T",
+    "tlfid": "14.2.12.4",
+    "domain": "EFFICACY",
+    "status": "Sponsor: Ok",
+    "reviewer": "",
+    "title": "Total MRC Sum Score: Descriptive Statistics of Actual Values and Changes from Stage A Baseline - Stage A+B",
+    "lastModified": "Aug 31, 2022, 10:32:42 PM"
+  },
+  {
+    "type": "T",
+    "tlfid": "14.2.12.5",
+    "domain": "EFFICACY",
+    "status": "Sponsor: Ok",
+    "reviewer": "",
+    "title": "Total MRC Sum Score: Descriptive Statistics of Actual Values and Changes from Stage A Baseline at Last Assessment - Stage A+B",
+    "lastModified": "Aug 31, 2022, 10:32:38 PM"
+  },
+  {
+    "type": "T",
+    "tlfid": "14.2.13.1",
+    "domain": "EFFICACY",
+    "status": "Sponsor: Ok",
+    "reviewer": "",
+    "title": "TUG Test: Descriptive Statistics of Actual Values and Changes from Stage A Baseline - Stage A",
+    "lastModified": "Aug 31, 2022, 10:32:34 PM"
+  },
+  {
+    "type": "T",
+    "tlfid": "14.2.13.2",
+    "domain": "EFFICACY",
+    "status": "Sponsor: Ok",
+    "reviewer": "",
+    "title": "TUG Test: Descriptive Statistics of Actual Values, Changes from Stage A Baseline and Changes from Stage B Baseline - Stage B",
+    "lastModified": "Aug 31, 2022, 10:34:36 PM"
+  },
+  {
+    "type": "T",
+    "tlfid": "14.2.13.3",
+    "domain": "EFFICACY",
+    "status": "CRO: comment",
+    "reviewer": "",
+    "title": "TUG Test: Descriptive Statistics of Actual Values, Changes from Stage A Baseline and Changes from Stage B Baseline at Last Assessment - Stage B",
+    "lastModified": "Sep 22, 2022, 1:49:54 PM"
+  },
+  {
+    "type": "T",
+    "tlfid": "14.2.13.4",
+    "domain": "EFFICACY",
+    "status": "CRO: comment",
+    "reviewer": "",
+    "title": "TUG Test: Descriptive Statistics of Actual Values and Changes from Stage A Baseline - Stage A+B",
+    "lastModified": "Sep 22, 2022, 1:51:11 PM"
+  },
+  {
+    "type": "T",
+    "tlfid": "14.2.13.5",
+    "domain": "EFFICACY",
+    "status": "Sponsor: Ok",
+    "reviewer": "",
+    "title": "TUG Test: Descriptive Statistics of Actual Values and Changes from Stage A Baseline at Last Assessment - Stage A+B",
+    "lastModified": "Aug 31, 2022, 10:34:44 PM"
+  },
+  {
+    "type": "T",
+    "tlfid": "14.2.15.1",
+    "domain": "PHARMACOKINETICS",
+    "status": "CRO: comment",
+    "reviewer": "",
+    "title": "Descriptive Statistics of Efgartigimod Serum Concentration (ng/mL) over Time - Stage A",
+    "lastModified": "Sep 26, 2022, 2:47:56 PM"
+  },
+  {
+    "type": "T",
+    "tlfid": "14.2.15.2",
+    "domain": "PHARMACOKINETICS",
+    "status": "Sponsor: Ok",
+    "reviewer": "",
+    "title": "Descriptive Statistics of Efgartigimod Serum Concentration (ng/mL) over Time for Japanese Patients - Stage A",
+    "lastModified": "Aug 31, 2022, 10:34:48 PM"
+  },
+  {
+    "type": "T",
+    "tlfid": "14.2.15.2",
+    "domain": "PHARMACOKINETICS",
+    "status": "CRO: comment",
+    "reviewer": "",
+    "title": "Descriptive Statistics of Efgartigimod Serum Concentration (ng/mL) over Time - Stage B",
+    "lastModified": "Sep 20, 2022, 12:56:36 PM"
+  },
+  {
+    "type": "T",
+    "tlfid": "14.2.16.1",
+    "domain": "PHARMACODYNAMICS",
+    "status": "CRO: Updated",
+    "reviewer": "",
+    "title": "Descriptive Statistics of Total IgG Actual Values, Changes and Percent Changes from Stage A Baseline - Stage�A",
+    "lastModified": "Sep 20, 2022, 1:00:20 PM"
+  },
+  {
+    "type": "T",
+    "tlfid": "14.2.16.2",
+    "domain": "PHARMACODYNAMICS",
+    "status": "CRO: Updated",
+    "reviewer": "",
+    "title": "Descriptive Statistics of Total IgG Actual Values, Changes and Percent Changes from Stage A Baseline - Stage�B",
+    "lastModified": "Sep 20, 2022, 1:00:26 PM"
+  },
+  {
+    "type": "T",
+    "tlfid": "14.2.16.3",
+    "domain": "PHARMACODYNAMICS",
+    "status": "CRO: Updated",
+    "reviewer": "",
+    "title": "Descriptive Statistics of IgG Subtypes Actual Values, Changes and Percent Changes from Stage A Baseline - Stage�A",
+    "lastModified": "Sep 20, 2022, 1:00:38 PM"
+  },
+  {
+    "type": "T",
+    "tlfid": "14.2.16.4",
+    "domain": "PHARMACODYNAMICS",
+    "status": "CRO: Updated",
+    "reviewer": "",
+    "title": "Descriptive Statistics of IgG Subtypes Actual Values, Changes and Percent Changes from Stage A Baseline - Stage�B",
+    "lastModified": "Sep 21, 2022, 8:33:35 AM"
+  },
+  {
+    "type": "T",
+    "tlfid": "14.2.17.1",
+    "domain": "IMMUNOGENICITY",
+    "status": "CRO: Updated",
+    "reviewer": "JKRU",
+    "title": "ADA: Anti-Drug Antibodies Against Efgartigimod Sample Classification by Analysis Visit by Anti-Drug Antibodies Patient Classification - Stage A",
+    "lastModified": "Nov 3, 2022, 8:43:34 AM"
+  },
+  {
+    "type": "T",
+    "tlfid": "14.2.17.2",
+    "domain": "IMMUNOGENICITY",
+    "status": "Sponsor: Ok",
+    "reviewer": "",
+    "title": "ADA: Anti-Drug Antibodies Against Efgartigimod Sample Classification by Analysis Visit by Anti-Drug Antibodies Patient Classification - Stage B",
+    "lastModified": "Aug 31, 2022, 10:34:51 PM"
+  },
+  {
+    "type": "T",
+    "tlfid": "14.2.17.3",
+    "domain": "IMMUNOGENICITY",
+    "status": "Sponsor: Ok",
+    "reviewer": "",
+    "title": "ADA: Anti-Drug Antibodies Against Efgartigimod Patient Classification, Prevalence and Incidence - Stage A",
+    "lastModified": "Aug 31, 2022, 10:34:55 PM"
+  },
+  {
+    "type": "T",
+    "tlfid": "14.2.17.4",
+    "domain": "IMMUNOGENICITY",
+    "status": "Sponsor: Ok",
+    "reviewer": "",
+    "title": "ADA: Anti-Drug Antibodies Against Efgartigimod Patient Classification, Prevalence and Incidence - Stage B",
+    "lastModified": "Aug 31, 2022, 10:34:58 PM"
+  },
+  {
+    "type": "T",
+    "tlfid": "14.2.17.5",
+    "domain": "IMMUNOGENICITY",
+    "status": "Sponsor: Ok",
+    "reviewer": "JKRU",
+    "title": "ADA: Descriptive Statistics of ADA Against Efgartigimod Titer Values by Anti-Drug Antibodies Patient Classification - Stage A",
+    "lastModified": "Oct 11, 2022, 2:48:18 PM"
+  },
+  {
+    "type": "T",
+    "tlfid": "14.2.17.6",
+    "domain": "IMMUNOGENICITY",
+    "status": "Sponsor: Ok",
+    "reviewer": "JKRU",
+    "title": "ADA: Descriptive Statistics of ADA Against Efgartigimod Titer Values by Anti-Drug Antibodies Patient Classification - Stage B",
+    "lastModified": "Oct 11, 2022, 2:49:44 PM"
+  },
+  {
+    "type": "T",
+    "tlfid": "14.2.17.7",
+    "domain": "IMMUNOGENICITY",
+    "status": "Sponsor: Ok",
+    "reviewer": "JKRU",
+    "title": "rHuPH20 Antibody: rHuPH20 Antibodies Sample Classification by Analysis Visit by rHuPH20 Ab Patient Classification - Stage A",
+    "lastModified": "Aug 31, 2022, 8:55:18 PM"
+  },
+  {
+    "type": "T",
+    "tlfid": "14.2.17.8",
+    "domain": "IMMUNOGENICITY",
+    "status": "Sponsor: Ok",
+    "reviewer": "JKRU",
+    "title": "rHuPH20 Antibody: rHuPH20 Antibodies Sample Classification by Analysis Visit by rHuPH20 Ab Patient Classification - Stage B",
+    "lastModified": "Aug 31, 2022, 8:55:51 PM"
+  },
+  {
+    "type": "T",
+    "tlfid": "14.2.17.9",
+    "domain": "IMMUNOGENICITY",
+    "status": "Sponsor: Ok",
+    "reviewer": "JKRU",
+    "title": "rHuPH20 Antibody: rHuPH20 Antibodies Patient Classification, Prevalence and Incidence - Stage A",
+    "lastModified": "Aug 31, 2022, 8:56:24 PM"
+  },
+  {
+    "type": "T",
+    "tlfid": "14.2.17.10",
+    "domain": "IMMUNOGENICITY",
+    "status": "Sponsor: Ok",
+    "reviewer": "JKRU",
+    "title": "rHuPH20 Antibody: rHuPH20 Antibodies Patient Classification, Prevalence and Incidence - Stage B",
+    "lastModified": "Aug 31, 2022, 8:56:37 PM"
+  },
+  {
+    "type": "T",
+    "tlfid": "14.2.17.11",
+    "domain": "IMMUNOGENICITY",
+    "status": "Sponsor: Ok",
+    "reviewer": "JKRU",
+    "title": "rHuPH20 Antibody: Descriptive Statistics of rHuPH20 Antibody Titer Values by rHuPH20 Ab Patient Classification - Stage A",
+    "lastModified": "Aug 31, 2022, 8:56:46 PM"
+  },
+  {
+    "type": "T",
+    "tlfid": "14.2.17.12",
+    "domain": "IMMUNOGENICITY",
+    "status": "Sponsor: Ok",
+    "reviewer": "JKRU",
+    "title": "rHuPH20 Antibody: Descriptive Statistics of rHuPH20 Antibody Titer Values by rHuPH20 Ab Patient Classification - Stage B",
+    "lastModified": "Oct 26, 2022, 9:52:27 AM"
+  },
+  {
+    "type": "T",
+    "tlfid": "14.2.17.13",
+    "domain": "IMMUNOGENICITY",
+    "status": "Sponsor: Ok",
+    "reviewer": "JKRU",
+    "title": "NAb Against Efgartigimod: Neutralizing Antibodies Against Efgartigimod Sample Classification by Analysis Visit by Anti-Drug Antibodies Patient Classification - Stage A",
+    "lastModified": "Aug 31, 2022, 8:56:54 PM"
+  },
+  {
+    "type": "T",
+    "tlfid": "14.2.17.14",
+    "domain": "IMMUNOGENICITY",
+    "status": "Sponsor: Ok",
+    "reviewer": "JKRU",
+    "title": "NAb Against Efgartigimod: Neutralizing Antibodies Against Efgartigimod Sample Classification by Analysis Visit by Anti-Drug Antibodies Patient Classification - Stage B",
+    "lastModified": "Aug 31, 2022, 9:00:17 PM"
+  },
+  {
+    "type": "T",
+    "tlfid": "14.2.17.15",
+    "domain": "IMMUNOGENICITY",
+    "status": "Sponsor: Ok",
+    "reviewer": "JKRU",
+    "title": "NAb Against Efgartigimod: Neutralizing Antibodies Against Efgartigimod Prevalence and Incidence - Stage A",
+    "lastModified": "Aug 31, 2022, 9:00:44 PM"
+  },
+  {
+    "type": "T",
+    "tlfid": "14.2.17.16",
+    "domain": "IMMUNOGENICITY",
+    "status": "Sponsor: Ok",
+    "reviewer": "JKRU",
+    "title": "NAb Against Efgartigimod: Neutralizing Antibodies Against Efgartigimod Prevalence and Incidence - Stage B",
+    "lastModified": "Aug 31, 2022, 8:58:38 PM"
+  },
+  {
+    "type": "T",
+    "tlfid": "14.2.17.17",
+    "domain": "IMMUNOGENICITY",
+    "status": "CRO: Updated",
+    "reviewer": "JKRU",
+    "title": "NAb Against Efgartigimod: Number and Percentage of NAb Against Efgartigimod Positive Patients by Anti-Drug Antibodies Patient Classification - Stage A",
+    "lastModified": "Sep 21, 2022, 8:53:16 AM"
+  },
+  {
+    "type": "T",
+    "tlfid": "14.2.17.18",
+    "domain": "IMMUNOGENICITY",
+    "status": "CRO: Updated",
+    "reviewer": "JKRU",
+    "title": "NAb Against Efgartigimod: Number and Percentage of NAb Against Efgartigimod Positive Patients by Anti-Drug Antibodies Patient Classification - Stage B",
+    "lastModified": "Oct 11, 2022, 2:40:42 PM"
+  },
+  {
+    "type": "T",
+    "tlfid": "14.2.17.19",
+    "domain": "IMMUNOGENICITY",
+    "status": "Sponsor: Ok",
+    "reviewer": "JKRU",
+    "title": "NAb Against rHuPH20: Neutralizing Antibodies Against rHuPH20 Sample Classification by Analysis Visit by rHuPH20 Ab Patient Classification - Stage A",
+    "lastModified": "Aug 31, 2022, 9:06:29 PM"
+  },
+  {
+    "type": "T",
+    "tlfid": "14.2.17.20",
+    "domain": "IMMUNOGENICITY",
+    "status": "Sponsor: Ok",
+    "reviewer": "JKRU",
+    "title": "NAb Against rHuPH20: Neutralizing Antibodies Against rHuPH20 Sample Classification by Analysis Visit by rHuPH20 Ab Patient Classification - Stage B",
+    "lastModified": "Aug 31, 2022, 9:06:50 PM"
+  },
+  {
+    "type": "T",
+    "tlfid": "14.2.17.21",
+    "domain": "IMMUNOGENICITY",
+    "status": "Sponsor: Ok",
+    "reviewer": "JKRU",
+    "title": "NAb Against rHuPH20: Neutralizing Antibodies Against rHuPH20 Prevalence and Incidence - Stage A",
+    "lastModified": "Aug 31, 2022, 9:06:35 PM"
+  },
+  {
+    "type": "T",
+    "tlfid": "14.2.17.22",
+    "domain": "IMMUNOGENICITY",
+    "status": "Sponsor: Ok",
+    "reviewer": "JKRU",
+    "title": "NAb Against rHuPH20: Neutralizing Antibodies Against rHuPH20 Prevalence and Incidence - Stage B",
+    "lastModified": "Aug 31, 2022, 9:06:42 PM"
+  },
+  {
+    "type": "T",
+    "tlfid": "14.2.18.1",
+    "domain": "IMMUNOGENICITY",
+    "status": "CRO: Updated",
+    "reviewer": "JKRU",
+    "title": "Efficacy Correlation: Confirmed ECI Responders by Anti-Drug Antibodies Patient Classification - Frequency Tabulation",
+    "lastModified": "Sep 26, 2022, 3:02:52 PM"
+  },
+  {
+    "type": "T",
+    "tlfid": "14.2.18.2",
+    "domain": "IMMUNOGENICITY",
+    "status": "CRO: Updated",
+    "reviewer": "JKRU",
+    "title": "Efficacy Correlation: Confirmed ECI Responders by NAb Against Efgartigimod Patient Classification - Frequency Tabulation",
+    "lastModified": "Oct 11, 2022, 2:39:52 PM"
+  },
+  {
+    "type": "T",
+    "tlfid": "14.2.18.3",
+    "domain": "IMMUNOGENICITY",
+    "status": "CRO: Updated",
+    "reviewer": "JKRU",
+    "title": "Efficacy Correlation: Time to Adjusted INCAT Deterioration Compared to Stage B Baseline by Anti-Drug Antibodies Patient Classification - Kaplan-Meier",
+    "lastModified": "Oct 11, 2022, 2:39:13 PM"
+  },
+  {
+    "type": "T",
+    "tlfid": "14.2.18.4",
+    "domain": "IMMUNOGENICITY",
+    "status": "CRO: Updated",
+    "reviewer": "JKRU",
+    "title": "Efficacy Correlation: Time to Adjusted INCAT Deterioration Compared to Stage B Baseline by NAb Against Efgartigimod Patient Classification - Kaplan-Meier",
+    "lastModified": "Oct 11, 2022, 2:38:41 PM"
+  },
+  {
+    "type": "T",
+    "tlfid": "14.2.18.5.1",
+    "domain": "IMMUNOGENICITY",
+    "status": "CRO: Updated",
+    "reviewer": "JKRU",
+    "title": "PK Correlation: Mean Efgartigimod Serum Concentration (ng/mL) over Time by Anti-Drug Antibodies Patient Classification - Stage A",
+    "lastModified": "Oct 11, 2022, 2:39:02 PM"
+  },
+  {
+    "type": "T",
+    "tlfid": "14.2.18.5.2",
+    "domain": "IMMUNOGENICITY",
+    "status": "CRO: comment",
+    "reviewer": "JKRU",
+    "title": "PK Correlation: Mean Efgartigimod Serum Concentration (ng/mL) over Time by Anti-Drug Antibodies Patient Classification - Stage B",
+    "lastModified": "Sep 26, 2022, 3:15:43 PM"
+  },
+  {
+    "type": "T",
+    "tlfid": "14.2.18.6.1",
+    "domain": "IMMUNOGENICITY",
+    "status": "CRO: Updated",
+    "reviewer": "",
+    "title": "PK Correlation: Mean Efgartigimod Serum Concentration (ng/mL) over Time by NAb Against Efgartigimod Patient Classification - Stage A",
+    "lastModified": "Oct 11, 2022, 11:44:17 AM"
+  },
+  {
+    "type": "T",
+    "tlfid": "14.2.18.6.2",
+    "domain": "IMMUNOGENICITY",
+    "status": "CRO: Updated",
+    "reviewer": "",
+    "title": "PK Correlation: Mean Efgartigimod Serum Concentration (ng/mL) over Time by NAb Against Efgartigimod Patient Classification - Stage B",
+    "lastModified": "Oct 11, 2022, 11:44:41 AM"
+  },
+  {
+    "type": "T",
+    "tlfid": "14.2.18.7.1",
+    "domain": "IMMUNOGENICITY",
+    "status": "CRO: Updated",
+    "reviewer": "JKRU",
+    "title": "PD Correlation: Mean Total IgG Percent Changes from Stage A Baseline by Anti-Drug Antibodies Patient Classification - Stage A",
+    "lastModified": "Oct 11, 2022, 2:38:50 PM"
+  },
+  {
+    "type": "T",
+    "tlfid": "14.2.18.7.2",
+    "domain": "IMMUNOGENICITY",
+    "status": "CRO: Updated",
+    "reviewer": "JKRU",
+    "title": "PD Correlation: Mean Total IgG Percent Changes from Stage A Baseline by Anti-Drug Antibodies Patient Classification - Stage B",
+    "lastModified": "Oct 11, 2022, 2:39:40 PM"
+  },
+  {
+    "type": "T",
+    "tlfid": "14.2.18.8.1",
+    "domain": "IMMUNOGENICITY",
+    "status": "Sponsor: Ok",
+    "reviewer": "JKRU",
+    "title": "PD Correlation: Mean Total IgG Percent Changes from Stage A Baseline by NAb Against Efgartigimod Patient Classification - Stage A",
+    "lastModified": "Oct 11, 2022, 2:30:06 PM"
+  },
+  {
+    "type": "T",
+    "tlfid": "14.2.18.8.2",
+    "domain": "IMMUNOGENICITY",
+    "status": "Sponsor: Ok",
+    "reviewer": "JKRU",
+    "title": "PD Correlation: Mean Total IgG Percent Changes from Stage A Baseline by NAb Against Efgartigimod Patient Classification - Stage B",
+    "lastModified": "Oct 11, 2022, 2:25:08 PM"
+  },
+  {
+    "type": "T",
+    "tlfid": "14.2.18.9.1",
+    "domain": "IMMUNOGENICITY",
+    "status": "Sponsor: Ok",
+    "reviewer": "JKRU",
+    "title": "AE Correlation: Treatment-Emergent Adverse Events by MedDRA System Organ Class and Preferred Term by Anti-Drug Antibodies Patient Classification - Stage A",
+    "lastModified": "Oct 11, 2022, 2:51:10 PM"
+  },
+  {
+    "type": "T",
+    "tlfid": "14.2.18.9.2",
+    "domain": "IMMUNOGENICITY",
+    "status": "Sponsor: Ok",
+    "reviewer": "JKRU",
+    "title": "AE Correlation: Treatment-Emergent Adverse Events by MedDRA System Organ Class and Preferred Term by Anti-Drug Antibodies Patient Classification - Stage B",
+    "lastModified": "Oct 11, 2022, 2:56:35 PM"
+  },
+  {
+    "type": "T",
+    "tlfid": "14.2.18.10.1",
+    "domain": "IMMUNOGENICITY",
+    "status": "Sponsor: Ok",
+    "reviewer": "JKRU",
+    "title": "AE Correlation: Treatment-Emergent Adverse Events by MedDRA System Organ Class and Preferred Term by NAb Against Efgartigimod Patient Classification - Stage A",
+    "lastModified": "Aug 31, 2022, 9:06:58 PM"
+  },
+  {
+    "type": "T",
+    "tlfid": "14.2.18.10.2",
+    "domain": "IMMUNOGENICITY",
+    "status": "Sponsor: Ok",
+    "reviewer": "JKRU",
+    "title": "AE Correlation: Treatment-Emergent Adverse Events by MedDRA System Organ Class and Preferred Term by NAb Against Efgartigimod Patient Classification - Stage B",
+    "lastModified": "Aug 31, 2022, 9:07:05 PM"
+  },
+  {
+    "type": "T",
+    "tlfid": "14.2.18.11.1",
+    "domain": "IMMUNOGENICITY",
+    "status": "Sponsor: Ok",
+    "reviewer": "JKRU",
+    "title": "AE Correlation: Serious Treatment-Emergent Adverse Events by MedDRA System Organ Class and Preferred Term by Anti-Drug Antibodies Patient Classification - Stage A",
+    "lastModified": "Aug 31, 2022, 8:58:49 PM"
+  },
+  {
+    "type": "T",
+    "tlfid": "14.2.18.11.2",
+    "domain": "IMMUNOGENICITY",
+    "status": "Sponsor: Ok",
+    "reviewer": "JKRU",
+    "title": "AE Correlation: Serious Treatment-Emergent Adverse Events by MedDRA System Organ Class and Preferred Term by Anti-Drug Antibodies Patient Classification - Stage B",
+    "lastModified": "Aug 31, 2022, 8:58:59 PM"
+  },
+  {
+    "type": "T",
+    "tlfid": "14.2.18.12.1",
+    "domain": "IMMUNOGENICITY",
+    "status": "Sponsor: Ok",
+    "reviewer": "JKRU",
+    "title": "AE Correlation: Serious Treatment-Emergent Adverse Events by MedDRA System Organ Class and Preferred Term by NAb Against Efgartigimod Patient Classification - Stage A",
+    "lastModified": "Oct 11, 2022, 2:51:17 PM"
+  },
+  {
+    "type": "T",
+    "tlfid": "14.2.18.12.2",
+    "domain": "IMMUNOGENICITY",
+    "status": "Sponsor: Ok",
+    "reviewer": "JKRU",
+    "title": "AE Correlation: Serious Treatment-Emergent Adverse Events by MedDRA System Organ Class and Preferred Term by NAb Against Efgartigimod Patient Classification - Stage B",
+    "lastModified": "Oct 11, 2022, 2:51:23 PM"
+  },
+  {
+    "type": "T",
+    "tlfid": "14.2.18.13.1",
+    "domain": "IMMUNOGENICITY",
+    "status": "CRO: Updated",
+    "reviewer": "",
+    "title": "AE Correlation: Hypersensitivity by SMQ (Standard MedDRA Queries) by Anti-Drug Antibodies Patient Classification - Stage A",
+    "lastModified": "Oct 11, 2022, 11:42:59 AM"
+  },
+  {
+    "type": "T",
+    "tlfid": "14.2.18.13.2",
+    "domain": "IMMUNOGENICITY",
+    "status": "Sponsor: Ok",
+    "reviewer": "JKRU",
+    "title": "AE Correlation: Hypersensitivity by SMQ (Standard MedDRA Queries) by Anti-Drug Antibodies Patient Classification - Stage B",
+    "lastModified": "Aug 31, 2022, 8:59:58 PM"
+  },
+  {
+    "type": "T",
+    "tlfid": "14.2.18.14.1",
+    "domain": "IMMUNOGENICITY",
+    "status": "Sponsor: Ok",
+    "reviewer": "JKRU",
+    "title": "AE Correlation: Hypersensitivity by SMQ (Standard MedDRA Queries) by NAb Against Efgartigimod Patient Classification - Stage A",
+    "lastModified": "Aug 31, 2022, 9:00:08 PM"
+  },
+  {
+    "type": "T",
+    "tlfid": "14.2.18.14.2",
+    "domain": "IMMUNOGENICITY",
+    "status": "Sponsor: Ok",
+    "reviewer": "JKRU",
+    "title": "AE Correlation: Hypersensitivity by SMQ (Standard MedDRA Queries) by NAb Against Efgartigimod Patient Classification - Stage B",
+    "lastModified": "Aug 31, 2022, 9:07:15 PM"
+  },
+  {
+    "type": "T",
+    "tlfid": "14.2.19.1",
+    "domain": "PATIENT REPORTED OUTCOMES",
+    "status": "CRO: comment",
+    "reviewer": "SS",
+    "title": "EQ-5D-5L: Cross-Tabulation Versus Stage A Baseline - Stage A",
+    "lastModified": "Sep 22, 2022, 2:18:03 PM"
+  },
+  {
+    "type": "T",
+    "tlfid": "14.2.19.2",
+    "domain": "PATIENT REPORTED OUTCOMES",
+    "status": "CRO: comment",
+    "reviewer": "SS",
+    "title": "EQ-5D-5L: Cross-Tabulation Versus Stage B Baseline - Stage B",
+    "lastModified": "Sep 22, 2022, 2:36:28 PM"
+  },
+  {
+    "type": "T",
+    "tlfid": "14.2.20.1",
+    "domain": "PATIENT REPORTED OUTCOMES",
+    "status": "Sponsor: Ok",
+    "reviewer": "SS",
+    "title": "EQ-5D-5L: Descriptive Statistics of Actual Values and Stage A Changes from Baseline in VAS Score - Stage A",
+    "lastModified": "Nov 8, 2022, 4:49:45 PM"
+  },
+  {
+    "type": "T",
+    "tlfid": "14.2.20.2",
+    "domain": "PATIENT REPORTED OUTCOMES",
+    "status": "Sponsor: Ok",
+    "reviewer": "SS",
+    "title": "EQ-5D-5L: Descriptive Statistics of Actual Values and Changes from Stage B Baseline in VAS Score - Stage B",
+    "lastModified": "Nov 8, 2022, 4:49:58 PM"
+  },
+  {
+    "type": "T",
+    "tlfid": "14.2.21.1",
+    "domain": "PATIENT REPORTED OUTCOMES",
+    "status": "Sponsor: Ok",
+    "reviewer": "SS",
+    "title": "BPI-SF: Cross-Tabulation Versus Stage A Baseline - Stage A",
+    "lastModified": "Aug 31, 2022, 10:35:04 PM"
+  },
+  {
+    "type": "T",
+    "tlfid": "14.2.21.2",
+    "domain": "PATIENT REPORTED OUTCOMES",
+    "status": "CRO: comment",
+    "reviewer": "SS",
+    "title": "BPI-SF: Cross-Tabulation Versus Stage B Baseline - Stage B",
+    "lastModified": "Oct 25, 2022, 9:17:45 AM"
+  },
+  {
+    "type": "T",
+    "tlfid": "14.2.22.1",
+    "domain": "PATIENT REPORTED OUTCOMES",
+    "status": "Sponsor: Ok",
+    "reviewer": "SS",
+    "title": "BPI-SF: Descriptive Statistics of Actual Values and Changes from Stage A Baseline - Stage A",
+    "lastModified": "Nov 8, 2022, 4:49:25 PM"
+  },
+  {
+    "type": "T",
+    "tlfid": "14.2.22.2",
+    "domain": "PATIENT REPORTED OUTCOMES",
+    "status": "Sponsor: Ok",
+    "reviewer": "SS",
+    "title": "BPI-SF: Descriptive Statistics of Actual Values and Changes from Stage B Baseline - Stage B",
+    "lastModified": "Nov 8, 2022, 4:49:07 PM"
+  },
+  {
+    "type": "T",
+    "tlfid": "14.2.23.1",
+    "domain": "PATIENT REPORTED OUTCOMES",
+    "status": "CRO: comment",
+    "reviewer": "SS",
+    "title": "TSQM-9: Descriptive Statistics of Actual Values at Run-in - Stage A",
+    "lastModified": "Nov 8, 2022, 4:48:51 PM"
+  },
+  {
+    "type": "T",
+    "tlfid": "14.2.23.2",
+    "domain": "PATIENT REPORTED OUTCOMES",
+    "status": "Sponsor: Ok",
+    "reviewer": "SS",
+    "title": "TSQM-9: Descriptive Statistics of Actual Values at Run-in - Stage B",
+    "lastModified": "Nov 8, 2022, 4:48:28 PM"
+  },
+  {
+    "type": "T",
+    "tlfid": "14.2.23.3",
+    "domain": "PATIENT REPORTED OUTCOMES",
+    "status": "Sponsor: Ok",
+    "reviewer": "SS",
+    "title": "TSQM-9: Descriptive Statistics of Actual Values - Stage A",
+    "lastModified": "Nov 8, 2022, 4:47:11 PM"
+  },
+  {
+    "type": "T",
+    "tlfid": "14.2.23.4",
+    "domain": "PATIENT REPORTED OUTCOMES",
+    "status": "Sponsor: Ok",
+    "reviewer": "SS",
+    "title": "TSQM-9: Descriptive Statistics of Actual Values - Stage B",
+    "lastModified": "Nov 8, 2022, 4:46:57 PM"
+  },
+  {
+    "type": "T",
+    "tlfid": "14.2.24.1",
+    "domain": "PATIENT REPORTED OUTCOMES",
+    "status": "Sponsor: Ok",
+    "reviewer": "SS",
+    "title": "RT-FSS: Descriptive Statistics of Actual Values and Changes from Stage A Baseline - Stage A",
+    "lastModified": "Nov 8, 2022, 4:46:44 PM"
+  },
+  {
+    "type": "T",
+    "tlfid": "14.2.24.2",
+    "domain": "PATIENT REPORTED OUTCOMES",
+    "status": "Sponsor: Ok",
+    "reviewer": "SS",
+    "title": "RT-FSS: Descriptive Statistics of Actual Values and Changes from Stage B Baseline - Stage B",
+    "lastModified": "Nov 8, 2022, 4:46:26 PM"
+  },
+  {
+    "type": "T",
+    "tlfid": "14.2.25.1",
+    "domain": "PATIENT REPORTED OUTCOMES",
+    "status": "Sponsor: Ok",
+    "reviewer": "SS",
+    "title": "HADS: Descriptive Statistics of Actual Values and Changes from Stage A Baseline - Stage A",
+    "lastModified": "Nov 8, 2022, 4:44:56 PM"
+  },
+  {
+    "type": "T",
+    "tlfid": "14.2.25.2",
+    "domain": "PATIENT REPORTED OUTCOMES",
+    "status": "Sponsor: Ok",
+    "reviewer": "SS",
+    "title": "HADS: Descriptive Statistics of Actual Values and Changes from Stage B Baseline - Stage B",
+    "lastModified": "Nov 8, 2022, 4:45:08 PM"
+  },
+  {
+    "type": "T",
+    "tlfid": "14.2.26.1",
+    "domain": "PATIENT REPORTED OUTCOMES",
+    "status": "Sponsor: Ok",
+    "reviewer": "SS",
+    "title": "PGIC: Descriptive Statistics of Actual Values - Stage A",
+    "lastModified": "Nov 8, 2022, 4:45:23 PM"
+  },
+  {
+    "type": "T",
+    "tlfid": "14.2.26.2",
+    "domain": "PATIENT REPORTED OUTCOMES",
+    "status": "Sponsor: Ok",
+    "reviewer": "SS",
+    "title": "PGIC: Descriptive Statistics of Actual Values - Stage B",
+    "lastModified": "Nov 8, 2022, 4:45:38 PM"
+  },
+  {
+    "type": "T",
+    "tlfid": "14.3.1.1",
+    "domain": "SAFETY",
+    "status": "Sponsor: comment",
+    "reviewer": "SAS",
+    "title": "Adverse Events Overview - Stage A",
+    "lastModified": "Sep 20, 2022, 2:33:55 PM"
+  },
+  {
+    "type": "T",
+    "tlfid": "14.3.1.2",
+    "domain": "SAFETY",
+    "status": "CRO: comment",
+    "reviewer": "SAS",
+    "title": "Adverse Events Overview - Stage B",
+    "lastModified": "Sep 20, 2022, 2:43:54 PM"
+  },
+  {
+    "type": "T",
+    "tlfid": "14.3.1.3",
+    "domain": "SAFETY",
+    "status": "CRO: comment",
+    "reviewer": "SAS",
+    "title": "Adverse Events Overview - Stage A + B",
+    "lastModified": "Sep 26, 2022, 3:29:33 PM"
+  },
+  {
+    "type": "T",
+    "tlfid": "14.3.1.4",
+    "domain": "SAFETY",
+    "status": "CRO: comment",
+    "reviewer": "SAS",
+    "title": "Treatment-Emergent Adverse Events by MedDRA System Organ Class and Preferred Term - Stage A",
+    "lastModified": "Sep 20, 2022, 2:54:33 PM"
+  },
+  {
+    "type": "T",
+    "tlfid": "14.3.1.5",
+    "domain": "SAFETY",
+    "status": "CRO: comment",
+    "reviewer": "SAS",
+    "title": "Treatment-Emergent Adverse Events by MedDRA System Organ Class and Preferred Term - Stage B",
+    "lastModified": "Sep 20, 2022, 2:55:02 PM"
+  },
+  {
+    "type": "T",
+    "tlfid": "14.3.1.6",
+    "domain": "SAFETY",
+    "status": "CRO: comment",
+    "reviewer": "SAS",
+    "title": "Treatment-Emergent Adverse Events by MedDRA System Organ Class and Preferred Term - Stage A + B",
+    "lastModified": "Sep 20, 2022, 2:54:30 PM"
+  },
+  {
+    "type": "T",
+    "tlfid": "14.3.1.7",
+    "domain": "SAFETY",
+    "status": "CRO: comment",
+    "reviewer": "SAS",
+    "title": "Serious Treatment-Emergent Adverse Events by MedDRA System Organ Class and Preferred Term - Stage A",
+    "lastModified": "Sep 20, 2022, 2:54:21 PM"
+  },
+  {
+    "type": "T",
+    "tlfid": "14.3.1.8",
+    "domain": "SAFETY",
+    "status": "CRO: comment",
+    "reviewer": "SAS",
+    "title": "Serious Treatment-Emergent Adverse Events by MedDRA System Organ Class and Preferred Term - Stage B",
+    "lastModified": "Sep 20, 2022, 2:54:18 PM"
+  },
+  {
+    "type": "T",
+    "tlfid": "14.3.1.9",
+    "domain": "SAFETY",
+    "status": "CRO: comment",
+    "reviewer": "SAS",
+    "title": "Non-serious Treatment-Emergent Adverse Events by MedDRA System Organ Class and Preferred Term - Stage A",
+    "lastModified": "Sep 20, 2022, 2:53:32 PM"
+  },
+  {
+    "type": "T",
+    "tlfid": "14.3.1.10",
+    "domain": "SAFETY",
+    "status": "Sponsor: Ok",
+    "reviewer": "SAS",
+    "title": "Non-serious Treatment-Emergent Adverse Events by MedDRA System Organ Class and Preferred Term - Stage B",
+    "lastModified": "Aug 31, 2022, 10:35:06 PM"
+  },
+  {
+    "type": "T",
+    "tlfid": "14.3.1.11",
+    "domain": "SAFETY",
+    "status": "CRO: comment",
+    "reviewer": "",
+    "title": "Grade 3 or More Treatment-Emergent Adverse Events by MedDRA System Organ Class and Preferred Term - Stage A",
+    "lastModified": "Sep 21, 2022, 12:31:07 PM"
+  },
+  {
+    "type": "T",
+    "tlfid": "14.3.1.12",
+    "domain": "SAFETY",
+    "status": "Sponsor: Ok",
+    "reviewer": "",
+    "title": "Grade 3 or More Treatment-Emergent Adverse Events by MedDRA System Organ Class and Preferred Term - Stage B",
+    "lastModified": "Aug 31, 2022, 10:35:09 PM"
+  },
+  {
+    "type": "T",
+    "tlfid": "14.3.1.13",
+    "domain": "SAFETY",
+    "status": "Sponsor: Ok",
+    "reviewer": "",
+    "title": "Treatment-Related Treatment-Emergent Adverse Events by MedDRA System Organ Class and Preferred Term - Stage A",
+    "lastModified": "Aug 31, 2022, 10:35:12 PM"
+  },
+  {
+    "type": "T",
+    "tlfid": "14.3.1.14",
+    "domain": "SAFETY",
+    "status": "Sponsor: Ok",
+    "reviewer": "",
+    "title": "Treatment-Related Treatment-Emergent Adverse Events by MedDRA System Organ Class and Preferred Term - Stage B",
+    "lastModified": "Aug 31, 2022, 10:35:16 PM"
+  },
+  {
+    "type": "T",
+    "tlfid": "14.3.1.15",
+    "domain": "SAFETY",
+    "status": "CRO: comment",
+    "reviewer": "",
+    "title": "Procedure-Related Treatment-Emergent Adverse Events by MedDRA System Organ Class and Preferred Term - Stage A",
+    "lastModified": "Sep 20, 2022, 3:08:50 PM"
+  },
+  {
+    "type": "T",
+    "tlfid": "14.3.1.16",
+    "domain": "SAFETY",
+    "status": "Sponsor: Ok",
+    "reviewer": "",
+    "title": "Procedure-Related Treatment-Emergent Adverse Events by MedDRA System Organ Class and Preferred Term - Stage B",
+    "lastModified": "Aug 31, 2022, 10:35:20 PM"
+  },
+  {
+    "type": "T",
+    "tlfid": "14.3.1.17",
+    "domain": "SAFETY",
+    "status": "Sponsor: Ok",
+    "reviewer": "",
+    "title": "Treatment-Emergent Adverse Events Leading to Discontinuation of Study Drug by MedDRA System Organ Class and Preferred Term - Stage A",
+    "lastModified": "Aug 31, 2022, 10:35:23 PM"
+  },
+  {
+    "type": "T",
+    "tlfid": "14.3.1.18",
+    "domain": "SAFETY",
+    "status": "Sponsor: Ok",
+    "reviewer": "",
+    "title": "Treatment-Emergent Adverse Events Leading to Discontinuation of Study Drug by MedDRA System Organ Class and Preferred Term - Stage B",
+    "lastModified": "Aug 31, 2022, 10:35:27 PM"
+  },
+  {
+    "type": "T",
+    "tlfid": "14.3.1.19",
+    "domain": "SAFETY",
+    "status": "Sponsor: Ok",
+    "reviewer": "",
+    "title": "Treatment-Emergent Adverse Events Leading to Interruption of Study Drug by MedDRA System Organ Class and Preferred Term - Stage A",
+    "lastModified": "Aug 31, 2022, 10:35:30 PM"
+  },
+  {
+    "type": "T",
+    "tlfid": "14.3.1.20",
+    "domain": "SAFETY",
+    "status": "Sponsor: Ok",
+    "reviewer": "",
+    "title": "Treatment-Emergent Adverse Events Leading to Interruption of Study Drug by MedDRA System Organ Class and Preferred Term - Stage B",
+    "lastModified": "Aug 31, 2022, 10:35:33 PM"
+  },
+  {
+    "type": "T",
+    "tlfid": "14.3.1.21",
+    "domain": "SAFETY",
+    "status": "CRO: comment",
+    "reviewer": "",
+    "title": "Treatment-Emergent Adverse Events of Special Interest by MedDRA System Organ Class and Preferred Term - Stage A",
+    "lastModified": "Sep 21, 2022, 12:30:27 PM"
+  },
+  {
+    "type": "T",
+    "tlfid": "14.3.1.22",
+    "domain": "SAFETY",
+    "status": "CRO: comment",
+    "reviewer": "",
+    "title": "Treatment-Emergent Adverse Events of Special Interest by MedDRA System Organ Class and Preferred Term - Stage B",
+    "lastModified": "Sep 21, 2022, 12:30:25 PM"
+  },
+  {
+    "type": "T",
+    "tlfid": "14.3.1.23",
+    "domain": "SAFETY",
+    "status": "CRO: comment",
+    "reviewer": "",
+    "title": "Treatment-Emergent Adverse Events of Special Interest by MedDRA System Organ Class, Preferred Term and Worst Severity - Stage A",
+    "lastModified": "Oct 19, 2022, 7:53:18 PM"
+  },
+  {
+    "type": "T",
+    "tlfid": "14.3.1.24",
+    "domain": "SAFETY",
+    "status": "CRO: comment",
+    "reviewer": "",
+    "title": "Treatment-Emergent Adverse Events of Special Interest by MedDRA System Organ Class, Preferred Term and Worst Severity - Stage B",
+    "lastModified": "Sep 21, 2022, 6:27:56 AM"
+  },
+  {
+    "type": "T",
+    "tlfid": "14.3.1.25",
+    "domain": "SAFETY",
+    "status": "CRO: comment",
+    "reviewer": "",
+    "title": "Time to First Onset and Duration of Treatment-Emergent Adverse Events of Special Interest - Stage A",
+    "lastModified": "Sep 21, 2022, 6:34:43 AM"
+  },
+  {
+    "type": "T",
+    "tlfid": "14.3.1.26",
+    "domain": "SAFETY",
+    "status": "CRO: comment",
+    "reviewer": "",
+    "title": "Time to First Onset and Duration of Treatment-Emergent Adverse Events of Special Interest - Stage B",
+    "lastModified": "Sep 21, 2022, 7:25:42 AM"
+  },
+  {
+    "type": "T",
+    "tlfid": "14.3.2.1",
+    "domain": "SAFETY",
+    "status": "Sponsor: Ok",
+    "reviewer": "JKRU",
+    "title": "Descriptive Statistics of Laboratory Test Actual Values and Changes from Stage A Baseline - Stage A",
+    "lastModified": "Aug 31, 2022, 9:07:22 PM"
+  },
+  {
+    "type": "T",
+    "tlfid": "14.3.2.2",
+    "domain": "SAFETY",
+    "status": "Sponsor: Ok",
+    "reviewer": "JKRU",
+    "title": "Descriptive Statistics of Laboratory Test Actual Values and Changes from Stage B Baseline - Stage B",
+    "lastModified": "Aug 31, 2022, 9:07:29 PM"
+  },
+  {
+    "type": "T",
+    "tlfid": "14.3.2.3",
+    "domain": "SAFETY",
+    "status": "Sponsor: Ok",
+    "reviewer": "JKRU",
+    "title": "Cross-Tabulation of Laboratory Abnormalities Versus Stage A Baseline - Stage A",
+    "lastModified": "Aug 31, 2022, 9:07:36 PM"
+  },
+  {
+    "type": "T",
+    "tlfid": "14.3.2.4",
+    "domain": "SAFETY",
+    "status": "Sponsor: Ok",
+    "reviewer": "JKRU",
+    "title": "Cross-Tabulation of Laboratory Abnormalities Versus Stage B Baseline - Stage B",
+    "lastModified": "Aug 31, 2022, 8:59:48 PM"
+  },
+  {
+    "type": "T",
+    "tlfid": "14.3.2.5",
+    "domain": "SAFETY",
+    "status": "Sponsor: Ok",
+    "reviewer": "JKRU",
+    "title": "Cross-Tabulation of Laboratory Toxicity Grades Versus Stage A Baseline - Stage A",
+    "lastModified": "Aug 31, 2022, 8:59:33 PM"
+  },
+  {
+    "type": "T",
+    "tlfid": "14.3.2.6",
+    "domain": "SAFETY",
+    "status": "Sponsor: Ok",
+    "reviewer": "JKRU",
+    "title": "Cross-Tabulation of Laboratory Toxicity Grades Versus Stage B Baseline - Stage B",
+    "lastModified": "Oct 11, 2022, 2:52:08 PM"
+  },
+  {
+    "type": "T",
+    "tlfid": "14.3.3.1",
+    "domain": "SAFETY",
+    "status": "CRO: comment",
+    "reviewer": "",
+    "title": "Descriptive Statistics of Vital Signs Actual Values and Changes from Stage A Baseline - Stage A",
+    "lastModified": "Sep 21, 2022, 8:12:09 AM"
+  },
+  {
+    "type": "T",
+    "tlfid": "14.3.3.2",
+    "domain": "SAFETY",
+    "status": "Sponsor: Ok",
+    "reviewer": "",
+    "title": "Descriptive Statistics of Vital Signs Actual Values and Changes from Stage B Baseline - Stage B",
+    "lastModified": "Aug 31, 2022, 10:37:13 PM"
+  },
+  {
+    "type": "T",
+    "tlfid": "14.3.3.3",
+    "domain": "SAFETY",
+    "status": "CRO: Updated",
+    "reviewer": "",
+    "title": "Cross-Tabulation of Vital Signs Abnormalities Versus Stage A Baseline - Stage A",
+    "lastModified": "Sep 21, 2022, 8:12:16 AM"
+  },
+  {
+    "type": "T",
+    "tlfid": "14.3.3.4",
+    "domain": "SAFETY",
+    "status": "Sponsor: Ok",
+    "reviewer": "",
+    "title": "Cross-Tabulation of Vital Signs Abnormalities Versus Stage B Baseline - Stage B",
+    "lastModified": "Aug 31, 2022, 10:37:09 PM"
+  },
+  {
+    "type": "T",
+    "tlfid": "14.3.4.1",
+    "domain": "SAFETY",
+    "status": "Sponsor: Ok",
+    "reviewer": "JKRU",
+    "title": "Descriptive Statistics of ECG Actual Values and Changes from Stage A Baseline - Stage A",
+    "lastModified": "Aug 31, 2022, 8:59:09 PM"
+  },
+  {
+    "type": "T",
+    "tlfid": "14.3.4.2",
+    "domain": "SAFETY",
+    "status": "Sponsor: Ok",
+    "reviewer": "JKRU",
+    "title": "Descriptive Statistics of ECG Actual Values and Changes from Stage B Baseline - Stage B",
+    "lastModified": "Aug 31, 2022, 8:58:37 PM"
+  },
+  {
+    "type": "T",
+    "tlfid": "14.3.4.3",
+    "domain": "SAFETY",
+    "status": "Sponsor: Ok",
+    "reviewer": "JKRU",
+    "title": "Cross-Tabulation of ECG Abnormalities Versus Stage A Baseline - Stage A",
+    "lastModified": "Oct 11, 2022, 2:52:37 PM"
+  },
+  {
+    "type": "T",
+    "tlfid": "14.3.4.4",
+    "domain": "SAFETY",
+    "status": "Sponsor: Ok",
+    "reviewer": "JKRU",
+    "title": "Cross-Tabulation of ECG Abnormalities Versus Stage B Baseline - Stage B",
+    "lastModified": "Aug 31, 2022, 8:58:36 PM"
+  },
+  {
+    "type": "T",
+    "tlfid": "14.3.4.5",
+    "domain": "SAFETY",
+    "status": "Sponsor: Ok",
+    "reviewer": "JKRU",
+    "title": "Tabulation of QTc Change Abnormalities Compared to Stage A Baseline - Stage A",
+    "lastModified": "Aug 31, 2022, 8:57:57 PM"
+  },
+  {
+    "type": "T",
+    "tlfid": "14.3.4.6",
+    "domain": "SAFETY",
+    "status": "Sponsor: Ok",
+    "reviewer": "JKRU",
+    "title": "Tabulation of QTc Change Abnormalities Compared to Stage B Baseline - Stage B",
+    "lastModified": "Aug 31, 2022, 8:57:35 PM"
+  },
+  {
+    "type": "T",
+    "tlfid": "14.3.5.1",
+    "domain": "SAFETY",
+    "status": "Sponsor: comment",
+    "reviewer": "",
+    "title": "Suicidality Assessment - Stage A",
+    "lastModified": "Jul 7, 2022, 12:22:34 AM"
+  },
+  {
+    "type": "T",
+    "tlfid": "14.3.5.1",
+    "domain": "SAFETY",
+    "status": "Sponsor: Ok",
+    "reviewer": "",
+    "title": "Suicidality Assessment - Stage B",
+    "lastModified": "Aug 31, 2022, 10:37:05 PM"
+  },
+  {
+    "type": "L",
+    "tlfid": "16.2.1.1",
+    "domain": "GENERAL CHARACTERISTICS",
+    "status": "CRO: Updated",
+    "reviewer": "",
+    "title": "Analysis Sets",
+    "lastModified": "Sep 21, 2022, 12:51:03 PM"
+  },
+  {
+    "type": "L",
+    "tlfid": "16.2.1.2",
+    "domain": "GENERAL CHARACTERISTICS",
+    "status": "CRO: Updated",
+    "reviewer": "",
+    "title": "Treatment Allocation",
+    "lastModified": "Sep 21, 2022, 1:03:13 PM"
+  },
+  {
+    "type": "L",
+    "tlfid": "16.2.1.3",
+    "domain": "GENERAL CHARACTERISTICS",
+    "status": "CRO: Updated",
+    "reviewer": "",
+    "title": "Analysis Phases and Periods",
+    "lastModified": "Sep 21, 2022, 1:07:15 PM"
+  },
+  {
+    "type": "L",
+    "tlfid": "16.2.1.4",
+    "domain": "GENERAL CHARACTERISTICS",
+    "status": "CRO: Updated",
+    "reviewer": "",
+    "title": "Study and Treatment Discontinuation",
+    "lastModified": "Sep 21, 2022, 1:07:49 PM"
+  },
+  {
+    "type": "L",
+    "tlfid": "16.2.2.1",
+    "domain": "GENERAL CHARACTERISTICS",
+    "status": "CRO: comment",
+    "reviewer": "",
+    "title": "Major Protocol Deviations",
+    "lastModified": "Sep 21, 2022, 1:16:15 PM"
+  },
+  {
+    "type": "L",
+    "tlfid": "16.2.2.2",
+    "domain": "GENERAL CHARACTERISTICS",
+    "status": "Sponsor: Ok",
+    "reviewer": "",
+    "title": "Violations on Eligibility Criteria",
+    "lastModified": "Aug 31, 2022, 10:37:01 PM"
+  },
+  {
+    "type": "L",
+    "tlfid": "16.2.2.3",
+    "domain": "GENERAL CHARACTERISTICS",
+    "status": "CRO: comment",
+    "reviewer": "",
+    "title": "CIDP Confirmation Committee",
+    "lastModified": "Sep 21, 2022, 1:26:02 PM"
+  },
+  {
+    "type": "L",
+    "tlfid": "16.2.2.4",
+    "domain": "GENERAL CHARACTERISTICS",
+    "status": "Sponsor: Ok",
+    "reviewer": "",
+    "title": "No-Treatment Patients",
+    "lastModified": "Aug 31, 2022, 10:36:31 PM"
+  },
+  {
+    "type": "L",
+    "tlfid": "16.2.4.1",
+    "domain": "GENERAL CHARACTERISTICS",
+    "status": "CRO: Updated",
+    "reviewer": "",
+    "title": "Demographic Data",
+    "lastModified": "Sep 21, 2022, 1:28:06 PM"
+  },
+  {
+    "type": "L",
+    "tlfid": "16.2.4.2",
+    "domain": "GENERAL CHARACTERISTICS",
+    "status": "CRO: Updated",
+    "reviewer": "",
+    "title": "Baseline Disease Characteristics",
+    "lastModified": "Sep 21, 2022, 1:57:12 PM"
+  },
+  {
+    "type": "L",
+    "tlfid": "16.2.4.3",
+    "domain": "GENERAL CHARACTERISTICS",
+    "status": "CRO: comment",
+    "reviewer": "",
+    "title": "Screening Tests and Suicidality",
+    "lastModified": "Oct 26, 2022, 3:42:10 PM"
+  },
+  {
+    "type": "L",
+    "tlfid": "16.2.4.4",
+    "domain": "GENERAL CHARACTERISTICS",
+    "status": "CRO: Updated",
+    "reviewer": "",
+    "title": "Medical History and Concomitant Diseases",
+    "lastModified": "Sep 21, 2022, 2:58:52 PM"
+  },
+  {
+    "type": "L",
+    "tlfid": "16.2.4.5",
+    "domain": "GENERAL CHARACTERISTICS",
+    "status": "Sponsor: Ok",
+    "reviewer": "",
+    "title": "Prior and Concomitant Therapies",
+    "lastModified": "Aug 31, 2022, 10:36:35 PM"
+  },
+  {
+    "type": "L",
+    "tlfid": "16.2.4.6",
+    "domain": "GENERAL CHARACTERISTICS",
+    "status": "CRO: Updated",
+    "reviewer": "",
+    "title": "Prior and Concomitant Procedures",
+    "lastModified": "Sep 21, 2022, 3:06:20 PM"
+  },
+  {
+    "type": "L",
+    "tlfid": "16.2.5.1",
+    "domain": "GENERAL CHARACTERISTICS",
+    "status": "CRO: comment",
+    "reviewer": "",
+    "title": "Study Drug Administration",
+    "lastModified": "Oct 26, 2022, 3:33:42 PM"
+  },
+  {
+    "type": "L",
+    "tlfid": "16.2.5.2",
+    "domain": "GENERAL CHARACTERISTICS",
+    "status": "CRO: comment",
+    "reviewer": "",
+    "title": "Self-Administration Training",
+    "lastModified": "Sep 21, 2022, 3:17:58 PM"
+  },
+  {
+    "type": "L",
+    "tlfid": "16.2.5.3",
+    "domain": "PHARMACOKINETICS",
+    "status": "Sponsor: Ok",
+    "reviewer": "",
+    "title": "Individual Efgartigimod Serum Concentrations and Actual Blood Sampling Times",
+    "lastModified": "Aug 31, 2022, 10:36:39 PM"
+  },
+  {
+    "type": "L",
+    "tlfid": "16.2.6.1",
+    "domain": "EFFICACY",
+    "status": "Sponsor: comment",
+    "reviewer": "",
+    "title": "ECI",
+    "lastModified": "Aug 31, 2022, 1:18:08 PM"
+  },
+  {
+    "type": "L",
+    "tlfid": "16.2.6.2",
+    "domain": "EFFICACY",
+    "status": "Sponsor: Ok",
+    "reviewer": "",
+    "title": "First Improvement",
+    "lastModified": "Aug 31, 2022, 10:36:42 PM"
+  },
+  {
+    "type": "L",
+    "tlfid": "16.2.6.3",
+    "domain": "EFFICACY",
+    "status": "Sponsor: comment",
+    "reviewer": "",
+    "title": "INCAT Disability Score",
+    "lastModified": "Aug 31, 2022, 1:23:57 PM"
+  },
+  {
+    "type": "L",
+    "tlfid": "16.2.6.4",
+    "domain": "EFFICACY",
+    "status": "Sponsor: Ok",
+    "reviewer": "",
+    "title": "Adjusted INCAT Deterioration",
+    "lastModified": "Aug 31, 2022, 10:36:45 PM"
+  },
+  {
+    "type": "L",
+    "tlfid": "16.2.6.5",
+    "domain": "EFFICACY",
+    "status": "Sponsor: comment",
+    "reviewer": "",
+    "title": "I-RODS",
+    "lastModified": "Aug 31, 2022, 1:27:48 PM"
+  },
+  {
+    "type": "L",
+    "tlfid": "16.2.6.6",
+    "domain": "EFFICACY",
+    "status": "Sponsor: Ok",
+    "reviewer": "",
+    "title": "CIDP Disease Progression, Improved Functional Level and 10% Decrease in I-RODS",
+    "lastModified": "Aug 31, 2022, 10:36:49 PM"
+  },
+  {
+    "type": "L",
+    "tlfid": "16.2.6.7",
+    "domain": "EFFICACY",
+    "status": "Sponsor: comment",
+    "reviewer": "",
+    "title": "Mean Grip Strength",
+    "lastModified": "Aug 31, 2022, 12:54:22 PM"
+  },
+  {
+    "type": "L",
+    "tlfid": "16.2.6.8",
+    "domain": "EFFICACY",
+    "status": "Sponsor: Ok",
+    "reviewer": "",
+    "title": "MRC Sum Score",
+    "lastModified": "Aug 31, 2022, 10:36:57 PM"
+  },
+  {
+    "type": "L",
+    "tlfid": "16.2.6.9",
+    "domain": "EFFICACY",
+    "status": "Sponsor: Ok",
+    "reviewer": "",
+    "title": "TUG Test",
+    "lastModified": "Aug 31, 2022, 10:36:26 PM"
+  },
+  {
+    "type": "L",
+    "tlfid": "16.2.6.10",
+    "domain": "PHARMACODYNAMICS",
+    "status": "Sponsor: comment",
+    "reviewer": "",
+    "title": "Total IgG and IgG Subtypes",
+    "lastModified": "Aug 30, 2022, 6:38:21 PM"
+  },
+  {
+    "type": "L",
+    "tlfid": "16.2.6.11",
+    "domain": "IMMUNOGENICITY",
+    "status": "CRO: Updated",
+    "reviewer": "",
+    "title": "Anti-Drug Antibodies and Neutralizing Antibodies Against Efgartigimod",
+    "lastModified": "Sep 22, 2022, 7:10:17 AM"
+  },
+  {
+    "type": "L",
+    "tlfid": "16.2.6.12",
+    "domain": "IMMUNOGENICITY",
+    "status": "CRO: Updated",
+    "reviewer": "",
+    "title": "Antibodies and Neutralizing Antibodies Against rHuPH20",
+    "lastModified": "Sep 22, 2022, 7:12:18 AM"
+  },
+  {
+    "type": "L",
+    "tlfid": "16.2.6.13",
+    "domain": "PATIENT REPORTED OUTCOMES",
+    "status": "Sponsor: Ok",
+    "reviewer": "",
+    "title": "EQ-5D-5L",
+    "lastModified": "Aug 31, 2022, 10:36:23 PM"
+  },
+  {
+    "type": "L",
+    "tlfid": "16.2.6.14",
+    "domain": "PATIENT REPORTED OUTCOMES",
+    "status": "Sponsor: Ok",
+    "reviewer": "",
+    "title": "BPI-SF",
+    "lastModified": "Aug 31, 2022, 10:36:20 PM"
+  },
+  {
+    "type": "L",
+    "tlfid": "16.2.6.15",
+    "domain": "PATIENT REPORTED OUTCOMES",
+    "status": "Sponsor: Ok",
+    "reviewer": "",
+    "title": "TSQM-9",
+    "lastModified": "Aug 31, 2022, 10:35:45 PM"
+  },
+  {
+    "type": "L",
+    "tlfid": "16.2.6.16",
+    "domain": "PATIENT REPORTED OUTCOMES",
+    "status": "Sponsor: Ok",
+    "reviewer": "",
+    "title": "RT-FSS",
+    "lastModified": "Aug 31, 2022, 10:35:48 PM"
+  },
+  {
+    "type": "L",
+    "tlfid": "16.2.6.17",
+    "domain": "PATIENT REPORTED OUTCOMES",
+    "status": "Sponsor: Ok",
+    "reviewer": "",
+    "title": "HADS",
+    "lastModified": "Aug 31, 2022, 10:35:51 PM"
+  },
+  {
+    "type": "L",
+    "tlfid": "16.2.6.18",
+    "domain": "PATIENT REPORTED OUTCOMES",
+    "status": "Sponsor: Ok",
+    "reviewer": "",
+    "title": "PGIC",
+    "lastModified": "Aug 31, 2022, 10:35:54 PM"
+  },
+  {
+    "type": "L",
+    "tlfid": "16.2.7.1",
+    "domain": "SAFETY",
+    "status": "CRO: Updated",
+    "reviewer": "",
+    "title": "Adverse Events",
+    "lastModified": "Sep 22, 2022, 7:14:00 AM"
+  },
+  {
+    "type": "L",
+    "tlfid": "16.2.7.2",
+    "domain": "SAFETY",
+    "status": "Sponsor: Ok",
+    "reviewer": "",
+    "title": "Run-in Adverse Events",
+    "lastModified": "Aug 31, 2022, 10:35:58 PM"
+  },
+  {
+    "type": "L",
+    "tlfid": "16.2.7.3",
+    "domain": "SAFETY",
+    "status": "Sponsor: Ok",
+    "reviewer": "",
+    "title": "Serious Adverse Events",
+    "lastModified": "Aug 31, 2022, 10:36:01 PM"
+  },
+  {
+    "type": "L",
+    "tlfid": "16.2.7.4",
+    "domain": "SAFETY",
+    "status": "Sponsor: Ok",
+    "reviewer": "",
+    "title": "Fatal Adverse Events",
+    "lastModified": "Aug 31, 2022, 10:36:05 PM"
+  },
+  {
+    "type": "L",
+    "tlfid": "16.2.7.5",
+    "domain": "SAFETY",
+    "status": "Sponsor: Ok",
+    "reviewer": "",
+    "title": "Treatment-Emergent Adverse Events Leading to Discontinuation of Study Drug",
+    "lastModified": "Aug 31, 2022, 10:36:08 PM"
+  },
+  {
+    "type": "L",
+    "tlfid": "16.2.7.6",
+    "domain": "SAFETY",
+    "status": "Sponsor: Ok",
+    "reviewer": "",
+    "title": "Adverse Events of Special Interest",
+    "lastModified": "Aug 31, 2022, 10:36:12 PM"
+  },
+  {
+    "type": "L",
+    "tlfid": "16.2.7.7",
+    "domain": "SAFETY",
+    "status": "Sponsor: Ok",
+    "reviewer": "",
+    "title": "Adverse Events: Coding Information",
+    "lastModified": "Aug 31, 2022, 10:36:16 PM"
+  },
+  {
+    "type": "L",
+    "tlfid": "16.2.8.1",
+    "domain": "SAFETY",
+    "status": "CRO: Updated",
+    "reviewer": "JKRU",
+    "title": "Laboratory Test Results for Patients with Abnormal Values",
+    "lastModified": "Oct 11, 2022, 2:39:27 PM"
+  },
+  {
+    "type": "L",
+    "tlfid": "16.2.9.1",
+    "domain": "SAFETY",
+    "status": "CRO: Updated",
+    "reviewer": "",
+    "title": "Vital Signs Results for Patients with Abnormal Values",
+    "lastModified": "Sep 22, 2022, 7:21:30 AM"
+  },
+  {
+    "type": "L",
+    "tlfid": "16.2.10.1",
+    "domain": "SAFETY",
+    "status": "CRO: Updated",
+    "reviewer": "",
+    "title": "ECG Results for Patients with Abnormal Values",
+    "lastModified": "Sep 22, 2022, 7:24:38 AM"
+  },
+  {
+    "type": "L",
+    "tlfid": "16.2.11.1",
+    "domain": "SAFETY",
+    "status": "CRO: Updated",
+    "reviewer": "",
+    "title": "Physical Examination Results for Patients with Abnormal Values",
+    "lastModified": "Sep 22, 2022, 7:26:27 AM"
+  },
+  {
+    "type": "L",
+    "tlfid": "16.2.12.1",
+    "domain": "SAFETY",
+    "status": "CRO: Updated",
+    "reviewer": "",
+    "title": "Suicidality Assessments for Patients with Abnormal Values",
+    "lastModified": "Sep 22, 2022, 7:31:08 AM"
+  },
+  {
+    "type": "ADaM",
+    "tlfid": "ADAE",
+    "domain": "",
+    "status": "Sponsor: Ok",
+    "reviewer": "JKRU",
+    "title": "Analysis of Adverse Events",
+    "lastModified": "Oct 20, 2022, 1:18:11 PM"
+  },
+  {
+    "type": "ADaM",
+    "tlfid": "ADAPER",
+    "domain": "",
+    "status": "Sponsor: Ok",
+    "reviewer": "",
+    "title": "Analysis of Subject Analysis Periods",
+    "lastModified": "Aug 31, 2022, 10:30:57 PM"
+  },
+  {
+    "type": "ADaM",
+    "tlfid": "ADCM",
+    "domain": "",
+    "status": "Sponsor: Ok",
+    "reviewer": "",
+    "title": "Analysis Concomitant/Prior Medications",
+    "lastModified": "Aug 31, 2022, 10:31:02 PM"
+  },
+  {
+    "type": "ADaM",
+    "tlfid": "ADEC",
+    "domain": "",
+    "status": "Sponsor: Ok",
+    "reviewer": "",
+    "title": "Analysis of Exposure as Collected",
+    "lastModified": "Aug 31, 2022, 10:31:05 PM"
+  },
+  {
+    "type": "ADaM",
+    "tlfid": "ADEFF",
+    "domain": "",
+    "status": "CRO: comment",
+    "reviewer": "",
+    "title": "Analysis of Efficacy Parameters",
+    "lastModified": "Oct 20, 2022, 12:04:52 PM"
+  },
+  {
+    "type": "ADaM",
+    "tlfid": "ADEG",
+    "domain": "",
+    "status": "Sponsor: Ok",
+    "reviewer": "",
+    "title": "Analysis of ECG Test Results",
+    "lastModified": "Aug 31, 2022, 10:31:11 PM"
+  },
+  {
+    "type": "ADaM",
+    "tlfid": "ADEX",
+    "domain": "",
+    "status": "Sponsor: Ok",
+    "reviewer": "",
+    "title": "Analysis of Exposure",
+    "lastModified": "Aug 31, 2022, 10:31:17 PM"
+  },
+  {
+    "type": "ADaM",
+    "tlfid": "ADFA",
+    "domain": "",
+    "status": "CRO: Updated",
+    "reviewer": "",
+    "title": "Analysis of Findings About",
+    "lastModified": "Sep 22, 2022, 9:08:59 AM"
+  },
+  {
+    "type": "ADaM",
+    "tlfid": "ADFT1",
+    "domain": "",
+    "status": "Sponsor: Ok",
+    "reviewer": "",
+    "title": "Analysis of Functional Tests",
+    "lastModified": "Oct 19, 2022, 10:33:46 AM"
+  },
+  {
+    "type": "ADaM",
+    "tlfid": "ADIS",
+    "domain": "",
+    "status": "Sponsor: Ok",
+    "reviewer": "JKRU",
+    "title": "Analysis of Immunogenicity Specimen Ass.",
+    "lastModified": "Oct 12, 2022, 12:33:49 PM"
+  },
+  {
+    "type": "ADaM",
+    "tlfid": "ADLB1",
+    "domain": "",
+    "status": "CRO: comment",
+    "reviewer": "JKRU",
+    "title": "Analysis of Pharmacodynamics",
+    "lastModified": "Oct 26, 2022, 3:16:03 PM"
+  },
+  {
+    "type": "ADaM",
+    "tlfid": "ADLB2",
+    "domain": "",
+    "status": "Sponsor: Ok",
+    "reviewer": "JKRU",
+    "title": "Analysis of Laboratory Test Results",
+    "lastModified": "Oct 11, 2022, 2:53:53 PM"
+  },
+  {
+    "type": "ADaM",
+    "tlfid": "ADMH",
+    "domain": "",
+    "status": "Sponsor: Ok",
+    "reviewer": "",
+    "title": "Analysis of Medical History",
+    "lastModified": "Aug 31, 2022, 10:31:21 PM"
+  },
+  {
+    "type": "ADaM",
+    "tlfid": "ADPC",
+    "domain": "",
+    "status": "Sponsor: Ok",
+    "reviewer": "",
+    "title": "Analysis Pharmacokinetics Concentrations",
+    "lastModified": "Aug 31, 2022, 10:31:26 PM"
+  },
+  {
+    "type": "ADaM",
+    "tlfid": "ADPR",
+    "domain": "",
+    "status": "Sponsor: Ok",
+    "reviewer": "",
+    "title": "Analysis of Procedures",
+    "lastModified": "Aug 31, 2022, 10:30:53 PM"
+  },
+  {
+    "type": "ADaM",
+    "tlfid": "ADQS3",
+    "domain": "",
+    "status": "Sponsor: Ok",
+    "reviewer": "",
+    "title": "Analysis of Suicidality Assessment",
+    "lastModified": "Aug 31, 2022, 10:30:44 PM"
+  },
+  {
+    "type": "ADaM",
+    "tlfid": "ADQS1",
+    "domain": "",
+    "status": "CRO: comment",
+    "reviewer": "",
+    "title": "Analysis of Efficacy Questionnaires",
+    "lastModified": "Oct 26, 2022, 3:14:36 PM"
+  },
+  {
+    "type": "ADaM",
+    "tlfid": "ADRS1",
+    "domain": "",
+    "status": "CRO: comment",
+    "reviewer": "",
+    "title": "Analysis of Disease Response",
+    "lastModified": "Oct 26, 2022, 3:10:30 PM"
+  },
+  {
+    "type": "ADaM",
+    "tlfid": "ADSL",
+    "domain": "",
+    "status": "Sponsor: Ok",
+    "reviewer": "JKRU",
+    "title": "Subject-Level Analysis Dataset",
+    "lastModified": "Oct 11, 2022, 2:54:00 PM"
+  },
+  {
+    "type": "ADaM",
+    "tlfid": "ADSV",
+    "domain": "",
+    "status": "Sponsor: Ok",
+    "reviewer": "",
+    "title": "Analysis of Subject Visits",
+    "lastModified": "Aug 31, 2022, 10:30:41 PM"
+  },
+  {
+    "type": "ADaM",
+    "tlfid": "ADTTE",
+    "domain": "",
+    "status": "CRO: comment",
+    "reviewer": "",
+    "title": "Analysis of Time To Events",
+    "lastModified": "Oct 26, 2022, 3:12:53 PM"
+  },
+  {
+    "type": "ADaM",
+    "tlfid": "ADVS",
+    "domain": "",
+    "status": "Sponsor: Ok",
+    "reviewer": "",
+    "title": "Analysis of Vital Signs",
+    "lastModified": "Aug 31, 2022, 10:30:33 PM"
+  },
+  {
+    "type": "in-text",
+    "tlfid": "General",
+    "domain": "",
+    "status": "Sponsor: comment",
+    "reviewer": "",
+    "title": "General Comments",
+    "lastModified": "Nov 3, 2022, 10:51:01 AM"
+  },
+  {
+    "type": "ADaM",
+    "tlfid": "ADQS2",
+    "domain": "EFFICACY",
+    "status": "Sponsor: Ok",
+    "reviewer": "",
+    "title": "Anal. of Efficacy Questionnaires (A+B)",
+    "lastModified": "Aug 31, 2022, 10:30:37 PM"
+  },
+  {
+    "type": "ADaM",
+    "tlfid": "ADQS4",
+    "domain": "PATIENT REPORTED OUTCOMES",
+    "status": "Sponsor: Ok",
+    "reviewer": "",
+    "title": "Analysis of PRO Questionnaires",
+    "lastModified": "Aug 31, 2022, 10:30:31 PM"
+  },
+  {
+    "type": "ADaM",
+    "tlfid": "ADRS2",
+    "domain": "EFFICACY",
+    "status": "Sponsor: Ok",
+    "reviewer": "",
+    "title": "New for Analysis of Disease Response (A+B)",
+    "lastModified": "Aug 31, 2022, 10:30:30 PM"
+  },
+  {
+    "type": "ADaM",
+    "tlfid": "ADFT2",
+    "domain": "EFFICACY",
+    "status": "Sponsor: Ok",
+    "reviewer": "",
+    "title": "New for Analysis of Functional Tests (A+B)",
+    "lastModified": "Oct 26, 2022, 3:13:48 PM"
+  },
+  {
+    "type": "",
+    "tlfid": "General",
+    "domain": "SAFETY",
+    "status": "Sponsor: comment",
+    "reviewer": "",
+    "title": "General comments",
+    "lastModified": "Aug 31, 2022, 10:30:29 AM"
+  }
+]

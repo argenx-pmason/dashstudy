@@ -1,0 +1,10 @@
+[
+{
+"manifestname": "/clinical/argx-117/hv/argx-117-1901/biostat/staging/mad5_tables/manifest/job_pk_prop_highdoses.mnf",
+"path": "/clinical/argx-117/hv/argx-117-1901/biostat/staging/mad4_tables/programs/t_ae_posthoc.sas",
+"sas_program": "t_ae_posthoc.sas",
+"headerfailmess": "1) Incorrect PROJECT name: argx-117/hv/argx-117-1901/mad4_tables - should be: /argx-117/hv/argx-117-1901/mad5_tables",
+"headersummary": "1 Fails, 4 Pass",
+"lastModifiedBy": "jkruszewska"
+}
+]

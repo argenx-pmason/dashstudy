@@ -1,0 +1,80 @@
+{
+  "report1": [
+    {
+      "sas_program": "t_ae2.sas",
+      "sasprog_exist": "No",
+      "manifestname": null,
+      "jobname": "           ."
+    },
+    {
+      "sas_program": "t_ae2b.sas",
+      "sasprog_exist": "No",
+      "manifestname": null,
+      "jobname": "           ."
+    },
+    {
+      "sas_program": "t_ae2p.sas",
+      "sasprog_exist": "No",
+      "manifestname": null,
+      "jobname": "           ."
+    },
+    {
+      "sas_program": "t_demog.sas",
+      "sasprog_exist": "No",
+      "manifestname": null,
+      "jobname": "           ."
+    }
+  ],
+  "croosdocs": [
+    {
+      "doc": "SAP",
+      "ord": 1,
+      "path": "",
+      "name": "<missing>",
+      "dateLastModified": null
+    },
+    {
+      "doc": "BSOP",
+      "ord": 2,
+      "path": "",
+      "name": "<missing>",
+      "dateLastModified": null
+    }
+  ],
+  "report2": [
+
+  ],
+  "outputlogreport": [
+
+  ],
+  "info": [
+    {
+      "retext": "/argx-113/mg/argx-113-9031/iss_20220131/qc_tlf",
+      "REPATH": "/clinical/argx-113/mg/argx-113-9031/biostat/staging/iss_20220131/qc_tlf",
+      "splistmessage": "^{style [url='&splisturl'] SharePoint List 9031 iss_20220131}",
+      "splisturl": "https://argenxbvba.sharepoint.com/sites/Biostatistics/argx-113-mg/Lists/9031 ISS20220131",
+      "SPLISTISS": "/clinical/argx-113/mg/argx-113-9031/biostat/staging/iss_20220131/qc_adam_pb2/documents/meta/9031 ISS20220131iss.js",
+      "SPLISTONLSAF": "yes",
+      "SPLISTSTATUS": "/clinical/argx-113/mg/argx-113-9031/biostat/staging/iss_20220131/qc_adam_pb2/documents/meta/spliststatus.js",
+      "statusReportCreateDate": "09FEB23",
+      "statusReportCreateTime": "13:08",
+      "study": "argx-113-9031",
+      "compound": "argx-113",
+      "EVENTTYPE": "crooversight",
+      "INDICATION": "mg",
+      "REVENT": "iss_20220131"
+    }
+  ],
+  "graph1": {
+    "Programs": {
+      "denomline": 1,
+      "expectedprograms": 4,
+      "PERCENT": 100,
+      "cleanprograms": 0,
+      "issueprograms": 0
+    },
+    "Outputs": {
+      "empty": 1
+    }
+  }
+}

@@ -1,0 +1,223 @@
+{
+  "report1": [
+    {
+      "sas_program": "adcycl.sas",
+      "jsonfile": "",
+      "manifestname": "",
+      "path": "",
+      "ordinal_root": null,
+      "sasprog_exist": "No",
+      "jobname": "no job",
+      "jobname2": "",
+      "logcheck": "no log!",
+      "war": null,
+      "err": null,
+      "un": null,
+      "note": null
+    },
+    {
+      "sas_program": "fhistyearlycycles.sas",
+      "jsonfile": "",
+      "manifestname": "",
+      "path": "",
+      "ordinal_root": null,
+      "sasprog_exist": "No",
+      "jobname": "no job",
+      "jobname2": "",
+      "logcheck": "no log!",
+      "war": null,
+      "err": null,
+      "un": null,
+      "note": null
+    },
+    {
+      "sas_program": "lyearlycycles.sas",
+      "jsonfile": "",
+      "manifestname": "",
+      "path": "",
+      "ordinal_root": null,
+      "sasprog_exist": "No",
+      "jobname": "no job",
+      "jobname2": "",
+      "logcheck": "no log!",
+      "war": null,
+      "err": null,
+      "un": null,
+      "note": null
+    },
+    {
+      "sas_program": "t_all_ae_pt_base_igg_pooled.sas",
+      "jsonfile": "",
+      "manifestname": "",
+      "path": "",
+      "ordinal_root": null,
+      "sasprog_exist": "No",
+      "jobname": "no job",
+      "jobname2": "",
+      "logcheck": "no log!",
+      "war": null,
+      "err": null,
+      "un": null,
+      "note": null
+    },
+    {
+      "sas_program": "t_all_ovv_ae_base_igg_pooled.sas",
+      "jsonfile": "",
+      "manifestname": "",
+      "path": "",
+      "ordinal_root": null,
+      "sasprog_exist": "No",
+      "jobname": "no job",
+      "jobname2": "",
+      "logcheck": "no log!",
+      "war": null,
+      "err": null,
+      "un": null,
+      "note": null
+    },
+    {
+      "sas_program": "t_cycle_ae_pt_base_igg_pooled.sas",
+      "jsonfile": "",
+      "manifestname": "",
+      "path": "",
+      "ordinal_root": null,
+      "sasprog_exist": "No",
+      "jobname": "no job",
+      "jobname2": "",
+      "logcheck": "no log!",
+      "war": null,
+      "err": null,
+      "un": null,
+      "note": null
+    },
+    {
+      "sas_program": "t_cycle_base_iig_pooled.sas",
+      "jsonfile": "",
+      "manifestname": "",
+      "path": "",
+      "ordinal_root": null,
+      "sasprog_exist": "No",
+      "jobname": "no job",
+      "jobname2": "",
+      "logcheck": "no log!",
+      "war": null,
+      "err": null,
+      "un": null,
+      "note": null
+    },
+    {
+      "sas_program": "t_cycle_duration_mean_pooled.sas",
+      "jsonfile": "",
+      "manifestname": "",
+      "path": "",
+      "ordinal_root": null,
+      "sasprog_exist": "No",
+      "jobname": "no job",
+      "jobname2": "",
+      "logcheck": "no log!",
+      "war": null,
+      "err": null,
+      "un": null,
+      "note": null
+    },
+    {
+      "sas_program": "t_cycle_ovv_ae_base_igg_pooled.sas",
+      "jsonfile": "",
+      "manifestname": "",
+      "path": "",
+      "ordinal_root": null,
+      "sasprog_exist": "No",
+      "jobname": "no job",
+      "jobname2": "",
+      "logcheck": "no log!",
+      "war": null,
+      "err": null,
+      "un": null,
+      "note": null
+    },
+    {
+      "sas_program": "t_time_btw_cycles.sas",
+      "jsonfile": "",
+      "manifestname": "",
+      "path": "",
+      "ordinal_root": null,
+      "sasprog_exist": "No",
+      "jobname": "no job",
+      "jobname2": "",
+      "logcheck": "no log!",
+      "war": null,
+      "err": null,
+      "un": null,
+      "note": null
+    },
+    {
+      "sas_program": "t_time_btw_cycles_overall.sas",
+      "jsonfile": "",
+      "manifestname": "",
+      "path": "",
+      "ordinal_root": null,
+      "sasprog_exist": "No",
+      "jobname": "no job",
+      "jobname2": "",
+      "logcheck": "no log!",
+      "war": null,
+      "err": null,
+      "un": null,
+      "note": null
+    },
+    {
+      "sas_program": "tyearlycycles.sas",
+      "jsonfile": "",
+      "manifestname": "",
+      "path": "",
+      "ordinal_root": null,
+      "sasprog_exist": "No",
+      "jobname": "no job",
+      "jobname2": "",
+      "logcheck": "no log!",
+      "war": null,
+      "err": null,
+      "un": null,
+      "note": null
+    }
+  ],
+  "croosdocs": [
+
+  ],
+  "report2": [
+
+  ],
+  "outputlogreport": [
+
+  ],
+  "info": [
+    {
+      "retext": "/argx-113/mg/argx-113-9031/ma2022",
+      "REPATH": "/clinical/argx-113/mg/argx-113-9031/biostat/staging/ma2022",
+      "splistmessage": "No SharePoint list defined",
+      "splisturl": "https://argenxbvba.sharepoint.com/sites/Biostatistics/argx-113-mg/Lists/9031 ma2022",
+      "SPLISTISS": "/clinical/argx-113/mg/argx-113-9031/biostat/staging/ma2022/documents/meta/9031 ma2022iss.js",
+      "SPLISTONLSAF": "no",
+      "SPLISTSTATUS": "/clinical/argx-113/mg/argx-113-9031/biostat/staging/ma2022/documents/meta/spliststatus.js",
+      "statusReportCreateDate": "09FEB23",
+      "statusReportCreateTime": "09:19",
+      "study": "argx-113-9031",
+      "compound": "argx-113",
+      "EVENTTYPE": "reportingevent",
+      "INDICATION": "mg",
+      "REVENT": "ma2022"
+    }
+  ],
+  "graph1": {
+    "Programs": {
+      "denomline": 1,
+      "expectedprograms": 12,
+      "PERCENT": 100,
+      "cleanprograms": 0,
+      "issueprograms": 0
+    },
+    "Outputs": {
+      "empty": 1
+    }
+  }
+}
