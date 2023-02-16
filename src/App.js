@@ -49,6 +49,7 @@ const App = () => {
       });
     },
     topSpace = 350,
+    [alternateLayout, setAlternateLayout] = useState(true),
     [sectionSizes, setSectionSizes] = useState([topSpace, 200, 200]),
     calcSectionSizes = () => {
       const section2 = Math.floor((windowDimension.winHeight - topSpace) / 2),
@@ -71,6 +72,7 @@ const App = () => {
     [cro, setCro] = useState(null),
     [graph1, setGraph1] = useState(null),
     [graph2, setGraph2] = useState(null),
+    [graph3, setGraph3] = useState(null),
     loadFiles = (url) => {
       fetch(url).then(function (response) {
         response.text().then(function (text) {
@@ -111,34 +113,23 @@ const App = () => {
     // eslint-disable-next-line
   }, [selectedStudy]);
 
+  useEffect(() => {
+    if (alternateLayout && report1a && outputLogReport && report2) {
+      const section2a = (report1a.length + 1) * 32,
+        section2b = (outputLogReport.length + 1) * 22,
+        section2 = Math.max(section2a, section2b),
+        section3 = (report2.length + 1) * 32;
+      setSectionSizes([topSpace, section2, section3]);
+    } else calcSectionSizes();
+    // eslint-disable-next-line
+  }, [alternateLayout, report1a, outputLogReport, report2]);
+
   // get list of all studies we have JSON built for
   useEffect(() => {
     if (mode === "local") {
       const lsafsearch = localstudies["SASTableData+LSAFSEARCH"],
-        tempStudyList = lsafsearch.map((r) => {
-          const shorter = r.path
-            .replace("/clinical/", "")
-            .replace("/biostat/staging", "")
-            .replace("/documents/meta/dashstudy.json", "");
-          return {
-            value: r.path,
-            label:
-              shorter +
-              " ... [" +
-              r.dateLastModified +
-              "] ... (" +
-              r.lastModifiedBy +
-              ")",
-          };
-        });
-      setStudyList(tempStudyList);
-      return;
-    }
-    fetch(webDavPrefix + studyListFile).then(function (response) {
-      response.text().then(function (text) {
-        const json = JSON.parse(text);
-        const lsafsearch = json["SASTableData+LSAFSEARCH"],
-          tempStudyList = lsafsearch.map((r) => {
+        tempStudyList = lsafsearch
+          .map((r) => {
             const shorter = r.path
               .replace("/clinical/", "")
               .replace("/biostat/staging", "")
@@ -153,7 +144,44 @@ const App = () => {
                 r.lastModifiedBy +
                 ")",
             };
+          })
+          .filter((val) => {
+            // console.log(val);
+            const parts = val.value.split("/");
+            if (parts.length > 7) return parts[7] !== "generic_adam";
+            else return true;
           });
+      setStudyList(tempStudyList);
+      return;
+    }
+    fetch(webDavPrefix + studyListFile).then(function (response) {
+      response.text().then(function (text) {
+        const json = JSON.parse(text);
+        const lsafsearch = json["SASTableData+LSAFSEARCH"],
+          tempStudyList = lsafsearch
+            .map((r) => {
+              const shorter = r.path
+                .replace("/clinical/", "")
+                .replace("/biostat/staging", "")
+                .replace("/documents/meta/dashstudy.json", "");
+              return {
+                value: r.path,
+                label:
+                  shorter +
+                  " ... [" +
+                  r.dateLastModified +
+                  "] ... (" +
+                  r.lastModifiedBy +
+                  ")",
+              };
+            })
+            .filter((val) => {
+              console.log(val);
+              const parts = val.value.split("/");
+              console.log(parts);
+              if (parts.length > 7) return parts[7] !== "generic_adam";
+              else return true;
+            });
         setStudyList(tempStudyList);
         // if a study wasnt passed in on the URL, then just pick the first available study to show
         if (href.split("?").length === 1)
@@ -292,6 +320,7 @@ const App = () => {
             else if (value === "Listing") icon = "📜";
             else if (value === "Figure") icon = "📊";
             else if (value === "Dataset") icon = "💿";
+            else if (value === "ADaM") icon = "📗";
             else icon = "❔";
             return (
               <Tooltip title={value}>
@@ -527,7 +556,7 @@ const App = () => {
     setGraph1({
       chart: {
         type: "bar",
-        height: 200,
+        height: 120,
       },
       accessibility: {
         enabled: false,
@@ -541,15 +570,18 @@ const App = () => {
       xAxis: {
         categories: categories1,
       },
-      colors: ["green", "orange", "red"],
+      colors: ["#b3ffb3", "#ffe0b3", "#ffb3b3"],
       yAxis: {
         min: 0,
+        enabled: false,
+        labels: { enabled: false },
         title: {
-          text: "Percent",
+          enabled: false,
         },
       },
       legend: {
         reversed: true,
+        enabled: false,
       },
       plotOptions: {
         series: {
@@ -563,6 +595,7 @@ const App = () => {
       },
       series: series1,
     });
+    // console.log(categories1);
 
     // eslint-disable-next-line
   }, [sourceData]);
@@ -570,38 +603,39 @@ const App = () => {
   // CRO Oversight graph
   useEffect(() => {
     if (iss) {
-      const typeValues = iss
-          .map((item) => item.type)
-          .filter((value, index, self) => self.indexOf(value) === index),
-        pureStatusValues = iss
+      const colors = ["#b3ffb3", "#ffe0b3", "#ffb3ff", "#ffb3b3"],
+        lev1Values = iss
           .map((item) => item.status)
           .filter((value, index, self) => self.indexOf(value) === index),
-        statusValues = iss
-          .map((item) => item.type + "|" + item.status)
+        pureLev2Values = iss
+          .map((item) => item.type)
           .filter((value, index, self) => self.indexOf(value) === index),
-        data2Parents1 = typeValues.map((v, id) => {
+        lev2Values = iss
+          .map((item) => item.status + "|" + item.type)
+          .filter((value, index, self) => self.indexOf(value) === index),
+        data2Parents1 = lev1Values.map((v, id) => {
           return {
             name: v,
             parent: "top",
             id: "p|" + id,
-            color: Highcharts.getOptions().colors[id],
+            color: colors[id],
           };
         }),
-        data2Parents2 = statusValues.map((v, id) => {
+        data2Parents2 = lev2Values.map((v, id) => {
           const split = v.split("|"),
             t = split[0],
             s = split[1],
-            typeIndex = "p|" + typeValues.indexOf(t),
-            splitIndex = typeIndex + "|" + pureStatusValues.indexOf(s);
-          return { name: s, parent: typeIndex, id: splitIndex };
+            lev1Index = "p|" + lev1Values.indexOf(t),
+            splitIndex = lev1Index + "|" + pureLev2Values.indexOf(s);
+          return { name: s, parent: lev1Index, id: splitIndex };
         }),
         data2Detail = iss.map((r, id) => {
           r.id = id + "";
           r.parent =
             "p|" +
-            typeValues.indexOf(r.type) +
+            lev1Values.indexOf(r.status) +
             "|" +
-            pureStatusValues.indexOf(r.status);
+            pureLev2Values.indexOf(r.type);
           r.value = 1;
           r.name = r.title;
           return r;
@@ -611,7 +645,20 @@ const App = () => {
           ...data2Parents1,
           ...data2Parents2,
           ...data2Detail,
-        ];
+        ],
+        tempStatusSummary = {},
+        statusSummary = [];
+      data2Detail.forEach(function (d) {
+        if (tempStatusSummary.hasOwnProperty(d.status)) {
+          tempStatusSummary[d.status] = tempStatusSummary[d.status] + d.value;
+        } else {
+          tempStatusSummary[d.status] = d.value;
+        }
+      });
+      for (const prop in tempStatusSummary) {
+        statusSummary.push({ name: prop, data: [tempStatusSummary[prop]] });
+      }
+
       setGraph2({
         chart: {
           type: "treemap",
@@ -628,9 +675,9 @@ const App = () => {
         },
         tooltip: {
           headerFormat: "",
-          pointFormat: "<b>{point.name}</b> ({point.value})",
+          pointFormat:
+            "<b>{point.name}: </b>{point.value}<br/><b>ID: </b>{point.tlfid}<br/><b>Domain: </b>{point.domain}<br/><b>Reviewer: </b>{point.reviewer}<br/><b>Last Modified: </b>{point.lastModified}",
         },
-        // colors: ["transparent"].concat(Highcharts.getOptions().colors),
         series: [
           {
             data: data2,
@@ -648,25 +695,65 @@ const App = () => {
                 level: 1,
                 dataLabels: {
                   enabled: true,
-                },
-                borderWidth: 3,
-                levelIsConstant: false,
-              },
-              {
-                level: 1,
-                dataLabels: {
                   style: {
                     fontSize: "14px",
                   },
                 },
+                borderWidth: 3,
+                levelIsConstant: false,
               },
             ],
           },
         ],
       });
+
+      setGraph3({
+        chart: {
+          type: "bar",
+          height: 80,
+        },
+        accessibility: {
+          enabled: false,
+        },
+        title: {
+          text: null,
+          title: {
+            enabled: false,
+          },
+        },
+        credits: {
+          enabled: false,
+        },
+        xAxis: {
+          categories: ["Status"],
+        },
+        colors: ["#b3ffb3", "#ffe0b3", "#ffb3ff", "#ffb3b3"],
+        yAxis: {
+          min: 0,
+          enabled: false,
+          labels: { enabled: false },
+          title: {
+            enabled: false,
+          },
+        },
+        legend: {
+          enabled: false,
+        },
+        plotOptions: {
+          series: {
+            groupPadding: 0.05,
+            pointPadding: 0,
+            stacking: "percent",
+            dataLabels: {
+              enabled: true,
+            },
+          },
+        },
+        series: statusSummary,
+      });
     }
   }, [iss]);
-
+  // console.log(graph1, graph3);
   return (
     <Box>
       <Grid2 container spacing={2}>
@@ -736,7 +823,7 @@ const App = () => {
                   size="small"
                   variant="contained"
                   color="info"
-                  sx={{ mr: 3 }}
+                  sx={{ mr: 3, textTransform: "none" }}
                   onClick={() =>
                     window.open(fileViewerPrefix + info.REPATH, "_blank")
                   }
@@ -800,6 +887,25 @@ const App = () => {
                 </Button>
               </Tooltip>
             ))}
+          <Tooltip
+            title={
+              alternateLayout
+                ? "Switch to one page layout"
+                : "Switch to continuous layout"
+            }
+          >
+            <Button
+              size="small"
+              variant={alternateLayout ? "outlined" : "contained"}
+              color="secondary"
+              onClick={() => {
+                setAlternateLayout(!alternateLayout);
+              }}
+              sx={{ textTransform: "none" }}
+            >
+              alt
+            </Button>
+          </Tooltip>
         </Grid2>
         {/* <Grid2 item xs={6}>
           <Tooltip title="Reduce size of font">
@@ -817,18 +923,21 @@ const App = () => {
           {graph1 && (
             <HighchartsReact highcharts={Highcharts} options={graph1} />
           )}
+          {graph3 && info.EVENTTYPE === "crooversight" && (
+            <HighchartsReact highcharts={Highcharts} options={graph3} />
+          )}
         </Grid2>
         <Grid2 item xs={6}>
           {graph2 && info.EVENTTYPE === "crooversight" && (
             <HighchartsReact highcharts={Highcharts} options={graph2} />
           )}
-          {(!graph2 || info.EVENTTYPE !== "crooversight") && (
+          {/* {(!graph2 || info.EVENTTYPE !== "crooversight") && (
             <Chip
               sx={{ mt: 6, ml: 12 }}
               color="info"
               label="No CRO Oversight Information is available"
             />
-          )}
+          )} */}
         </Grid2>
 
         <Grid2 item xs={6}>
@@ -836,6 +945,8 @@ const App = () => {
             sx={{
               height: sectionSizes[1],
               maxHeight: sectionSizes[1],
+              // height: report1a.length * 32,
+              // maxHeight: report1a.length * 32,
               // width: windowDimension.winWidth / 2 - 50,
               // minWidth: windowDimension.winWidth / 2 - 50,
             }}
@@ -847,6 +958,7 @@ const App = () => {
                 density="compact"
                 rowHeight={42}
                 hideFooter={true}
+                defaultGroupingExpansionDepth={-1}
                 sx={{
                   fontSize: "0.8em",
                   "& .note": {
@@ -893,6 +1005,8 @@ const App = () => {
             sx={{
               height: sectionSizes[1],
               maxHeight: sectionSizes[1],
+              // height: outputLogReport.length * 22,
+              // maxHeight: outputLogReport.length * 22,
               // width: windowDimension.winWidth / 2 - 50,
               // minWidth: windowDimension.winWidth / 2 - 50,
             }}
@@ -900,6 +1014,7 @@ const App = () => {
             {outputLogReport && (
               <DataGridPro
                 treeData
+                defaultGroupingExpansionDepth={-1}
                 getTreeDataPath={(row) => row.col1}
                 rows={outputLogReport}
                 columns={colsOutputLogReport}
@@ -921,6 +1036,8 @@ const App = () => {
               // fontSize: fontSize,
               height: sectionSizes[2],
               maxHeight: sectionSizes[2],
+              // height: report2.length * 32,
+              // maxHeight: report2.length * 32,
               width: windowDimension.winWidth - 50,
               minWidth: windowDimension.winWidth - 50,
               // overflow: "auto",
