@@ -8,9 +8,12 @@ import {
   Link,
   Avatar,
   Button,
+  IconButton,
   Popover,
 } from "@mui/material";
 import Grid2 from "@mui/material/Unstable_Grid2";
+import { InsertComment, SwapVertSharp } from "@mui/icons-material";
+import UserInput from "./UserInput";
 // import Button from "@mui/material-next/Button";
 import Select from "react-select";
 import Highcharts from "highcharts";
@@ -27,6 +30,8 @@ import all from "./test/all.json"; // /argx-113/cidp/argx-113-1802/testrun1/qc_a
 // import all from "./test/all6.json"; // /argx-113/mg/argx-113-9031/iss_20220131/qc_tlf
 import localiss from "./test/iss.json";
 import localstudies from "./test/dash-study-files.json";
+import localUserJson from "./test/user.json";
+import { getJsonFile } from "./utility";
 
 const App = () => {
   LicenseInfo.setLicenseKey(
@@ -48,6 +53,7 @@ const App = () => {
         winHeight: window.innerHeight,
       });
     },
+    [openUserInput, setOpenUserInput] = useState(false),
     topSpace = 350,
     [alternateLayout, setAlternateLayout] = useState(true),
     [sectionSizes, setSectionSizes] = useState([topSpace, 200, 200]),
@@ -82,6 +88,7 @@ const App = () => {
       });
     },
     [sourceData, setSourceData] = useState(null),
+    [userJson, setUserJson] = useState(null), // holds info that a user has entered using the UserInput component to a JSON file
     // popover support
     [popAnchorEl, setPopAnchorEl] = useState(null),
     handlePopClick = (event) => {
@@ -753,13 +760,49 @@ const App = () => {
       });
     }
   }, [iss]);
-  // console.log(graph1, graph3);
+
+  // if we have new info, then we are on a new study and so can get the JSON with any user comments
+  useEffect(() => {
+    if (!selectedStudy) return;
+    const fileToLoad0 = selectedStudy.split("/");
+    fileToLoad0.pop();
+    const fileToLoad = webDavPrefix + fileToLoad0.join("/") + "/user.json";
+    console.log("info changed, so loading: " + fileToLoad);
+    if (mode === "local") setUserJson(localUserJson);
+    else getJsonFile(fileToLoad, setUserJson);
+    // eslint-disable-next-line
+  }, [info, selectedStudy]);
+
+  // there is new user JSON data, so we can process it and integrate that into what is shown on screen
+  useEffect(() => {
+    console.log("userJson has changed: ", userJson);
+    // update data for programs
+    // TODO: update sourceData.report1
+    // allow overriding err/war/un/note - if user sets them to 0 then that means it is OK
+    // update graph1.programs, which is used for first graph
+
+    // update data for outputs
+    // TODO: update sourceData.report2
+    // allow overriding err/war/un/note - then logcheck - if user sets them to 0 then that means it is OK
+    // update graph1.programs, which is used for first graph
+  }, [userJson]);
+
   return (
     <Box>
       <Grid2 container spacing={2}>
         <Grid2 item xs={12} sx={{ ml: 3, mt: 3 }}>
           {info && info.retext && (
             <>
+              <Tooltip title="Add a comment">
+                <IconButton
+                  onClick={() => {
+                    setOpenUserInput(true);
+                  }}
+                >
+                  <InsertComment />
+                </IconButton>
+              </Tooltip>
+
               <Button
                 size="small"
                 variant="outlined"
@@ -894,17 +937,15 @@ const App = () => {
                 : "Switch to continuous layout"
             }
           >
-            <Button
+            <IconButton
               size="small"
-              variant={alternateLayout ? "outlined" : "contained"}
-              color="secondary"
+              color={alternateLayout ? "primary" : "secondary"}
               onClick={() => {
                 setAlternateLayout(!alternateLayout);
               }}
-              sx={{ textTransform: "none" }}
             >
-              alt
-            </Button>
+              <SwapVertSharp />
+            </IconButton>
           </Tooltip>
         </Grid2>
         {/* <Grid2 item xs={6}>
@@ -1081,6 +1122,9 @@ const App = () => {
           </Box>
         </Grid2>
       </Grid2>
+      {openUserInput && (
+        <UserInput open={openUserInput} setOpen={setOpenUserInput} />
+      )}
     </Box>
   );
 };
