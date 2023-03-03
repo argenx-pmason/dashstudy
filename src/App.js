@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, createRef } from "react";
 import {
   Box,
   Container,
@@ -12,16 +12,16 @@ import {
   Popover,
 } from "@mui/material";
 import Grid2 from "@mui/material/Unstable_Grid2";
-import { InsertComment, SwapVertSharp } from "@mui/icons-material";
+import { QuestionMark, SwapVertSharp, Done, Close } from "@mui/icons-material";
 import UserInput from "./UserInput";
 // import Button from "@mui/material-next/Button";
 import Select from "react-select";
 import Highcharts from "highcharts";
 // import Sunburst from "highcharts/modules/sunburst";
-import Treemap from "highcharts/modules/treemap";
+// import Treemap from "highcharts/modules/treemap";
+import More from "highcharts/highcharts-more";
 import HighchartsReact from "highcharts-react-official";
-import { DataGridPro } from "@mui/x-data-grid-pro";
-import { LicenseInfo } from "@mui/x-data-grid-pro";
+import { DataGridPro, useGridApiRef, LicenseInfo } from "@mui/x-data-grid-pro";
 import all from "./test/all.json"; // /argx-113/cidp/argx-113-1802/testrun1/qc_adam
 // import all from "./test/all2.json"; // /argx-117/hv/argx-117-1901/mad5_tables
 // import all from "./test/all3.json"; // /argx-113/x-ind/argx-113-0000/generic_adam
@@ -38,10 +38,13 @@ const App = () => {
     "5b931c69b031b808de26d5902e04c36fTz00Njk0NyxFPTE2ODg4MDI3MDM3MjAsUz1wcm8sTE09c3Vic2NyaXB0aW9uLEtWPTI="
   );
   // Sunburst(Highcharts);
-  Treemap(Highcharts);
-  const { href, protocol, host } = window.location,
+  // Treemap(Highcharts);
+  More(Highcharts);
+  const radialRef = createRef(),
+    { href, protocol, host } = window.location,
     mode = href.startsWith("http://localhost") ? "local" : "remote",
     urlPrefix = protocol + "//" + host,
+    apiRef = useGridApiRef(),
     [windowDimension, detectHW] = useState({
       winWidth: window.innerWidth,
       winHeight: window.innerHeight,
@@ -66,8 +69,7 @@ const App = () => {
       "https://xarprod.ondemand.sas.com/lsaf/filedownload/sdd:/general/biostat/tools/logviewer/index.html?log=",
     fileViewerPrefix =
       "https://xarprod.ondemand.sas.com/lsaf/filedownload/sdd:/general/biostat/tools/fileviewer/index.html?file=",
-    webDavPrefix =
-      "https://xarprod.ondemand.sas.com/lsaf/filedownload/sdd%3A//",
+    webDavPrefix = "https://xarprod.ondemand.sas.com/lsaf/webdav/repo",
     [report1a, setReport1a] = useState(null),
     [colsReport1a, setColsReport1a] = useState(null),
     [report2, setReport2] = useState(null),
@@ -76,9 +78,10 @@ const App = () => {
     [colsOutputLogReport, setColsOutputLogReport] = useState(null),
     [info, setInfo] = useState(null),
     [cro, setCro] = useState(null),
+    [rowToCheck, setRowToCheck] = useState(null),
     [graph1, setGraph1] = useState(null),
     [graph2, setGraph2] = useState(null),
-    [graph3, setGraph3] = useState(null),
+    // [graph3, setGraph3] = useState(null),
     loadFiles = (url) => {
       fetch(url).then(function (response) {
         response.text().then(function (text) {
@@ -89,6 +92,7 @@ const App = () => {
     },
     [sourceData, setSourceData] = useState(null),
     [userJson, setUserJson] = useState(null), // holds info that a user has entered using the UserInput component to a JSON file
+    [userJsonFile, setUserJsonFile] = useState(null), // filename of the JSON file for user.json where we store user comments to override data in dashboard
     // popover support
     [popAnchorEl, setPopAnchorEl] = useState(null),
     handlePopClick = (event) => {
@@ -101,6 +105,7 @@ const App = () => {
     popId = popOpen ? "simple-popover" : undefined,
     [studyList, setStudyList] = useState(null),
     [selectedStudy, setSelectedStudy] = useState(null),
+    [idClickedOn, setIdClickedOn] = useState(null),
     selectStudy = (e) => {
       // console.log(e);
       setSelectedStudy(e.value);
@@ -126,7 +131,7 @@ const App = () => {
         section2b = (outputLogReport.length + 1) * 22,
         section2 = Math.max(section2a, section2b),
         section3 = (report2.length + 1) * 32;
-      setSectionSizes([topSpace, section2, section3]);
+      setSectionSizes([topSpace, section3, section2]);
     } else calcSectionSizes();
     // eslint-disable-next-line
   }, [alternateLayout, report1a, outputLogReport, report2]);
@@ -183,16 +188,18 @@ const App = () => {
               };
             })
             .filter((val) => {
-              console.log(val);
+              // console.log(val);
               const parts = val.value.split("/");
-              console.log(parts);
+              // console.log(parts);
               if (parts.length > 7) return parts[7] !== "generic_adam";
               else return true;
             });
         setStudyList(tempStudyList);
         // if a study wasnt passed in on the URL, then just pick the first available study to show
-        if (href.split("?").length === 1)
+        if (href.split("?").length === 1) {
+          setSelectedStudy(tempStudyList[0].value);
           loadFiles(webDavPrefix + tempStudyList[0].value);
+        }
       });
     });
     // eslint-disable-next-line
@@ -474,22 +481,32 @@ const App = () => {
     else {
       if (tempInfo.SPLISTONLSAF === "yes" && tempInfo.SPLISTISS) {
         console.log("loading SPLISTISS", tempInfo);
-        fetch(webDavPrefix + tempInfo.SPLISTISS).then(function (response) {
-          response.text().then(function (text) {
-            if (text.includes("HTTP Status 404 – Not Found")) {
-              console.log("splist was not found: ", tempInfo.SPLISTISS);
-              setIss(null);
-              return;
-            }
-            const modifiedText = text
-              .replace("var embeddedData =", "")
-              .replace("];", "]");
-            // console.log("modifiedText", modifiedText);
-            const json = JSON.parse(modifiedText);
-            // console.log(json);
-            if (json) setIss(json);
-          });
-        });
+        fetch(webDavPrefix + tempInfo.SPLISTISS)
+          .then(function (response) {
+            response.text().then(function (text) {
+              if (text.includes("HTTP Status 404 – Not Found")) {
+                console.log("splist was not found: ", tempInfo.SPLISTISS);
+                setIss(null);
+                return;
+              }
+              const modifiedText = text
+                .replace("var embeddedData =", "")
+                .replace("];", "]");
+              // console.log("modifiedText", modifiedText);
+              const json = JSON.parse(modifiedText);
+              // console.log(json);
+              if (json) setIss(json);
+            });
+          })
+          .catch((err) =>
+            console.log(
+              "fetch failed for " +
+                webDavPrefix +
+                tempInfo.SPLISTISS +
+                " - " +
+                err
+            )
+          );
       }
     }
 
@@ -513,6 +530,7 @@ const App = () => {
       }
     });
     setOutputLogReport(tempOutputLogReport2);
+    // console.log("tempOutputLogReport2", tempOutputLogReport2);
     setColsOutputLogReport([
       {
         field: "col1",
@@ -533,6 +551,66 @@ const App = () => {
         },
       },
       { field: "col2", headerName: "Messages", width: 300, flex: 1 },
+      {
+        field: "ok",
+        headerName: "OK",
+        width: 30,
+        renderCell: (cellValues) => {
+          const { value, row } = cellValues,
+            { line, id } = row;
+          // console.log(value, row, cellValues);
+          if (line > 0) {
+            if (value) {
+              return (
+                <IconButton
+                  size="small"
+                  variant="contained"
+                  color="success"
+                  onClick={() => {
+                    setRowToCheck(row);
+                    setIdClickedOn(id);
+                    setOpenUserInput(true);
+                  }}
+                >
+                  <Done />
+                </IconButton>
+              );
+            } else if (value === false) {
+              return (
+                <IconButton
+                  size="small"
+                  variant="contained"
+                  color="error"
+                  onClick={() => {
+                    setRowToCheck(row);
+                    setIdClickedOn(id);
+                    setOpenUserInput(true);
+                  }}
+                >
+                  <Close />
+                </IconButton>
+              );
+            } else
+              return (
+                <IconButton
+                  variant="outlined"
+                  size="small"
+                  color="info"
+                  onClick={() => {
+                    setRowToCheck(row);
+                    setIdClickedOn(id);
+                    setOpenUserInput(true);
+                  }}
+                  label={"?"}
+                >
+                  <QuestionMark />
+                </IconButton>
+              );
+          } else {
+            return null;
+          }
+        },
+      },
       // { field: "err", headerName: "Err", width: 30 },
       // { field: "war", headerName: "War", width: 30 },
       // { field: "un", headerName: "un", width: 30 },
@@ -556,7 +634,7 @@ const App = () => {
           name: "Expected",
           data: [
             prog1.expectedprograms - prog1.issueprograms - prog1.cleanprograms,
-            out1.createdoutputs,
+            out1.expectedoutputs - out1.cleanoutputs - out1.issueoutputs,
           ],
         },
       ];
@@ -617,25 +695,25 @@ const App = () => {
         pureLev2Values = iss
           .map((item) => item.type)
           .filter((value, index, self) => self.indexOf(value) === index),
-        lev2Values = iss
-          .map((item) => item.status + "|" + item.type)
-          .filter((value, index, self) => self.indexOf(value) === index),
-        data2Parents1 = lev1Values.map((v, id) => {
-          return {
-            name: v,
-            parent: "top",
-            id: "p|" + id,
-            color: colors[id],
-          };
-        }),
-        data2Parents2 = lev2Values.map((v, id) => {
-          const split = v.split("|"),
-            t = split[0],
-            s = split[1],
-            lev1Index = "p|" + lev1Values.indexOf(t),
-            splitIndex = lev1Index + "|" + pureLev2Values.indexOf(s);
-          return { name: s, parent: lev1Index, id: splitIndex };
-        }),
+        // lev2Values = iss
+        //   .map((item) => item.status + "|" + item.type)
+        //   .filter((value, index, self) => self.indexOf(value) === index),
+        // data2Parents1 = lev1Values.map((v, id) => {
+        //   return {
+        //     name: v,
+        //     parent: "top",
+        //     id: "p|" + id,
+        //     color: colors[id],
+        //   };
+        // }),
+        // data2Parents2 = lev2Values.map((v, id) => {
+        //   const split = v.split("|"),
+        //     t = split[0],
+        //     s = split[1],
+        //     lev1Index = "p|" + lev1Values.indexOf(t),
+        //     splitIndex = lev1Index + "|" + pureLev2Values.indexOf(s);
+        //   return { name: s, parent: lev1Index, id: splitIndex };
+        // }),
         data2Detail = iss.map((r, id) => {
           r.id = id + "";
           r.parent =
@@ -647,14 +725,19 @@ const App = () => {
           r.name = r.title;
           return r;
         }),
-        data2 = [
-          // { id: "top", name: "All" },
-          ...data2Parents1,
-          ...data2Parents2,
-          ...data2Detail,
-        ],
+        // data2 = [
+        //   // { id: "top", name: "All" },
+        //   ...data2Parents1,
+        //   ...data2Parents2,
+        //   ...data2Detail,
+        // ],
         tempStatusSummary = {},
-        statusSummary = [];
+        statusSummary = [],
+        tempTypeSummary = {},
+        typeSummary = [];
+      // console.log("lev1Values", lev1Values, "data2Detail", data2Detail);
+
+      // summarise by status, counting how many
       data2Detail.forEach(function (d) {
         if (tempStatusSummary.hasOwnProperty(d.status)) {
           tempStatusSummary[d.status] = tempStatusSummary[d.status] + d.value;
@@ -663,103 +746,177 @@ const App = () => {
         }
       });
       for (const prop in tempStatusSummary) {
-        statusSummary.push({ name: prop, data: [tempStatusSummary[prop]] });
+        statusSummary.push({
+          name: prop,
+          data: [tempStatusSummary[prop], null],
+        });
       }
+      // console.log("statusSummary", statusSummary);
+
+      // summarise by type, counting how many
+      data2Detail.forEach(function (d) {
+        if (tempTypeSummary.hasOwnProperty(d.type)) {
+          tempTypeSummary[d.type] = tempTypeSummary[d.type] + d.value;
+        } else {
+          tempTypeSummary[d.type] = d.value;
+        }
+      });
+      for (const prop in tempTypeSummary) {
+        typeSummary.push({ name: prop, data: [null, tempTypeSummary[prop]] });
+      }
+      // console.log("typeSummary", typeSummary);
+
+      const combinedSummary = [...statusSummary, ...typeSummary];
+      // console.log("combinedSummary", combinedSummary);
+
+      // setGraph2({
+      //   chart: {
+      //     type: "treemap",
+      //     height: 200,
+      //   },
+      //   accessibility: {
+      //     enabled: false,
+      //   },
+      //   title: {
+      //     text: null,
+      //   },
+      //   credits: {
+      //     enabled: false,
+      //   },
+      //   tooltip: {
+      //     headerFormat: "",
+      //     pointFormat:
+      //       "<b>{point.name}: </b>{point.value}<br/><b>ID: </b>{point.tlfid}<br/><b>Domain: </b>{point.domain}<br/><b>Reviewer: </b>{point.reviewer}<br/><b>Last Modified: </b>{point.lastModified}",
+      //   },
+      //   series: [
+      //     {
+      //       data: data2,
+      //       type: "treemap",
+      //       name: "Top",
+      //       layoutAlgorithm: "squarified",
+      //       animationLimit: 1000,
+      //       allowDrillToNode: true,
+      //       cursor: "pointer",
+      //       dataLabels: {
+      //         enabled: false,
+      //       },
+      //       levels: [
+      //         {
+      //           level: 1,
+      //           dataLabels: {
+      //             enabled: true,
+      //             style: {
+      //               fontSize: "14px",
+      //             },
+      //           },
+      //           borderWidth: 3,
+      //           levelIsConstant: false,
+      //         },
+      //       ],
+      //     },
+      //   ],
+      // });
 
       setGraph2({
         chart: {
-          type: "treemap",
-          height: 200,
-        },
-        accessibility: {
-          enabled: false,
+          type: "column",
+          inverted: true,
+          polar: true,
+          backgroundColor: "rgba(0,0,0,0)",
+          // spacing: [0, 0, 0, 0],
+          // width: 300,
+          height: 120,
+          // plotBorderWidth: 0,
         },
         title: {
           text: null,
-        },
-        credits: {
-          enabled: false,
         },
         tooltip: {
-          headerFormat: "",
-          pointFormat:
-            "<b>{point.name}: </b>{point.value}<br/><b>ID: </b>{point.tlfid}<br/><b>Domain: </b>{point.domain}<br/><b>Reviewer: </b>{point.reviewer}<br/><b>Last Modified: </b>{point.lastModified}",
+          outside: true,
+          style: { fontSize: "7px" },
         },
-        series: [
-          {
-            data: data2,
-            type: "treemap",
-            name: "Top",
-            layoutAlgorithm: "squarified",
-            animationLimit: 1000,
-            allowDrillToNode: true,
-            cursor: "pointer",
-            dataLabels: {
-              enabled: false,
-            },
-            levels: [
-              {
-                level: 1,
-                dataLabels: {
-                  enabled: true,
-                  style: {
-                    fontSize: "14px",
-                  },
-                },
-                borderWidth: 3,
-                levelIsConstant: false,
-              },
-            ],
-          },
-        ],
-      });
-
-      setGraph3({
-        chart: {
-          type: "bar",
-          height: 80,
-        },
-        accessibility: {
-          enabled: false,
-        },
-        title: {
-          text: null,
-          title: {
-            enabled: false,
-          },
-        },
-        credits: {
-          enabled: false,
+        pane: {
+          size: "100%",
+          innerSize: "20%",
+          endAngle: 90,
+          startAngle: -90,
         },
         xAxis: {
-          categories: ["Status"],
+          tickInterval: 1,
+          // min: 0,
+          labels: {
+            align: "right",
+            useHTML: true,
+            allowOverlap: true,
+            step: 1,
+            y: 1,
+            // x: 3,
+            style: {
+              fontSize: "8px",
+            },
+          },
+          lineWidth: 0,
+          categories: ["Status", "Type"],
         },
-        colors: ["#b3ffb3", "#ffe0b3", "#ffb3ff", "#ffb3b3"],
         yAxis: {
-          min: 0,
+          // crosshair: {
+          //   enabled: true,
+          //   color: "#333",
+          // },
+          lineWidth: 0,
+          // tickInterval: 25,
+          reversedStacks: false,
+          endOnTick: false,
+          showLastLabel: true,
           enabled: false,
           labels: { enabled: false },
           title: {
             enabled: false,
           },
         },
+        plotOptions: {
+          column: {
+            stacking: "normal",
+            borderWidth: 0,
+            pointPadding: 0,
+            groupPadding: 0.15,
+          },
+        },
+        colors: colors,
+        accessibility: {
+          enabled: false,
+        },
+        credits: {
+          enabled: false,
+        },
         legend: {
           enabled: false,
         },
-        plotOptions: {
-          series: {
-            groupPadding: 0.05,
-            pointPadding: 0,
-            stacking: "percent",
-            dataLabels: {
-              enabled: true,
-            },
-          },
-        },
-        series: statusSummary,
+        series: combinedSummary,
       });
     }
   }, [iss]);
+
+  useEffect(() => {
+    // console.log("radialRef", radialRef);
+    if (radialRef.current) {
+      const { container } = radialRef.current;
+      // console.log(
+      //   "radialRef.current",
+      //   radialRef.current,
+      //   "container",
+      //   container,
+      //   "container.current",
+      //   container.current
+      // );
+      if (container.current) {
+        container.current.style.scale = 2;
+        container.current.style.top = "50%";
+        container.current.style.position = "relative";
+      }
+    }
+    // eslint-disable-next-line
+  }, [graph2]);
 
   // if we have new info, then we are on a new study and so can get the JSON with any user comments
   useEffect(() => {
@@ -767,25 +924,152 @@ const App = () => {
     const fileToLoad0 = selectedStudy.split("/");
     fileToLoad0.pop();
     const fileToLoad = webDavPrefix + fileToLoad0.join("/") + "/user.json";
+    setUserJsonFile(fileToLoad); // set the filename since we need this when using dialog to enter and save comments
     console.log("info changed, so loading: " + fileToLoad);
     if (mode === "local") setUserJson(localUserJson);
     else getJsonFile(fileToLoad, setUserJson);
     // eslint-disable-next-line
   }, [info, selectedStudy]);
 
+  // there is no user JSON data so we can make default
+  useEffect(() => {
+    if (!userJson) {
+      // make a default structure for user info if we dont have one - e.g. getJsonFile has returned false because there is no user.json file
+      const tempUserJson = [];
+      console.log("tempUserJson", tempUserJson);
+      setUserJson(tempUserJson);
+    }
+  }, [userJson]);
+
   // there is new user JSON data, so we can process it and integrate that into what is shown on screen
   useEffect(() => {
-    console.log("userJson has changed: ", userJson);
-    // update data for programs
-    // TODO: update sourceData.report1
-    // allow overriding err/war/un/note - if user sets them to 0 then that means it is OK
-    // update graph1.programs, which is used for first graph
+    if (userJson && sourceData && outputLogReport) {
+      const tempOutputLogReport = [...outputLogReport];
+      // console.log(
+      //   "userJson has changed: ",
+      //   userJson,
+      //   "tempOutputLogReport",
+      //   tempOutputLogReport
+      // );
+      userJson.forEach((item) => {
+        // console.log(tempOutputLogReport, tempOutputLogReport[item.id], item.ok);
+        if (tempOutputLogReport[item.id])
+          tempOutputLogReport[item.id].ok = item.ok;
+      });
+      setOutputLogReport(tempOutputLogReport);
 
-    // update data for outputs
-    // TODO: update sourceData.report2
-    // allow overriding err/war/un/note - then logcheck - if user sets them to 0 then that means it is OK
-    // update graph1.programs, which is used for first graph
+      // TODO: re-check data to see if we can update data for graphs. i.e. if all issues are marked as OK, then that output can be marked Completed
+      let lastOutput = "",
+        currentIssuesInLog = 0,
+        logsWithIssues = 0,
+        outputsWithIssues = [],
+        outputsWithoutIssues = [],
+        allOutputs = [];
+      tempOutputLogReport.forEach((row) => {
+        if (row.output !== lastOutput) {
+          // new section
+          allOutputs.push(row.output);
+          // console.log(lastOutput, row.output, currentIssuesInLog);
+          if (lastOutput !== "" && currentIssuesInLog > 0) {
+            // does previous section have issues
+            logsWithIssues++; // count the logs with issues
+            outputsWithIssues.push(lastOutput);
+          }
+          currentIssuesInLog = 0; // reset number of issues for the current log
+        }
+        if (row.issuenr > 0 && !row.ok) currentIssuesInLog++; // add one to the issues
+        // console.log(row.issuenr, !row.ok, currentIssuesInLog);
+        lastOutput = row.output;
+      });
+      if (lastOutput !== "" && currentIssuesInLog > 0) {
+        logsWithIssues++; // count the logs with issues
+        outputsWithIssues.push(lastOutput);
+      }
+      allOutputs.forEach((x) => {
+        if (!outputsWithIssues.includes(x)) outputsWithoutIssues.push(x);
+      });
+      console.log(
+        "logsWithIssues",
+        logsWithIssues,
+        "allOutputs",
+        allOutputs,
+        "outputsWithIssues",
+        outputsWithIssues,
+        "outputsWithoutIssues",
+        outputsWithoutIssues
+      );
+
+      // reconstruct programs/outputs graph by modifying sourceData
+      const { graph1, report1, report2 } = sourceData;
+      let cleanprograms = 0,
+        expectedprograms = 0,
+        issueprograms = 0;
+      report1.forEach((program) => {
+        expectedprograms++;
+        if (program.logcheck === "clean") {
+          cleanprograms++;
+        } else if (program.logcheck !== "no log!") issueprograms++;
+      });
+      // console.log(
+      //   "expectedprograms",
+      //   expectedprograms,
+      //   "issueprograms",
+      //   issueprograms,
+      //   "cleanprograms",
+      //   cleanprograms
+      // );
+
+      let cleanoutputs = 0,
+        expectedoutputs = 0,
+        issueoutputs = 0;
+      report2.forEach((output) => {
+        const logName = output.pathlog
+          ? output.pathlog.split("/").pop()
+          : output.datasetlogpath.split("/").pop();
+        expectedoutputs++;
+        // console.log("logName", logName, "output.logcheck", output.logcheck);
+        if (
+          output.logcheck === "clean" ||
+          outputsWithoutIssues.includes(logName)
+        ) {
+          cleanoutputs++;
+        } else if (output.logcheck !== "no log!") issueoutputs++;
+      });
+      // console.log(
+      //   "expectedoutputs",
+      //   expectedoutputs,
+      //   "issueoutputs",
+      //   issueoutputs,
+      //   "cleanoutputs",
+      //   cleanoutputs,
+      //   "sourceData",
+      //   sourceData
+      // );
+      const newSeries = [
+          {
+            name: "Completed",
+            data: [cleanprograms, cleanoutputs],
+          },
+          {
+            name: "Issues",
+            data: [issueprograms, issueoutputs],
+          },
+          {
+            name: "Expected",
+            data: [
+              expectedprograms - issueprograms - cleanprograms,
+              expectedoutputs - cleanoutputs - issueoutputs,
+            ],
+          },
+        ],
+        newGraph1 = { ...graph1, series: newSeries };
+      console.log("newSeries", newSeries);
+      setGraph1(newGraph1);
+    }
+    // eslint-disable-next-line
   }, [userJson]);
+
+  // console.log("radialRef", radialRef);
 
   return (
     <Box>
@@ -793,15 +1077,18 @@ const App = () => {
         <Grid2 item xs={12} sx={{ ml: 3, mt: 3 }}>
           {info && info.retext && (
             <>
-              <Tooltip title="Add a comment">
-                <IconButton
-                  onClick={() => {
-                    setOpenUserInput(true);
-                  }}
+              {studyList && (
+                <Button
+                  aria-describedby={popId}
+                  size="small"
+                  variant="contained"
+                  color="secondary"
+                  sx={{ mr: 3 }}
+                  onClick={handlePopClick}
                 >
-                  <InsertComment />
-                </IconButton>
-              </Tooltip>
+                  Choose Study
+                </Button>
+              )}
 
               <Button
                 size="small"
@@ -815,18 +1102,6 @@ const App = () => {
                   " at " +
                   info.statusReportCreateTime}
               </Button>
-              {studyList && (
-                <Button
-                  aria-describedby={popId}
-                  size="small"
-                  variant="contained"
-                  color="info"
-                  sx={{ mr: 3 }}
-                  onClick={handlePopClick}
-                >
-                  Choose Study
-                </Button>
-              )}
               <Popover
                 id={popId}
                 open={popOpen}
@@ -960,17 +1235,22 @@ const App = () => {
             </IconButton>
           </Tooltip>
         </Grid2> */}
+
         <Grid2 item xs={6}>
           {graph1 && (
             <HighchartsReact highcharts={Highcharts} options={graph1} />
           )}
-          {graph3 && info.EVENTTYPE === "crooversight" && (
+          {/* {graph3 && info.EVENTTYPE === "crooversight" && (
             <HighchartsReact highcharts={Highcharts} options={graph3} />
-          )}
+          )} */}
         </Grid2>
         <Grid2 item xs={6}>
           {graph2 && info.EVENTTYPE === "crooversight" && (
-            <HighchartsReact highcharts={Highcharts} options={graph2} />
+            <HighchartsReact
+              highcharts={Highcharts}
+              options={graph2}
+              ref={radialRef}
+            />
           )}
           {/* {(!graph2 || info.EVENTTYPE !== "crooversight") && (
             <Chip
@@ -1042,45 +1322,17 @@ const App = () => {
           </Container>
         </Grid2>
         <Grid2 item xs={6}>
-          <Container
-            sx={{
-              height: sectionSizes[1],
-              maxHeight: sectionSizes[1],
-              // height: outputLogReport.length * 22,
-              // maxHeight: outputLogReport.length * 22,
-              // width: windowDimension.winWidth / 2 - 50,
-              // minWidth: windowDimension.winWidth / 2 - 50,
-            }}
-          >
-            {outputLogReport && (
-              <DataGridPro
-                treeData
-                defaultGroupingExpansionDepth={-1}
-                getTreeDataPath={(row) => row.col1}
-                rows={outputLogReport}
-                columns={colsOutputLogReport}
-                density="compact"
-                rowHeight={30}
-                hideFooter={true}
-                sx={{
-                  fontSize: "0.8em",
-                }}
-              />
-            )}
-          </Container>
-        </Grid2>
-        <Grid2 item xs={12}>
           <Box
             sx={{
               // border: 2,
               // m: 1,
               // fontSize: fontSize,
-              height: sectionSizes[2],
-              maxHeight: sectionSizes[2],
+              height: sectionSizes[1],
+              maxHeight: sectionSizes[1],
               // height: report2.length * 32,
               // maxHeight: report2.length * 32,
-              width: windowDimension.winWidth - 50,
-              minWidth: windowDimension.winWidth - 50,
+              // width: windowDimension.winWidth - 50,
+              // minWidth: windowDimension.winWidth - 50,
               // overflow: "auto",
             }}
           >
@@ -1117,13 +1369,67 @@ const App = () => {
                     return "note";
                   } else return;
                 }}
+                onRowClick={(params) => {
+                  const { row } = params,
+                    { pathlog } = row;
+                  let logName = "";
+                  if (pathlog) logName = pathlog.split("/").pop();
+                  const rowIndex = outputLogReport
+                    .map((e) => e.output)
+                    .indexOf(logName);
+                  console.log(row, logName, rowIndex);
+
+                  apiRef.current.scrollToIndexes({
+                    rowIndex: rowIndex,
+                    colIndex: 0,
+                  });
+                  // apiRef.current.setCellFocus({ id: rowIndex, field: "ok" });
+                  window.find(logName);
+                }}
               />
             )}
           </Box>
         </Grid2>
+        <Grid2 item xs={12}>
+          <Container
+            sx={{
+              height: sectionSizes[2],
+              maxHeight: sectionSizes[2],
+              // height: outputLogReport.length * 22,
+              // maxHeight: outputLogReport.length * 22,
+              // width: windowDimension.winWidth / 2 - 50,
+              // minWidth: windowDimension.winWidth / 2 - 50,
+            }}
+          >
+            {outputLogReport && (
+              <DataGridPro
+                treeData
+                defaultGroupingExpansionDepth={-1}
+                getTreeDataPath={(row) => row.col1}
+                rows={outputLogReport}
+                columns={colsOutputLogReport}
+                density="compact"
+                rowHeight={30}
+                hideFooter={true}
+                apiRef={apiRef}
+                sx={{
+                  fontSize: "0.8em",
+                }}
+              />
+            )}
+          </Container>
+        </Grid2>
       </Grid2>
       {openUserInput && (
-        <UserInput open={openUserInput} setOpen={setOpenUserInput} />
+        <UserInput
+          open={openUserInput}
+          setOpen={setOpenUserInput}
+          userJson={userJson}
+          userJsonFile={userJsonFile}
+          rowToCheck={rowToCheck}
+          setUserJson={setUserJson}
+          idClickedOn={idClickedOn}
+        />
       )}
     </Box>
   );

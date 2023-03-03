@@ -1,35 +1,79 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import {
-  FormControlLabel,
-  FormControl,
-  Box,
+  Grid,
   Button,
   Dialog,
   DialogActions,
   DialogContent,
   DialogContentText,
   DialogTitle,
-  FormLabel,
-  RadioGroup,
-  Radio,
+  TextField,
 } from "@mui/material";
 import { updateJsonFile } from "./utility";
 
 const UserInput = (props) => {
-  const { open, setOpen } = props,
-    overridePrograms = true; // placeholder - to be removed
-
-  const handleClose = () => {
+  const {
+      open,
+      setOpen,
+      userJson,
+      userJsonFile,
+      rowToCheck,
+      setUserJson,
+      idClickedOn,
+    } = props,
+    { output, issuenr, id } = rowToCheck,
+    { col2 } = rowToCheck,
+    [comment, setComment] = useState(""),
+    [user, setUser] = useState(""),
+    // handleChange = (e, key, field, id) => {
+    //   // eslint-disable-next-line
+    //   const obj = eval(key);
+    //   console.log(e, key, obj, id);
+    //   obj[id][field] = e.target.value;
+    //   obj[id].ok = e.target.value ? true : false;
+    // },
+    handleClose = () => {
       setOpen(false);
     },
-    handleSave = () => {
-      // save choice sthe user made to a corresponding JSON file on server
-      console.log("saving");
+    approve = (ok) => {
+      // save choice the user made to a corresponding JSON file on server
+      console.log("saving ", userJsonFile, "comment:", comment);
       // create some JSON that we can specifically tie to this report, perhaps with date/time/directory
-      updateJsonFile();
+      const newContent = {
+        output: output,
+        issuenr: issuenr,
+        id: id,
+        ok: ok,
+        user: user,
+        comment: comment,
+        datetime: new Date().toUTCString(),
+      };
+      console.log(
+        "userJson",
+        userJson,
+        "userJsonFile",
+        userJsonFile,
+        "rowToCheck",
+        rowToCheck
+      );
+      const allButNew = userJson ? userJson.filter((row) => row.id !== id) : [],
+        newJsonContent = [...allButNew, newContent];
+      console.log("newJsonContent", newJsonContent);
+      setUserJson(newJsonContent);
+      updateJsonFile(userJsonFile, newJsonContent);
       setOpen(false);
-    },
-    changeOverridePrograms = () => {};
+    };
+
+  useEffect(() => {
+    if (!userJson) return;
+    const idToUse = userJson.filter((row) => row.id === idClickedOn);
+    if (idToUse && idToUse[0]) {
+      // console.log(idToUse[0].comment, idToUse[0].user);
+      setComment(idToUse[0].comment || comment);
+      setUser(idToUse[0].user || user);
+    }
+    // eslint-disable-next-line
+  }, [userJson]);
 
   return (
     <React.Fragment>
@@ -39,48 +83,58 @@ const UserInput = (props) => {
         open={open}
         onClose={handleClose}
       >
-        <DialogTitle>Manual Checks</DialogTitle>
+        <DialogTitle>Approve a message (if OK)</DialogTitle>
         <DialogContent>
-          <DialogContentText>
-            Carry out a manual review entering your decisions.
+          <DialogContentText sx={{ mb: 3 }}>
+            Enter a comment if the line is considered OK.
           </DialogContentText>
-          <Box
-            noValidate
-            component="form"
-            sx={{
-              display: "flex",
-              flexDirection: "column",
-              m: "auto",
-              width: "fit-content",
-            }}
-          >
-            <FormControl sx={{ mt: 2, minWidth: 120 }}>
-              <FormLabel id="radio-override">
-                Override Programs/Outputs
-              </FormLabel>
-              <>
-                list each program/output here with radio beside it showing
-                current state and allowing override
-              </>
-              <RadioGroup
-                aria-labelledby="radio-override"
-                name="radio-override-group"
-                value={overridePrograms}
-                onChange={changeOverridePrograms}
-              >
-                <FormControlLabel
-                  value="1"
-                  control={<Radio />}
-                  label="Complete"
-                />
-                <FormControlLabel value="0" control={<Radio />} label="Issue" />
-              </RadioGroup>
-            </FormControl>
-          </Box>
+          <Grid container spacing={2}>
+            <Grid item xs={12}>
+              <TextField
+                label="Message"
+                value={col2}
+                disabled={true}
+                sx={{ width: "100%" }}
+              />
+            </Grid>
+            <Grid item xs={12}>
+              <TextField
+                label="Comment"
+                value={comment}
+                onChange={(e) => {
+                  setComment(e.target.value);
+                }}
+                sx={{ width: "100%" }}
+              />
+            </Grid>
+            <Grid item xs={6}>
+              <TextField
+                label="User ID"
+                value={user}
+                onChange={(e) => {
+                  setUser(e.target.value);
+                }}
+                sx={{ width: "100%" }}
+              />
+            </Grid>
+          </Grid>
         </DialogContent>
         <DialogActions>
+          <Button
+            onClick={() => approve(false)}
+            variant={"contained"}
+            color={"error"}
+          >
+            Not OK
+          </Button>
           <Button onClick={handleClose}>Cancel</Button>
-          <Button onClick={handleSave}>Save</Button>
+          <Button
+            onClick={() => approve(true)}
+            variant={"contained"}
+            color={"success"}
+          >
+            OK
+          </Button>
         </DialogActions>
       </Dialog>
     </React.Fragment>

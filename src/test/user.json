@@ -1,6 +1,47 @@
-{
-  "date": "20FEB23",
-  "time": "02:45",
-  "study": "/argx-117/mmn/argx-117-2002/patient_profiles",
-  "report1": [{ "program": "", "err": 0, "war": 0 }]
-}
+[
+  {
+    "output": "f_14.2.2.10.1_f_mean_pdconc_freeC2.log",
+    "issuenr": 2,
+    "id": 2,
+    "ok": true,
+    "user": "pmason",
+    "comment": "test",
+    "datetime": "Thu, 02 Mar 2023 10:59:53 GMT"
+  },
+  {
+    "output": "f_14.2.2.10.1_f_mean_pdconc_freeC2.log",
+    "issuenr": 3,
+    "id": 3,
+    "ok": true,
+    "user": "pmason",
+    "comment": "test",
+    "datetime": "Thu, 02 Mar 2023 11:00:01 GMT"
+  },
+  {
+    "output": "f_14.2.2.10.1_f_mean_pdconc_freeC2.log",
+    "issuenr": 1,
+    "id": 1,
+    "ok": true,
+    "user": "pmason",
+    "comment": "test",
+    "datetime": "Thu, 02 Mar 2023 11:12:03 GMT"
+  },
+  {
+    "output": "f_14.3.4.16_f_corr_dose_cyto.log",
+    "issuenr": 1,
+    "id": 61,
+    "ok": true,
+    "user": "pmason",
+    "comment": "test",
+    "datetime": "Thu, 02 Mar 2023 14:11:20 GMT"
+  },
+  {
+    "output": "f_14.3.4.16_f_corr_dose_cyto.log",
+    "issuenr": 2,
+    "id": 62,
+    "ok": true,
+    "user": "pmason",
+    "comment": "test",
+    "datetime": "Thu, 02 Mar 2023 14:55:22 GMT"
+  }
+]

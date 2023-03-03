@@ -67,34 +67,49 @@ export const getDir = async (url, depth, callback) => {
 };
 
 export const updateJsonFile = (file, content) => {
-  console.log("updateJsonFile");
+  console.log("updateJsonFile - file:", file, "content:", content);
+  if (!file || !content) return;
+  // try to delete the file, in case it is there already, otherwise the PUT will not work
   fetch(file, {
-    method: "PUT",
-    headers: {
-      "Content-type": "application/json; charset=UTF-8",
-    },
-    body: JSON.stringify(content),
+    method: "DELETE",
   })
     .then((response) => {
       console.log("response", response);
-      response.text().then(function (text) {
-        console.log("text", text);
-        // setWaitGetDir(false);
-      });
+      fetch(file, {
+        method: "PUT",
+        headers: {
+          "Content-type": "application/json; charset=UTF-8",
+        },
+        body: JSON.stringify(content),
+      })
+        .then((response) => {
+          console.log("response", response);
+          response.text().then(function (text) {
+            console.log("text", text);
+          });
+        })
+        .catch((err) => console.log("PUT err: ", err));
     })
-    .catch((err) => console.log("err: ", err));
+    .catch((err) => console.log("DELETE err: ", err));
 };
 
+// get a JSON file and use setContent to content from file, or else to false
 export const getJsonFile = (file, setContent) => {
   console.log("getJsonFile - file: ", file);
-  fetch(file).then(function (response) {
-    console.log("response", response);
-    if (response.type === "cors" || response.status !== 200) return;
-    response.text().then(function (text) {
-      console.log("text", text);
-      setContent(text);
-      // TODO: use the info that comes back to modify the status of programs and outputs, which then affects the color of bars
-      //  setWaitGetDir(false);
+  fetch(file)
+    .then(function (response) {
+      if (response.type === "cors" || response.status !== 200) {
+        setContent(false);
+        return;
+      }
+      response.text().then(function (text) {
+        const json = JSON.parse(text);
+        console.log("json", json);
+        setContent(json);
+      });
+    })
+    .catch((err) => {
+      console.log("getJsonFile - err: ", err);
+      setContent(false);
     });
-  });
 };
