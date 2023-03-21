@@ -12,7 +12,7 @@ import {
   Popover,
 } from "@mui/material";
 import Grid2 from "@mui/material/Unstable_Grid2";
-import { QuestionMark, SwapVertSharp, Done, Close } from "@mui/icons-material";
+import { QuestionMark, Done, Close } from "@mui/icons-material";
 import UserInput from "./UserInput";
 // import Button from "@mui/material-next/Button";
 import Select from "react-select";
@@ -21,7 +21,12 @@ import Highcharts from "highcharts";
 // import Treemap from "highcharts/modules/treemap";
 import More from "highcharts/highcharts-more";
 import HighchartsReact from "highcharts-react-official";
-import { DataGridPro, useGridApiRef, LicenseInfo } from "@mui/x-data-grid-pro";
+import {
+  DataGridPro,
+  useGridApiRef,
+  LicenseInfo,
+  gridClasses,
+} from "@mui/x-data-grid-pro";
 import all from "./test/all.json"; // /argx-113/cidp/argx-113-1802/testrun1/qc_adam
 // import all from "./test/all2.json"; // /argx-117/hv/argx-117-1901/mad5_tables
 // import all from "./test/all3.json"; // /argx-113/x-ind/argx-113-0000/generic_adam
@@ -51,6 +56,7 @@ const App = () => {
     }),
     detectSize = () => {
       calcSectionSizes();
+      console.log("sectionSizes", sectionSizes);
       detectHW({
         winWidth: window.innerWidth,
         winHeight: window.innerHeight,
@@ -58,7 +64,8 @@ const App = () => {
     },
     [openUserInput, setOpenUserInput] = useState(false),
     topSpace = 350,
-    [alternateLayout, setAlternateLayout] = useState(true),
+    gridFontSize = 0.6,
+    [alternateLayout] = useState(true),
     [sectionSizes, setSectionSizes] = useState([topSpace, 200, 200]),
     calcSectionSizes = () => {
       const section2 = Math.floor((windowDimension.winHeight - topSpace) / 2),
@@ -72,6 +79,8 @@ const App = () => {
     webDavPrefix = "https://xarprod.ondemand.sas.com/lsaf/webdav/repo",
     [report1a, setReport1a] = useState(null),
     [colsReport1a, setColsReport1a] = useState(null),
+    [report1b, setReport1b] = useState(null),
+    [colsReport1b, setColsReport1b] = useState(null),
     [report2, setReport2] = useState(null),
     [colsReport2, setColsReport2] = useState(null),
     [outputLogReport, setOutputLogReport] = useState(null),
@@ -195,10 +204,16 @@ const App = () => {
               else return true;
             });
         setStudyList(tempStudyList);
-        // if a study wasnt passed in on the URL, then just pick the first available study to show
+        console.log("href", href);
+        // if a study wasn't passed in on the URL, then just pick the first available study to show
         if (href.split("?").length === 1) {
           setSelectedStudy(tempStudyList[0].value);
           loadFiles(webDavPrefix + tempStudyList[0].value);
+        } else if (href.split("?").length > 1) {
+          const file1 = href.split("?")[1].split("=")[1];
+          console.log("file1", file1);
+          setSelectedStudy(file1);
+          loadFiles(webDavPrefix + file1);
         }
       });
     });
@@ -228,6 +243,7 @@ const App = () => {
     // eslint-disable-next-line
   }, [href]);
 
+  // do this when sourceData changes
   useEffect(() => {
     console.log("sourceData", sourceData);
     if (!sourceData) return;
@@ -241,6 +257,17 @@ const App = () => {
           ...r,
         };
       }),
+      tempReport1b = sourceData.report1
+        .filter((r) => {
+          return (
+            r.headercheck !== "all clean" &&
+            r.headercheck !== "" &&
+            r.headerfailmess !== "All pass"
+          );
+        })
+        .map((r, id) => {
+          return { id: id, ...r };
+        }),
       tempReport2 = sourceData.report2.map((r, id) => {
         return { id: id, ...r };
       }),
@@ -249,11 +276,19 @@ const App = () => {
       });
     setReport1a(tempReport1a);
     setColsReport1a([
-      { field: "sas_program", headerName: "SAS program", width: 125 },
+      {
+        field: "sas_program",
+        headerName: "SAS program",
+        headerClassName: "header",
+        width: 80,
+        sortable: false,
+      },
       {
         field: "sasprog_exist",
         headerName: "Program file exists",
-        width: 90,
+        headerClassName: "header",
+        width: 60,
+        sortable: false,
         renderCell: (cellValues) => {
           const { value, row } = cellValues,
             { path } = row;
@@ -267,7 +302,8 @@ const App = () => {
                 onClick={() => {
                   window.open(fileViewerPrefix + path, "_blank");
                 }}
-                label={"View"}
+                label={"Yes"}
+                sx={{ fontSize: gridFontSize + 0.3 + "em" }}
               />
             );
           } else
@@ -276,56 +312,122 @@ const App = () => {
                 variant="outlined"
                 size="small"
                 color="error"
-                label={"Missing"}
+                label={"No"}
+                sx={{ fontSize: gridFontSize + 0.3 + "em" }}
               />
             );
         },
       },
-      { field: "jobname", headerName: "Job file", width: 125 },
       {
-        field: "manifestname",
-        headerName: "Manifest",
-        width: 125,
-        renderCell: (cellValues) => {
-          const { value } = cellValues;
-          if (value) {
-            return (
-              <Chip
-                size="small"
-                variant="outlined"
-                color="info"
-                onClick={() => {
-                  window.open(fileViewerPrefix + value, "_blank");
-                }}
-                label={"View"}
-              />
-            );
-          } else
-            return (
-              <Chip
-                variant="outlined"
-                size="small"
-                color="error"
-                label={"Missing"}
-              />
-            );
-        },
+        field: "jobname",
+        headerName: "Job file",
+        headerClassName: "header",
+        width: 90,
+        sortable: false,
       },
-      { field: "err", headerName: "Errors", width: 30 },
-      { field: "war", headerName: "Warnings", width: 30 },
-      { field: "un", headerName: "Uninitialized", width: 30 },
-      { field: "note", headerName: "Notes", width: 30 },
-      { field: "headerFails", headerName: "Header Fail", width: 30 },
-      { field: "headerPasses", headerName: "Header Pass", width: 30 },
+      {
+        field: "logcheck",
+        headerName: "Job log file",
+        headerClassName: "header",
+        width: 140,
+        flex: 1,
+        sortable: false,
+      },
+      {
+        field: "headercheck",
+        headerName: "Program header checks",
+        headerClassName: "header",
+        width: 100,
+        sortable: false,
+      },
+      // {
+      //   field: "manifestname",
+      //   headerName: "Manifest",
+      //   width: 125,
+      //   sortable: false,
+      //   renderCell: (cellValues) => {
+      //     const { value } = cellValues;
+      //     if (value) {
+      //       return (
+      //         <Chip
+      //           size="small"
+      //           variant="outlined"
+      //           color="info"
+      //           onClick={() => {
+      //             window.open(fileViewerPrefix + value, "_blank");
+      //           }}
+      //           label={"View"}
+      //         />
+      //       );
+      //     } else
+      //       return (
+      //         <Chip
+      //           variant="outlined"
+      //           size="small"
+      //           color="error"
+      //           label={"Missing"}
+      //         />
+      //       );
+      //   },
+      // },
+      // { field: "err", headerName: "Errors", width: 30, sortable: false },
+      // { field: "war", headerName: "Warnings", width: 30, sortable: false },
+      // { field: "un", headerName: "Uninitialized", width: 30, sortable: false },
+      // { field: "note", headerName: "Notes", width: 30, sortable: false },
+      // {
+      //   field: "headerFails",
+      //   headerName: "Header Fail",
+      //   width: 30,
+      //   sortable: false,
+      // },
+      // {
+      //   field: "headerPasses",
+      //   headerName: "Header Pass",
+      //   width: 30,
+      //   sortable: false,
+      // },
+    ]);
+    setReport1b(tempReport1b);
+    setColsReport1b([
+      {
+        field: "sas_program",
+        headerName: "SAS program",
+        headerClassName: "header",
+        width: 125,
+        sortable: false,
+      },
+      {
+        field: "headercheck",
+        headerName: "Program header checks",
+        headerClassName: "header",
+        width: 150,
+        sortable: false,
+      },
+      {
+        field: "headerfailmess",
+        headerName: "detail",
+        headerClassName: "header",
+        width: "240",
+        flex: 1,
+        sortable: false,
+      },
     ]);
 
     setReport2(tempReport2);
     setColsReport2([
-      { field: "section", headerName: "SAP section" },
+      {
+        field: "section",
+        headerName: "SAP section",
+        headerClassName: "header",
+        width: 30,
+        sortable: false,
+      },
       {
         field: "type",
-        headerName: "Type",
+        headerName: "Output type",
+        headerClassName: "header",
         width: 30,
+        sortable: false,
         renderCell: (cellValues) => {
           const { value } = cellValues;
           if (value) {
@@ -352,13 +454,17 @@ const App = () => {
       {
         field: "output",
         headerName: "Output",
-        width: 300,
+        headerClassName: "header",
+        width: 60,
+        sortable: false,
         renderCell: (cellValues) => {
           const { value, row } = cellValues;
           if (value) {
             return (
               <Tooltip title={row.Title}>
-                <Typography sx={{ fontSize: 12 }}>{value}</Typography>
+                <Typography sx={{ fontSize: gridFontSize + 0.2 + "em" }}>
+                  {value}
+                </Typography>
               </Tooltip>
             );
           }
@@ -370,7 +476,9 @@ const App = () => {
       {
         field: "pathtxt",
         headerName: "txt",
-        width: 25,
+        headerClassName: "header",
+        width: 15,
+        sortable: false,
         renderCell: (cellValues) => {
           // console.log(cellValues);
           const { value } = cellValues;
@@ -404,7 +512,9 @@ const App = () => {
       {
         field: "pathpdf",
         headerName: "pdf",
-        width: 25,
+        headerClassName: "header",
+        width: 15,
+        sortable: false,
         renderCell: (cellValues) => {
           const { value } = cellValues;
           if (value) {
@@ -434,9 +544,18 @@ const App = () => {
         },
       },
       {
+        field: "logcheck",
+        headerName: "Output log file",
+        headerClassName: "header",
+        flex: 1,
+        sortable: false,
+      },
+      {
         field: "pathlog",
         headerName: "log",
-        width: 25,
+        headerClassName: "header",
+        width: 15,
+        sortable: false,
         renderCell: (cellValues) => {
           const { value } = cellValues;
           if (value) {
@@ -460,18 +579,26 @@ const App = () => {
             );
         },
       },
-      { field: "err", headerName: "Errors", width: 30 },
-      { field: "war", headerName: "Warnings", width: 30 },
-      { field: "un", headerName: "UnInitialized", width: 30 },
-      { field: "note", headerName: "Notes", width: 30 },
+      // { field: "err", headerName: "Errors", width: 30, sortable: false },
+      // { field: "war", headerName: "Warnings", width: 30, sortable: false },
+      // { field: "un", headerName: "UnInitialized", width: 30, sortable: false },
+      // { field: "note", headerName: "Notes", width: 30, sortable: false },
       {
         field: "dateLastModifiedlog",
-        headerName: "Last modification (log)",
-        width: 140,
+        headerName: "Last modification",
+        headerClassName: "header",
+        width: 100,
+        sortable: false,
       },
-      { field: "programmer", headerName: "Programmer" },
-      { field: "Reviewer", headerName: "Reviewer" },
-      { field: "qcstatus", headerName: "QC status" },
+      {
+        field: "programmer",
+        headerName: "Programmer",
+        headerClassName: "header",
+        width: 90,
+        sortable: false,
+      },
+      // { field: "Reviewer", headerName: "Reviewer", sortable: false },
+      // { field: "qcstatus", headerName: "QC status", sortable: false },
     ]);
     const tempInfo = sourceData.info[0];
     setInfo(tempInfo);
@@ -535,6 +662,8 @@ const App = () => {
       {
         field: "col1",
         headerName: "Log output",
+        headerClassName: "header",
+        sortable: false,
         renderCell: (cellValues) => {
           // console.log(cellValues);
           const { value, row } = cellValues,
@@ -550,11 +679,20 @@ const App = () => {
           } else return null;
         },
       },
-      { field: "col2", headerName: "Messages", width: 300, flex: 1 },
+      {
+        field: "col2",
+        headerName: "Messages",
+        headerClassName: "header",
+        width: 300,
+        sortable: false,
+        flex: 1,
+      },
       {
         field: "ok",
         headerName: "OK",
+        headerClassName: "header",
         width: 30,
+        sortable: false,
         renderCell: (cellValues) => {
           const { value, row } = cellValues,
             { line, id } = row;
@@ -806,7 +944,7 @@ const App = () => {
       //           dataLabels: {
       //             enabled: true,
       //             style: {
-      //               fontSize: "14px",
+      //               fontSize: gridFontSize+"em",
       //             },
       //           },
       //           borderWidth: 3,
@@ -945,20 +1083,34 @@ const App = () => {
   useEffect(() => {
     if (userJson && sourceData && outputLogReport) {
       const tempOutputLogReport = [...outputLogReport];
-      // console.log(
-      //   "userJson has changed: ",
-      //   userJson,
-      //   "tempOutputLogReport",
-      //   tempOutputLogReport
-      // );
+      console.log(
+        "userJson has changed: ",
+        userJson,
+        "tempOutputLogReport",
+        tempOutputLogReport
+      );
       userJson.forEach((item) => {
-        // console.log(tempOutputLogReport, tempOutputLogReport[item.id], item.ok);
-        if (tempOutputLogReport[item.id])
-          tempOutputLogReport[item.id].ok = item.ok;
+        const row = tempOutputLogReport[item.id];
+        console.log(
+          "row",
+          row,
+          "item.id",
+          item.id,
+          "item.ok",
+          item.ok,
+          "item.col2",
+          item.col2,
+          "item.issuenr",
+          item.issuenr
+        );
+        // if we have an override in user.json, then use that value
+        if (row) {
+          if (row.col2 === item.col2) row.ok = item.ok;
+        }
       });
       setOutputLogReport(tempOutputLogReport);
 
-      // TODO: re-check data to see if we can update data for graphs. i.e. if all issues are marked as OK, then that output can be marked Completed
+      // re-check data to see if we can update data for graphs. i.e. if all issues are marked as OK, then that output can be marked Completed
       let lastOutput = "",
         currentIssuesInLog = 0,
         logsWithIssues = 0,
@@ -1069,7 +1221,7 @@ const App = () => {
     // eslint-disable-next-line
   }, [userJson]);
 
-  // console.log("radialRef", radialRef);
+  // console.log("report1b", report1b);
 
   return (
     <Box>
@@ -1205,7 +1357,7 @@ const App = () => {
                 </Button>
               </Tooltip>
             ))}
-          <Tooltip
+          {/* <Tooltip
             title={
               alternateLayout
                 ? "Switch to one page layout"
@@ -1221,7 +1373,7 @@ const App = () => {
             >
               <SwapVertSharp />
             </IconButton>
-          </Tooltip>
+          </Tooltip> */}
         </Grid2>
         {/* <Grid2 item xs={6}>
           <Tooltip title="Reduce size of font">
@@ -1263,25 +1415,28 @@ const App = () => {
 
         <Grid2 item xs={6}>
           <Container
-            sx={{
-              height: sectionSizes[1],
-              maxHeight: sectionSizes[1],
-              // height: report1a.length * 32,
-              // maxHeight: report1a.length * 32,
-              // width: windowDimension.winWidth / 2 - 50,
-              // minWidth: windowDimension.winWidth / 2 - 50,
-            }}
+            sx={
+              {
+                // height: sectionSizes[1],
+                // maxHeight: sectionSizes[1],
+                // width: windowDimension.winWidth / 2 - 50,
+                // minWidth: windowDimension.winWidth / 2 - 50,
+              }
+            }
           >
             {report1a && (
               <DataGridPro
                 rows={report1a}
                 columns={colsReport1a}
+                disableColumnMenu
+                canUserSort={false}
                 density="compact"
                 rowHeight={42}
+                autoHeight
                 hideFooter={true}
                 defaultGroupingExpansionDepth={-1}
                 sx={{
-                  fontSize: "0.8em",
+                  fontSize: gridFontSize + "em",
                   "& .note": {
                     backgroundColor: "#e6f7ff",
                     color: "#0000ff",
@@ -1293,6 +1448,17 @@ const App = () => {
                   "& .red": {
                     backgroundColor: "#ffe6e6",
                     color: "#0000ff",
+                  },
+                  "& .header": {
+                    backgroundColor: "rgba(255, 255, 80, .33)",
+                  },
+                  "& .MuiDataGrid-columnHeaderTitle": {
+                    lineHeight: 1,
+                    whiteSpace: "normal",
+                  },
+                  "& .MuiDataGrid-columnHeaderTitleContainer": {
+                    lineHeight: 1,
+                    whiteSpace: "normal",
                   },
                 }}
                 getCellClassName={(params) => {
@@ -1319,32 +1485,24 @@ const App = () => {
                 }}
               />
             )}
-          </Container>
-        </Grid2>
-        <Grid2 item xs={6}>
-          <Box
-            sx={{
-              // border: 2,
-              // m: 1,
-              // fontSize: fontSize,
-              height: sectionSizes[1],
-              maxHeight: sectionSizes[1],
-              // height: report2.length * 32,
-              // maxHeight: report2.length * 32,
-              // width: windowDimension.winWidth - 50,
-              // minWidth: windowDimension.winWidth - 50,
-              // overflow: "auto",
-            }}
-          >
-            {report2 && (
+            {report1b && report1b.length > 0 ? (
               <DataGridPro
-                rows={report2}
-                columns={colsReport2}
+                rows={report1b}
+                columns={colsReport1b}
+                disableColumnMenu
+                canUserSort={false}
                 density="compact"
-                rowHeight={42}
+                // rowHeight={42}
+                getRowHeight={() => "auto"}
+                autoHeight
                 hideFooter={true}
+                defaultGroupingExpansionDepth={-1}
                 sx={{
-                  fontSize: "0.8em",
+                  fontSize: gridFontSize + "em",
+                  mt: 2,
+                  [`& .${gridClasses.cell}`]: {
+                    py: 1,
+                  },
                   "& .note": {
                     backgroundColor: "#e6f7ff",
                     color: "#0000ff",
@@ -1356,6 +1514,93 @@ const App = () => {
                   "& .red": {
                     backgroundColor: "#ffe6e6",
                     color: "#0000ff",
+                  },
+                  "& .header": {
+                    backgroundColor: "rgba(255, 255, 80, 0.33)",
+                  },
+                  "& .MuiDataGrid-columnHeaderTitle": {
+                    lineHeight: 1,
+                    whiteSpace: "normal",
+                  },
+                  "& .MuiDataGrid-columnHeaderTitleContainer": {
+                    lineHeight: 1,
+                    whiteSpace: "normal",
+                  },
+                }}
+                getCellClassName={(params) => {
+                  if (params.field === "err" && params.value > 0) {
+                    return "red";
+                  } else if (params.field === "war" && params.value > 0) {
+                    return "amber";
+                  } else if (params.field === "un" && params.value > 0) {
+                    return "note";
+                  } else if (params.field === "note" && params.value > 0) {
+                    return "note";
+                  } else if (
+                    params.field === "headerFails" &&
+                    params.value > 0
+                  ) {
+                    return "red";
+                  } else if (
+                    params.field === "logcheck" &&
+                    params.value !== "clean"
+                  ) {
+                    return "amber";
+                  } else return;
+                  // return params.value >= 15 ? "hot" : "cold";
+                }}
+              />
+            ) : null}
+          </Container>
+        </Grid2>
+        <Grid2 item xs={6}>
+          <Box
+            sx={
+              {
+                // border: 2,
+                // m: 1,
+                // fontSize: fontSize,
+                // height: sectionSizes[1],
+                // maxHeight: sectionSizes[1],
+                // width: windowDimension.winWidth - 50,
+                // minWidth: windowDimension.winWidth - 50,
+                // overflow: "auto",
+              }
+            }
+          >
+            {report2 && (
+              <DataGridPro
+                rows={report2}
+                columns={colsReport2}
+                disableColumnMenu
+                density="compact"
+                rowHeight={42}
+                autoHeight
+                hideFooter={true}
+                sx={{
+                  fontSize: gridFontSize + "em",
+                  "& .note": {
+                    backgroundColor: "#e6f7ff",
+                    color: "#0000ff",
+                  },
+                  "& .amber": {
+                    backgroundColor: "#fff5e6",
+                    color: "#0000ff",
+                  },
+                  "& .red": {
+                    backgroundColor: "#ffe6e6",
+                    color: "#0000ff",
+                  },
+                  "& .header": {
+                    backgroundColor: "rgba(255, 255, 80, 0.33)",
+                  },
+                  "& .MuiDataGrid-columnHeaderTitle": {
+                    lineHeight: 1,
+                    whiteSpace: "normal",
+                  },
+                  "& .MuiDataGrid-columnHeaderTitleContainer": {
+                    lineHeight: 1,
+                    whiteSpace: "normal",
                   },
                 }}
                 getCellClassName={(params) => {
@@ -1392,28 +1637,48 @@ const App = () => {
         </Grid2>
         <Grid2 item xs={12}>
           <Container
-            sx={{
-              height: sectionSizes[2],
-              maxHeight: sectionSizes[2],
-              // height: outputLogReport.length * 22,
-              // maxHeight: outputLogReport.length * 22,
-              // width: windowDimension.winWidth / 2 - 50,
-              // minWidth: windowDimension.winWidth / 2 - 50,
-            }}
+            sx={
+              {
+                // height: sectionSizes[2],
+                // maxHeight: sectionSizes[2],
+                // width: windowDimension.winWidth / 2 - 50,
+                // minWidth: windowDimension.winWidth / 2 - 50,
+              }
+            }
           >
-            {outputLogReport && (
+            {outputLogReport && outputLogReport.length > 0 && (
               <DataGridPro
                 treeData
                 defaultGroupingExpansionDepth={-1}
                 getTreeDataPath={(row) => row.col1}
                 rows={outputLogReport}
                 columns={colsOutputLogReport}
+                disableColumnMenu
                 density="compact"
                 rowHeight={30}
+                autoHeight
                 hideFooter={true}
                 apiRef={apiRef}
                 sx={{
-                  fontSize: "0.8em",
+                  fontSize: gridFontSize + "em",
+                  "& .header": {
+                    backgroundColor: "rgba(255, 255, 80, 0.33)",
+                    lineHeight: 1,
+                    whiteSpace: "normal",
+                  },
+                  "& .MuiDataGrid-columnHeader": {
+                    backgroundColor: "rgba(255, 255, 80, 0.33)",
+                    lineHeight: 1,
+                    whiteSpace: "normal",
+                  },
+                  "& .MuiDataGrid-columnHeaderTitle": {
+                    lineHeight: 1,
+                    whiteSpace: "normal",
+                  },
+                  "& .MuiDataGrid-columnHeaderTitleContainer": {
+                    lineHeight: 1,
+                    whiteSpace: "normal",
+                  },
                 }}
               />
             )}

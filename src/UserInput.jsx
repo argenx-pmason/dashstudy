@@ -21,10 +21,9 @@ const UserInput = (props) => {
       setUserJson,
       idClickedOn,
     } = props,
-    { output, issuenr, id } = rowToCheck,
-    { col2 } = rowToCheck,
+    { output, issuenr, id, col2 } = rowToCheck,
     [comment, setComment] = useState(""),
-    [user, setUser] = useState(""),
+    [user, setUser] = useState(localStorage.getItem("user") || ""),
     // handleChange = (e, key, field, id) => {
     //   // eslint-disable-next-line
     //   const obj = eval(key);
@@ -42,6 +41,7 @@ const UserInput = (props) => {
       const newContent = {
         output: output,
         issuenr: issuenr,
+        col2: col2,
         id: id,
         ok: ok,
         user: user,
@@ -54,8 +54,13 @@ const UserInput = (props) => {
         "userJsonFile",
         userJsonFile,
         "rowToCheck",
-        rowToCheck
+        rowToCheck,
+        "user",
+        user,
+        "newContent",
+        newContent
       );
+      if (ok) localStorage.setItem("user", user);
       const allButNew = userJson ? userJson.filter((row) => row.id !== id) : [],
         newJsonContent = [...allButNew, newContent];
       console.log("newJsonContent", newJsonContent);
@@ -129,7 +134,9 @@ const UserInput = (props) => {
           </Button>
           <Button onClick={handleClose}>Cancel</Button>
           <Button
-            onClick={() => approve(true)}
+            onClick={() => {
+              approve(true);
+            }}
             variant={"contained"}
             color={"success"}
           >
