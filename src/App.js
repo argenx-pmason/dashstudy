@@ -1,19 +1,29 @@
 import React, { useState, useEffect, createRef } from "react";
 import {
   Box,
-  Container,
   Tooltip,
   Typography,
-  Chip,
   Link,
-  Avatar,
   Button,
   IconButton,
   Popover,
+  Table,
+  TableHead,
+  TableRow,
+  TableBody,
+  TableCell,
+  TableContainer,
+  Paper,
 } from "@mui/material";
-import Grid2 from "@mui/material/Unstable_Grid2";
-import { QuestionMark, Done, Close } from "@mui/icons-material";
+import Grid from "@mui/material/Unstable_Grid2";
+import {
+  QuestionMark,
+  Done,
+  Close,
+  MenuBookTwoTone,
+} from "@mui/icons-material";
 import UserInput from "./UserInput";
+import OutputReview from "./OutputReview";
 // import Button from "@mui/material-next/Button";
 import Select from "react-select";
 import Highcharts from "highcharts";
@@ -37,6 +47,7 @@ import localiss from "./test/iss.json";
 import localstudies from "./test/dash-study-files.json";
 import localUserJson from "./test/user.json";
 import { getJsonFile } from "./utility";
+import Donut from "./pages/Donut.jsx";
 
 const App = () => {
   LicenseInfo.setLicenseKey(
@@ -72,6 +83,8 @@ const App = () => {
         section3 = Math.floor((windowDimension.winHeight - topSpace) / 2);
       setSectionSizes([topSpace, section2, section3]);
     },
+    [outputClickedOn, setOutputClickedOn] = useState(null),
+    [openOutputReview, setOpenOutputReview] = useState(null),
     logViewerPrefix =
       "https://xarprod.ondemand.sas.com/lsaf/filedownload/sdd:/general/biostat/tools/logviewer/index.html?log=",
     fileViewerPrefix =
@@ -90,7 +103,6 @@ const App = () => {
     [rowToCheck, setRowToCheck] = useState(null),
     [graph1, setGraph1] = useState(null),
     [graph2, setGraph2] = useState(null),
-    // [graph3, setGraph3] = useState(null),
     loadFiles = (url) => {
       fetch(url).then(function (response) {
         response.text().then(function (text) {
@@ -172,6 +184,7 @@ const App = () => {
             if (parts.length > 7) return parts[7] !== "generic_adam";
             else return true;
           });
+      // console.log("tempStudyList", tempStudyList);
       setStudyList(tempStudyList);
       return;
     }
@@ -245,7 +258,7 @@ const App = () => {
 
   // do this when sourceData changes
   useEffect(() => {
-    console.log("sourceData", sourceData);
+    console.log("INFO:\nsourceData", sourceData);
     if (!sourceData) return;
     const tempReport1a = sourceData.report1.map((r, id) => {
         const headerFails = r.headercheck ? r.headercheck.split(" ")[0] : null,
@@ -282,41 +295,34 @@ const App = () => {
         headerClassName: "header",
         width: 80,
         sortable: false,
+        renderCell: (cellValues) => {
+          const { value, row } = cellValues,
+            { path, sasprog_exist } = row;
+          if (sasprog_exist === "Yes") {
+            return (
+              <Tooltip title={"View program"}>
+                <Box
+                  sx={{ color: "blue" }}
+                  onClick={() => {
+                    window.open(fileViewerPrefix + path, "_blank");
+                  }}
+                >
+                  {value}
+                </Box>
+              </Tooltip>
+            );
+          } else {
+            return <Box>{value}</Box>;
+          }
+        },
       },
       {
         field: "sasprog_exist",
-        headerName: "Program file exists",
+        headerName: "Exists",
+        description: "Program file exists",
         headerClassName: "header",
-        width: 60,
+        width: 40,
         sortable: false,
-        renderCell: (cellValues) => {
-          const { value, row } = cellValues,
-            { path } = row;
-          // console.log(value, row, cellValues);
-          if (value === "Yes") {
-            return (
-              <Chip
-                size="small"
-                variant="outlined"
-                color="info"
-                onClick={() => {
-                  window.open(fileViewerPrefix + path, "_blank");
-                }}
-                label={"Yes"}
-                sx={{ fontSize: gridFontSize + 0.3 + "em" }}
-              />
-            );
-          } else
-            return (
-              <Chip
-                variant="outlined"
-                size="small"
-                color="error"
-                label={"No"}
-                sx={{ fontSize: gridFontSize + 0.3 + "em" }}
-              />
-            );
-        },
       },
       {
         field: "jobname",
@@ -324,6 +330,28 @@ const App = () => {
         headerClassName: "header",
         width: 90,
         sortable: false,
+        renderCell: (cellValues) => {
+          const { value } = cellValues;
+          if (value !== "no job") {
+            return (
+              <Tooltip title={"View job XML"}>
+                <Box
+                  sx={{ color: "blue" }}
+                  onClick={() => {
+                    window.open(
+                      fileViewerPrefix + info.REPATH + "/jobs/" + value,
+                      "_blank"
+                    );
+                  }}
+                >
+                  {value}
+                </Box>
+              </Tooltip>
+            );
+          } else {
+            return <Box>{value}</Box>;
+          }
+        },
       },
       {
         field: "logcheck",
@@ -332,60 +360,39 @@ const App = () => {
         width: 140,
         flex: 1,
         sortable: false,
+        renderCell: (cellValues) => {
+          const { value, row } = cellValues,
+            { sas_program } = row,
+            log = sas_program.split(".")[0] + ".log";
+          if (value !== "no log!") {
+            return (
+              <Tooltip title={"View log"}>
+                <Box
+                  sx={{ color: "blue" }}
+                  onClick={() => {
+                    window.open(
+                      logViewerPrefix + info.REPATH + "/log/" + log,
+                      "_blank"
+                    );
+                  }}
+                >
+                  {value}
+                </Box>
+              </Tooltip>
+            );
+          } else {
+            return <Box>{value}</Box>;
+          }
+        },
       },
       {
         field: "headercheck",
-        headerName: "Program header checks",
+        headerName: "Header checks",
+        description: "Program header checks",
         headerClassName: "header",
         width: 100,
         sortable: false,
       },
-      // {
-      //   field: "manifestname",
-      //   headerName: "Manifest",
-      //   width: 125,
-      //   sortable: false,
-      //   renderCell: (cellValues) => {
-      //     const { value } = cellValues;
-      //     if (value) {
-      //       return (
-      //         <Chip
-      //           size="small"
-      //           variant="outlined"
-      //           color="info"
-      //           onClick={() => {
-      //             window.open(fileViewerPrefix + value, "_blank");
-      //           }}
-      //           label={"View"}
-      //         />
-      //       );
-      //     } else
-      //       return (
-      //         <Chip
-      //           variant="outlined"
-      //           size="small"
-      //           color="error"
-      //           label={"Missing"}
-      //         />
-      //       );
-      //   },
-      // },
-      // { field: "err", headerName: "Errors", width: 30, sortable: false },
-      // { field: "war", headerName: "Warnings", width: 30, sortable: false },
-      // { field: "un", headerName: "Uninitialized", width: 30, sortable: false },
-      // { field: "note", headerName: "Notes", width: 30, sortable: false },
-      // {
-      //   field: "headerFails",
-      //   headerName: "Header Fail",
-      //   width: 30,
-      //   sortable: false,
-      // },
-      // {
-      //   field: "headerPasses",
-      //   headerName: "Header Pass",
-      //   width: 30,
-      //   sortable: false,
-      // },
     ]);
     setReport1b(tempReport1b);
     setColsReport1b([
@@ -395,6 +402,22 @@ const App = () => {
         headerClassName: "header",
         width: 125,
         sortable: false,
+        renderCell: (cellValues) => {
+          const { value, row } = cellValues,
+            { path } = row;
+          return (
+            <Tooltip title={"View program"}>
+              <Box
+                sx={{ color: "blue" }}
+                onClick={() => {
+                  window.open(fileViewerPrefix + path, "_blank");
+                }}
+              >
+                {value}
+              </Box>
+            </Tooltip>
+          );
+        },
       },
       {
         field: "headercheck",
@@ -417,68 +440,60 @@ const App = () => {
     setColsReport2([
       {
         field: "section",
-        headerName: "SAP section",
+        headerName: "SAP",
+        description: "SAP section",
         headerClassName: "header",
         width: 30,
         sortable: false,
       },
       {
         field: "type",
-        headerName: "Output type",
+        headerName: "Type",
+        description: "Output type",
         headerClassName: "header",
-        width: 30,
+        width: 65,
         sortable: false,
-        renderCell: (cellValues) => {
-          const { value } = cellValues;
-          if (value) {
-            let icon = "";
-            if (value === "Table") icon = "📄";
-            else if (value === "Listing") icon = "📜";
-            else if (value === "Figure") icon = "📊";
-            else if (value === "Dataset") icon = "💿";
-            else if (value === "ADaM") icon = "📗";
-            else icon = "❔";
-            return (
-              <Tooltip title={value}>
-                <Avatar
-                  variant="square"
-                  sx={{ bgcolor: "white", width: 16, height: 16 }}
-                >
-                  {icon}
-                </Avatar>
-              </Tooltip>
-            );
-          }
-        },
       },
       {
         field: "output",
         headerName: "Output",
         headerClassName: "header",
-        width: 60,
+        flex: 1,
         sortable: false,
         renderCell: (cellValues) => {
-          const { value, row } = cellValues;
+          const { value, row } = cellValues,
+            { datasetpath } = row;
           if (value) {
-            return (
-              <Tooltip title={row.Title}>
-                <Typography sx={{ fontSize: gridFontSize + 0.2 + "em" }}>
-                  {value}
-                </Typography>
-              </Tooltip>
-            );
+            if (datasetpath) {
+              return (
+                <Tooltip title={`Download the output data set: ${value}`}>
+                  <Link href={`${webDavPrefix}${datasetpath}`} target="_blank">
+                    {value}
+                  </Link>
+                </Tooltip>
+              );
+            } else
+              return (
+                <Tooltip title={row.Title}>
+                  <Typography sx={{ fontSize: gridFontSize + 0.3 + "em" }}>
+                    {value}
+                  </Typography>
+                </Tooltip>
+              );
           }
         },
       },
-      // { field: "logcheck", headerName: "logcheck" },
-      // { field: "pathtxt", headerName: "" },
-      // { field: "pathpdf", headerName: "" },
       {
         field: "pathtxt",
-        headerName: "txt",
+        headerName: "TXT",
         headerClassName: "header",
-        width: 15,
         sortable: false,
+        description: "Was a text file (or image) produced",
+        disableColumnMenu: true,
+        hideSortIcons: true,
+        maxWidth: 40,
+        minWidth: 25,
+        width: 25,
         renderCell: (cellValues) => {
           // console.log(cellValues);
           const { value } = cellValues;
@@ -487,14 +502,9 @@ const App = () => {
             const fileName = value.split("/").pop();
             return (
               <>
-                <Tooltip title={`Open ${fileName} in File Viewer`}>
-                  <Link href={`${fileViewerPrefix}${value}`} target="_blank">
-                    💻
-                  </Link>
-                </Tooltip>
                 <Tooltip title={`Open ${fileName} as plain text`}>
                   <Link href={`${webDavPrefix}${value}`} target="_blank">
-                    📃
+                    Y
                   </Link>
                 </Tooltip>
               </>
@@ -502,18 +512,21 @@ const App = () => {
           } else
             return (
               <Tooltip title={`No text or SVG file available`}>
-                <Avatar sx={{ bgcolor: "white", width: 12, height: 12 }}>
-                  🚫
-                </Avatar>
+                <Box>N</Box>
               </Tooltip>
             );
         },
       },
       {
         field: "pathpdf",
-        headerName: "pdf",
+        headerName: "PDF",
         headerClassName: "header",
-        width: 15,
+        maxWidth: 50,
+        minWidth: 26,
+        width: 26,
+        description: "Was a PDF file produced",
+        disableColumnMenu: true,
+        hideSortIcons: true,
         sortable: false,
         renderCell: (cellValues) => {
           const { value } = cellValues;
@@ -521,14 +534,9 @@ const App = () => {
             const fileName = value.split("/").pop();
             return (
               <>
-                <Tooltip title={`Open ${fileName} in File Viewer`}>
-                  <Link href={`${fileViewerPrefix}${value}`} target="_blank">
-                    💻
-                  </Link>
-                </Tooltip>
                 <Tooltip title={`Open ${fileName} on a new tab`}>
                   <Link href={`${webDavPrefix}${value}`} target="_blank">
-                    📰
+                    Y
                   </Link>
                 </Tooltip>
               </>
@@ -536,9 +544,7 @@ const App = () => {
           } else
             return (
               <Tooltip title={`No PDF file available`}>
-                <Avatar sx={{ bgcolor: "white", width: 12, height: 12 }}>
-                  🚫
-                </Avatar>
+                <Box>N</Box>
               </Tooltip>
             );
         },
@@ -549,45 +555,26 @@ const App = () => {
         headerClassName: "header",
         flex: 1,
         sortable: false,
-      },
-      {
-        field: "pathlog",
-        headerName: "log",
-        headerClassName: "header",
-        width: 15,
-        sortable: false,
         renderCell: (cellValues) => {
-          const { value } = cellValues;
-          if (value) {
-            const fileName = value.split("/").pop();
+          const { value, row } = cellValues,
+            { pathlog } = row;
+          if (value !== "no log!")
             return (
               <>
-                <Tooltip title={`Open ${fileName} in Log Viewer`}>
-                  <Link href={`${logViewerPrefix}${value}`} target="_blank">
-                    🧾
+                <Tooltip title={`Open log in Log Viewer`}>
+                  <Link href={`${logViewerPrefix}${pathlog}`} target="_blank">
+                    {value}
                   </Link>
                 </Tooltip>
               </>
             );
-          } else
-            return (
-              <Tooltip title={`No log available`}>
-                <Avatar sx={{ bgcolor: "white", width: 12, height: 12 }}>
-                  🚫
-                </Avatar>
-              </Tooltip>
-            );
         },
       },
-      // { field: "err", headerName: "Errors", width: 30, sortable: false },
-      // { field: "war", headerName: "Warnings", width: 30, sortable: false },
-      // { field: "un", headerName: "UnInitialized", width: 30, sortable: false },
-      // { field: "note", headerName: "Notes", width: 30, sortable: false },
       {
         field: "dateLastModifiedlog",
         headerName: "Last modification",
         headerClassName: "header",
-        width: 100,
+        width: 120,
         sortable: false,
       },
       {
@@ -596,9 +583,31 @@ const App = () => {
         headerClassName: "header",
         width: 90,
         sortable: false,
+        renderCell: (cellValues) => {
+          const { value } = cellValues;
+          if (value > " ")
+            return (
+              <Tooltip title={"Email programmer"}>
+                <Box
+                  sx={{ color: "blue" }}
+                  onClick={() => {
+                    window.open(
+                      "mailto:" +
+                        value +
+                        "@argenx.com?subject=" +
+                        info.retext +
+                        "&body=" +
+                        encodeURIComponent(href),
+                      "_blank"
+                    );
+                  }}
+                >
+                  {value}
+                </Box>
+              </Tooltip>
+            );
+        },
       },
-      // { field: "Reviewer", headerName: "Reviewer", sortable: false },
-      // { field: "qcstatus", headerName: "QC status", sortable: false },
     ]);
     const tempInfo = sourceData.info[0];
     setInfo(tempInfo);
@@ -619,9 +628,8 @@ const App = () => {
               const modifiedText = text
                 .replace("var embeddedData =", "")
                 .replace("];", "]");
-              // console.log("modifiedText", modifiedText);
               const json = JSON.parse(modifiedText);
-              // console.log(json);
+              console.log("SPLISTISS", json);
               if (json) setIss(json);
             });
           })
@@ -642,7 +650,6 @@ const App = () => {
       title2a = "|" + sourceData.info[0].REPATH.split("/").pop(),
       title2 = title1 !== title2a ? title2a : "",
       title = title0 + title1 + title2;
-    // console.log(title0, title1, title2a, title2, title);
     document.title = title;
     setCro(sourceData.croosdocs);
     let lastLog;
@@ -657,28 +664,28 @@ const App = () => {
       }
     });
     setOutputLogReport(tempOutputLogReport2);
-    // console.log("tempOutputLogReport2", tempOutputLogReport2);
     setColsOutputLogReport([
-      {
-        field: "col1",
-        headerName: "Log output",
-        headerClassName: "header",
-        sortable: false,
-        renderCell: (cellValues) => {
-          // console.log(cellValues);
-          const { value, row } = cellValues,
-            { path } = row;
-          if (path) {
-            return (
-              <>
-                <Link href={`${logViewerPrefix}${path}`} target="_blank">
-                  {value}
-                </Link>
-              </>
-            );
-          } else return null;
-        },
-      },
+      { field: "__tree_data_group__", width: 150 },
+      // {
+      //   field: "col1",
+      //   headerName: "Log output",
+      //   headerClassName: "header",
+      //   sortable: false,
+      //   renderCell: (cellValues) => {
+      //     // console.log(cellValues);
+      //     const { value, row } = cellValues,
+      //       { path } = row;
+      //     if (path) {
+      //       return (
+      //         <>
+      //           <Link href={`${logViewerPrefix}${path}`} target="_blank">
+      //             {value}
+      //           </Link>
+      //         </>
+      //       );
+      //     } else return null;
+      //   },
+      // },
       {
         field: "col2",
         headerName: "Messages",
@@ -693,66 +700,103 @@ const App = () => {
         headerClassName: "header",
         width: 30,
         sortable: false,
+        renderHeader: (params) => {
+          return (
+            <Tooltip title={"Click to see the reviews of messages"}>
+              <Link
+                onClick={() => {
+                  setOutputClickedOn(null);
+                  setOpenOutputReview(true);
+                }}
+              >
+                OK
+              </Link>
+            </Tooltip>
+          );
+        },
         renderCell: (cellValues) => {
           const { value, row } = cellValues,
-            { line, id } = row;
-          // console.log(value, row, cellValues);
+            { line, id, output, path } = row;
+          const uj = userJson.filter((r) => r.output === output);
+          // console.log("uj", uj, "line", line);
+          // if (uj.length > 1) console.log("uj", uj, "line", line);
           if (line > 0) {
             if (value) {
               return (
-                <IconButton
-                  size="small"
-                  variant="contained"
-                  color="success"
-                  onClick={() => {
-                    setRowToCheck(row);
-                    setIdClickedOn(id);
-                    setOpenUserInput(true);
-                  }}
-                >
-                  <Done />
-                </IconButton>
+                <Tooltip title={"Message is acceptable"}>
+                  <IconButton
+                    size="small"
+                    variant="contained"
+                    color="success"
+                    onClick={() => {
+                      setRowToCheck(row);
+                      setIdClickedOn(id);
+                      setOpenUserInput(true);
+                    }}
+                  >
+                    <Done />
+                  </IconButton>
+                </Tooltip>
               );
             } else if (value === false) {
               return (
-                <IconButton
-                  size="small"
-                  variant="contained"
-                  color="error"
-                  onClick={() => {
-                    setRowToCheck(row);
-                    setIdClickedOn(id);
-                    setOpenUserInput(true);
-                  }}
-                >
-                  <Close />
-                </IconButton>
+                <Tooltip title={"Message is not acceptable"}>
+                  <IconButton
+                    size="small"
+                    variant="contained"
+                    color="error"
+                    onClick={() => {
+                      setRowToCheck(row);
+                      setIdClickedOn(id);
+                      setOpenUserInput(true);
+                    }}
+                  >
+                    <Close />
+                  </IconButton>
+                </Tooltip>
               );
             } else
               return (
-                <IconButton
-                  variant="outlined"
-                  size="small"
-                  color="info"
-                  onClick={() => {
-                    setRowToCheck(row);
-                    setIdClickedOn(id);
-                    setOpenUserInput(true);
-                  }}
-                  label={"?"}
-                >
-                  <QuestionMark />
-                </IconButton>
+                <Tooltip title={"Click to review message"}>
+                  <IconButton
+                    variant="outlined"
+                    size="small"
+                    color="info"
+                    onClick={() => {
+                      setRowToCheck(row);
+                      setIdClickedOn(id);
+                      setOpenUserInput(true);
+                    }}
+                  >
+                    <QuestionMark />
+                  </IconButton>
+                </Tooltip>
               );
           } else {
-            return null;
+            // console.log(uj);
+            if (path > " " && uj.length > 0) {
+              console.log("path", path);
+              return (
+                <Tooltip title={"Display review comments and decisions"}>
+                  <IconButton
+                    variant="outlined"
+                    size="small"
+                    sx={{ color: "#99ccff" }}
+                    onClick={() => {
+                      // setRowToCheck(row);
+                      setOutputClickedOn(output);
+                      setOpenOutputReview(true);
+                    }}
+                    label={"?"}
+                  >
+                    <MenuBookTwoTone />
+                  </IconButton>
+                </Tooltip>
+              );
+            } else return null;
           }
         },
       },
-      // { field: "err", headerName: "Err", width: 30 },
-      // { field: "war", headerName: "War", width: 30 },
-      // { field: "un", headerName: "un", width: 30 },
-      // { field: "note", headerName: "Note", width: 30 },
     ]);
 
     // Programs/Outputs Bar Chart
@@ -765,15 +809,15 @@ const App = () => {
           data: [prog1.cleanprograms, out1.cleanoutputs],
         },
         {
-          name: "Issues",
-          data: [prog1.issueprograms, out1.issueoutputs],
-        },
-        {
           name: "Expected",
           data: [
             prog1.expectedprograms - prog1.issueprograms - prog1.cleanprograms,
             out1.expectedoutputs - out1.cleanoutputs - out1.issueoutputs,
           ],
+        },
+        {
+          name: "Issues",
+          data: [prog1.issueprograms, out1.issueoutputs],
         },
       ];
     setGraph1({
@@ -793,7 +837,7 @@ const App = () => {
       xAxis: {
         categories: categories1,
       },
-      colors: ["#b3ffb3", "#ffe0b3", "#ffb3b3"],
+      colors: ["#ebf3d9", "#d7ecfb", "#ffe0e6"],
       yAxis: {
         min: 0,
         enabled: false,
@@ -801,6 +845,7 @@ const App = () => {
         title: {
           enabled: false,
         },
+        reversed: true,
       },
       legend: {
         reversed: true,
@@ -826,32 +871,12 @@ const App = () => {
   // CRO Oversight graph
   useEffect(() => {
     if (iss) {
-      const colors = ["#b3ffb3", "#ffe0b3", "#ffb3ff", "#ffb3b3"],
-        lev1Values = iss
+      const lev1Values = iss
           .map((item) => item.status)
           .filter((value, index, self) => self.indexOf(value) === index),
         pureLev2Values = iss
           .map((item) => item.type)
           .filter((value, index, self) => self.indexOf(value) === index),
-        // lev2Values = iss
-        //   .map((item) => item.status + "|" + item.type)
-        //   .filter((value, index, self) => self.indexOf(value) === index),
-        // data2Parents1 = lev1Values.map((v, id) => {
-        //   return {
-        //     name: v,
-        //     parent: "top",
-        //     id: "p|" + id,
-        //     color: colors[id],
-        //   };
-        // }),
-        // data2Parents2 = lev2Values.map((v, id) => {
-        //   const split = v.split("|"),
-        //     t = split[0],
-        //     s = split[1],
-        //     lev1Index = "p|" + lev1Values.indexOf(t),
-        //     splitIndex = lev1Index + "|" + pureLev2Values.indexOf(s);
-        //   return { name: s, parent: lev1Index, id: splitIndex };
-        // }),
         data2Detail = iss.map((r, id) => {
           r.id = id + "";
           r.parent =
@@ -863,17 +888,10 @@ const App = () => {
           r.name = r.title;
           return r;
         }),
-        // data2 = [
-        //   // { id: "top", name: "All" },
-        //   ...data2Parents1,
-        //   ...data2Parents2,
-        //   ...data2Detail,
-        // ],
         tempStatusSummary = {},
         statusSummary = [],
         tempTypeSummary = {},
         typeSummary = [];
-      // console.log("lev1Values", lev1Values, "data2Detail", data2Detail);
 
       // summarise by status, counting how many
       data2Detail.forEach(function (d) {
@@ -886,7 +904,19 @@ const App = () => {
       for (const prop in tempStatusSummary) {
         statusSummary.push({
           name: prop,
-          data: [tempStatusSummary[prop], null],
+          color: prop.includes("Ok")
+            ? "#ebf3d9"
+            : prop.includes("Updated")
+            ? "#d7ecfb"
+            : prop.includes("CRO")
+            ? "#ffe0e6"
+            : prop.includes("Sponsor")
+            ? "#ffccff"
+            : "gray",
+          y: tempStatusSummary[prop],
+          dataLabels: {
+            enabled: false,
+          },
         });
       }
       // console.log("statusSummary", statusSummary);
@@ -900,127 +930,52 @@ const App = () => {
         }
       });
       for (const prop in tempTypeSummary) {
-        typeSummary.push({ name: prop, data: [null, tempTypeSummary[prop]] });
+        typeSummary.push({
+          name: prop,
+          color: prop.includes("T")
+            ? "#e6ffcc"
+            : prop.includes("L")
+            ? "#81b946"
+            : prop.includes("ADaM")
+            ? "#b4d590"
+            : "gray",
+          y: tempTypeSummary[prop],
+          dataLabels: {
+            enabled: false,
+          },
+        });
       }
       // console.log("typeSummary", typeSummary);
 
-      const combinedSummary = [...statusSummary, ...typeSummary];
-      // console.log("combinedSummary", combinedSummary);
-
-      // setGraph2({
-      //   chart: {
-      //     type: "treemap",
-      //     height: 200,
-      //   },
-      //   accessibility: {
-      //     enabled: false,
-      //   },
-      //   title: {
-      //     text: null,
-      //   },
-      //   credits: {
-      //     enabled: false,
-      //   },
-      //   tooltip: {
-      //     headerFormat: "",
-      //     pointFormat:
-      //       "<b>{point.name}: </b>{point.value}<br/><b>ID: </b>{point.tlfid}<br/><b>Domain: </b>{point.domain}<br/><b>Reviewer: </b>{point.reviewer}<br/><b>Last Modified: </b>{point.lastModified}",
-      //   },
-      //   series: [
-      //     {
-      //       data: data2,
-      //       type: "treemap",
-      //       name: "Top",
-      //       layoutAlgorithm: "squarified",
-      //       animationLimit: 1000,
-      //       allowDrillToNode: true,
-      //       cursor: "pointer",
-      //       dataLabels: {
-      //         enabled: false,
-      //       },
-      //       levels: [
-      //         {
-      //           level: 1,
-      //           dataLabels: {
-      //             enabled: true,
-      //             style: {
-      //               fontSize: gridFontSize+"em",
-      //             },
-      //           },
-      //           borderWidth: 3,
-      //           levelIsConstant: false,
-      //         },
-      //       ],
-      //     },
-      //   ],
-      // });
-
       setGraph2({
         chart: {
-          type: "column",
-          inverted: true,
-          polar: true,
-          backgroundColor: "rgba(0,0,0,0)",
-          // spacing: [0, 0, 0, 0],
-          // width: 300,
-          height: 120,
-          // plotBorderWidth: 0,
+          plotBackgroundColor: null,
+          plotBorderWidth: 0,
+          plotShadow: false,
+          height: 160,
+          // width: 500,
         },
         title: {
           text: null,
+          // align: "left",
+          // verticalAlign: "middle",
+          // x: "50%",
+          // y: 20,
+          style: { fontSize: "6px" },
         },
         tooltip: {
           outside: true,
-          style: { fontSize: "7px" },
-        },
-        pane: {
-          size: "100%",
-          innerSize: "20%",
-          endAngle: 90,
-          startAngle: -90,
-        },
-        xAxis: {
-          tickInterval: 1,
-          // min: 0,
-          labels: {
-            align: "right",
-            useHTML: true,
-            allowOverlap: true,
-            step: 1,
-            y: 1,
-            // x: 3,
-            style: {
-              fontSize: "8px",
-            },
-          },
-          lineWidth: 0,
-          categories: ["Status", "Type"],
-        },
-        yAxis: {
-          // crosshair: {
-          //   enabled: true,
-          //   color: "#333",
-          // },
-          lineWidth: 0,
-          // tickInterval: 25,
-          reversedStacks: false,
-          endOnTick: false,
-          showLastLabel: true,
-          enabled: false,
-          labels: { enabled: false },
-          title: {
-            enabled: false,
-          },
+          style: { fontSize: "6px" },
         },
         plotOptions: {
-          column: {
-            stacking: "normal",
-            borderWidth: 0,
-            pointPadding: 0,
-            groupPadding: 0.15,
+          pie: {
+            startAngle: -90,
+            endAngle: 90,
+            size: "110%",
+            innerSize: "50%",
           },
         },
-        colors: colors,
+        // colors: colors,
         accessibility: {
           enabled: false,
         },
@@ -1030,7 +985,20 @@ const App = () => {
         legend: {
           enabled: false,
         },
-        series: combinedSummary,
+        series: [
+          {
+            name: "Status",
+            type: "pie",
+            center: ["35%", "75%"],
+            data: statusSummary,
+          },
+          {
+            name: "Output Type",
+            type: "pie",
+            center: ["65%", "75%"],
+            data: typeSummary,
+          },
+        ],
       });
     }
   }, [iss]);
@@ -1039,18 +1007,13 @@ const App = () => {
     // console.log("radialRef", radialRef);
     if (radialRef.current) {
       const { container } = radialRef.current;
-      // console.log(
-      //   "radialRef.current",
-      //   radialRef.current,
-      //   "container",
-      //   container,
-      //   "container.current",
-      //   container.current
-      // );
       if (container.current) {
         container.current.style.scale = 2;
         container.current.style.top = "50%";
-        container.current.style.position = "relative";
+        // radialRef.setAttribute("viewBox", "0 0 550 60");
+        // container.current.children[0].viewBox = "0 0 391 60";
+        // container.current.children[0].children[0].viewBox = "0 0 391 60";
+        // container.current.style.position = "relative";
       }
     }
     // eslint-disable-next-line
@@ -1083,26 +1046,8 @@ const App = () => {
   useEffect(() => {
     if (userJson && sourceData && outputLogReport) {
       const tempOutputLogReport = [...outputLogReport];
-      console.log(
-        "userJson has changed: ",
-        userJson,
-        "tempOutputLogReport",
-        tempOutputLogReport
-      );
       userJson.forEach((item) => {
         const row = tempOutputLogReport[item.id];
-        console.log(
-          "row",
-          row,
-          "item.id",
-          item.id,
-          "item.ok",
-          item.ok,
-          "item.col2",
-          item.col2,
-          "item.issuenr",
-          item.issuenr
-        );
         // if we have an override in user.json, then use that value
         if (row) {
           if (row.col2 === item.col2) row.ok = item.ok;
@@ -1141,14 +1086,17 @@ const App = () => {
         if (!outputsWithIssues.includes(x)) outputsWithoutIssues.push(x);
       });
       console.log(
-        "logsWithIssues",
+        "INFO: ",
+        "\nlogsWithIssues",
         logsWithIssues,
-        "allOutputs",
+        "\nallOutputs",
         allOutputs,
-        "outputsWithIssues",
+        "\noutputsWithIssues",
         outputsWithIssues,
-        "outputsWithoutIssues",
-        outputsWithoutIssues
+        "\noutputsWithoutIssues",
+        outputsWithoutIssues,
+        "\nuserJson",
+        userJson
       );
 
       // reconstruct programs/outputs graph by modifying sourceData
@@ -1162,14 +1110,6 @@ const App = () => {
           cleanprograms++;
         } else if (program.logcheck !== "no log!") issueprograms++;
       });
-      // console.log(
-      //   "expectedprograms",
-      //   expectedprograms,
-      //   "issueprograms",
-      //   issueprograms,
-      //   "cleanprograms",
-      //   cleanprograms
-      // );
 
       let cleanoutputs = 0,
         expectedoutputs = 0,
@@ -1187,27 +1127,20 @@ const App = () => {
           cleanoutputs++;
         } else if (output.logcheck !== "no log!") issueoutputs++;
       });
-      // console.log(
-      //   "expectedoutputs",
-      //   expectedoutputs,
-      //   "issueoutputs",
-      //   issueoutputs,
-      //   "cleanoutputs",
-      //   cleanoutputs,
-      //   "sourceData",
-      //   sourceData
-      // );
       const newSeries = [
           {
             name: "Completed",
+            color: "#ebf3d9",
             data: [cleanprograms, cleanoutputs],
           },
           {
             name: "Issues",
+            color: "#d7ecfb",
             data: [issueprograms, issueoutputs],
           },
           {
             name: "Expected",
+            color: "#ffe0e6",
             data: [
               expectedprograms - issueprograms - cleanprograms,
               expectedoutputs - cleanoutputs - issueoutputs,
@@ -1215,45 +1148,56 @@ const App = () => {
           },
         ],
         newGraph1 = { ...graph1, series: newSeries };
-      console.log("newSeries", newSeries);
       setGraph1(newGraph1);
     }
     // eslint-disable-next-line
   }, [userJson]);
 
-  // console.log("report1b", report1b);
-
   return (
     <Box>
-      <Grid2 container spacing={2}>
-        <Grid2 item xs={12} sx={{ ml: 3, mt: 3 }}>
+      <Grid container spacing={2}>
+        <Grid item xs={6}>
           {info && info.retext && (
-            <>
+            <Box sx={{ display: "flex" }}>
               {studyList && (
-                <Button
-                  aria-describedby={popId}
-                  size="small"
-                  variant="contained"
-                  color="secondary"
-                  sx={{ mr: 3 }}
-                  onClick={handlePopClick}
-                >
-                  Choose Study
-                </Button>
+                <Box sx={{ ml: 1, zIndex: 10, flexGrow: 1 }}>
+                  <Tooltip title={"View the root directory with File Viewer"}>
+                    <Box
+                      sx={{
+                        color: "blue",
+                        fontSize: gridFontSize + 0.2 + "em",
+                      }}
+                      onClick={() =>
+                        window.open(fileViewerPrefix + info.REPATH, "_blank")
+                      }
+                    >
+                      {info.retext}
+                    </Box>
+                  </Tooltip>
+                </Box>
               )}
-
-              <Button
-                size="small"
-                variant="outlined"
-                color="info"
-                disabled
-                sx={{ mr: 2 }}
-              >
-                {"Status report created on " +
-                  info.statusReportCreateDate +
-                  " at " +
-                  info.statusReportCreateTime}
-              </Button>
+              {studyList && (
+                <Box sx={{ zIndex: 10, flexGrow: 1 }}>
+                  <Tooltip
+                    title={
+                      "Choose another study (generic adam studies are not shown)"
+                    }
+                  >
+                    <Box
+                      sx={{
+                        color: "blue",
+                        fontSize: gridFontSize + 0.2 + "em",
+                      }}
+                      onClick={handlePopClick}
+                    >
+                      {"Status report created on " +
+                        info.statusReportCreateDate +
+                        " at " +
+                        info.statusReportCreateTime}
+                    </Box>
+                  </Tooltip>
+                </Box>
+              )}
               <Popover
                 id={popId}
                 open={popOpen}
@@ -1288,272 +1232,365 @@ const App = () => {
                   />
                 </Box>
               </Popover>
-              <Tooltip title={"View the root directory with File Viewer"}>
-                <Button
-                  size="small"
-                  variant="contained"
-                  color="info"
-                  sx={{ mr: 3, textTransform: "none" }}
-                  onClick={() =>
-                    window.open(fileViewerPrefix + info.REPATH, "_blank")
-                  }
-                >
-                  {info.retext}
-                </Button>
-              </Tooltip>
-            </>
+            </Box>
           )}
+
+          {/* {graph2 && info.EVENTTYPE === "crooversight" && (
+            <Box sx={{ mt: 1 }}>
+              <HighchartsReact
+                highcharts={Highcharts}
+                options={graph2}
+                ref={radialRef}
+              />
+            </Box>
+          )} */}
+
+          {graph2 && info.EVENTTYPE === "crooversight" && (
+            <Box sx={{ ml: 5 }}>
+              <Donut />
+            </Box>
+          )}
+
+          {graph1 && (
+            <Box sx={{ height: 200 }}>
+              <HighchartsReact highcharts={Highcharts} options={graph1} />
+            </Box>
+          )}
+
+          {cro && cro.length > 0 && (
+            <TableContainer sx={{ ml: 1 }} component={Paper}>
+              <Table
+                sx={{ minWidth: 400 }}
+                size="small"
+                aria-label="a dense table"
+              >
+                <TableHead>
+                  <TableRow sx={{ backgroundColor: "#f6f5ea" }}>
+                    <TableCell
+                      sx={{ fontWeight: "bold", fontSize: gridFontSize + "em" }}
+                    >
+                      Document
+                    </TableCell>
+                    <TableCell
+                      sx={{ fontWeight: "bold", fontSize: gridFontSize + "em" }}
+                      align="left"
+                    >
+                      Name
+                    </TableCell>
+                    <TableCell
+                      sx={{ fontWeight: "bold", fontSize: gridFontSize + "em" }}
+                      align="right"
+                    >
+                      Last Modified
+                    </TableCell>
+                  </TableRow>
+                </TableHead>
+                <TableBody>
+                  {cro.map((row, id) => (
+                    <TableRow
+                      key={row.name}
+                      sx={{
+                        "&:last-child td, &:last-child th": { border: 0 },
+                      }}
+                    >
+                      <TableCell
+                        sx={{
+                          fontSize: gridFontSize + "em",
+                          width: 40,
+                          backgroundColor:
+                            row.name === "<missing>" ? "#ffe0e6" : "#ffffff",
+                        }}
+                      >
+                        {row.doc}
+                      </TableCell>
+                      <TableCell
+                        sx={{ color: "blue", fontSize: gridFontSize + "em" }}
+                      >
+                        <Tooltip
+                          key={"cro" + id}
+                          title={
+                            row.name === "<missing>"
+                              ? "Missing the " + row.doc + " document"
+                              : "Download the document: " +
+                                row.name +
+                                " last modified on " +
+                                row.dateLastModified
+                          }
+                        >
+                          <Box
+                            onClick={() => {
+                              if (row.name === "<missing>") return;
+                              const fileName = row.path.split("/").pop(),
+                                fileType = fileName.split(".")[1];
+                              if (fileType === "xlsx")
+                                window.open(
+                                  fileViewerPrefix + row.path,
+                                  "_blank"
+                                );
+                              else
+                                window.open(webDavPrefix + row.path, "_blank");
+                            }}
+                          >
+                            {row.name === "<missing>" ? row.doc : row.name}
+                          </Box>
+                        </Tooltip>
+                      </TableCell>
+                      <TableCell
+                        sx={{ fontSize: gridFontSize + "em", width: 50 }}
+                      >
+                        {row.dateLastModified}
+                      </TableCell>
+                    </TableRow>
+                  ))}
+                </TableBody>
+              </Table>
+            </TableContainer>
+          )}
+
+          {report1a && (
+            <DataGridPro
+              rows={report1a}
+              columns={colsReport1a}
+              disableColumnMenu
+              canUserSort={false}
+              density="compact"
+              rowHeight={42}
+              autoHeight
+              hideFooter={true}
+              defaultGroupingExpansionDepth={-1}
+              sx={{
+                mt: 1,
+                ml: 1,
+                fontSize: gridFontSize + "em",
+                "& .note": {
+                  backgroundColor: "#e6f7ff",
+                  color: "#0000ff",
+                },
+                "& .amber": {
+                  backgroundColor: "#ffffe6",
+                  color: "#000000",
+                },
+                "& .red": {
+                  backgroundColor: "#ffe0e6",
+                  color: "#0000ff",
+                },
+                "& .header": {
+                  backgroundColor: "#f6f5ea",
+                },
+                "& .MuiDataGrid-columnHeaderTitle": {
+                  lineHeight: 1,
+                  whiteSpace: "normal",
+                },
+                "& .MuiDataGrid-columnHeaderTitleContainer": {
+                  lineHeight: 1,
+                  whiteSpace: "normal",
+                },
+              }}
+              getCellClassName={(params) => {
+                if (params.field === "err" && params.value > 0) {
+                  return "red";
+                } else if (params.field === "war" && params.value > 0) {
+                  return "amber";
+                } else if (params.field === "un" && params.value > 0) {
+                  return "note";
+                } else if (params.field === "note" && params.value > 0) {
+                  return "note";
+                } else if (params.field === "headerFails" && params.value > 0) {
+                  return "red";
+                } else if (
+                  params.field === "logcheck" &&
+                  params.value !== "clean"
+                ) {
+                  return "amber";
+                } else return;
+                // return params.value >= 15 ? "hot" : "cold";
+              }}
+            />
+          )}
+
+          {report1b && report1b.length > 0 ? (
+            <DataGridPro
+              rows={report1b}
+              columns={colsReport1b}
+              disableColumnMenu
+              canUserSort={false}
+              density="compact"
+              // rowHeight={42}
+              getRowHeight={() => "auto"}
+              autoHeight
+              hideFooter={true}
+              defaultGroupingExpansionDepth={-1}
+              sx={{
+                ml: 1,
+                fontSize: gridFontSize + "em",
+                mt: 1,
+                [`& .${gridClasses.cell}`]: {
+                  py: 1,
+                },
+                "& .note": {
+                  backgroundColor: "#e6f7ff",
+                  color: "#0000ff",
+                },
+                "& .amber": {
+                  backgroundColor: "#fff5e6",
+                  color: "#0000ff",
+                },
+                "& .red": {
+                  backgroundColor: "#ffe6e6",
+                  color: "#0000ff",
+                },
+                "& .header": {
+                  backgroundColor: "#f6f5ea",
+                },
+                "& .MuiDataGrid-columnHeaderTitle": {
+                  lineHeight: 1,
+                  whiteSpace: "normal",
+                },
+                "& .MuiDataGrid-columnHeaderTitleContainer": {
+                  lineHeight: 1,
+                  whiteSpace: "normal",
+                },
+              }}
+              getCellClassName={(params) => {
+                if (params.field === "err" && params.value > 0) {
+                  return "red";
+                } else if (params.field === "war" && params.value > 0) {
+                  return "amber";
+                } else if (params.field === "un" && params.value > 0) {
+                  return "note";
+                } else if (params.field === "note" && params.value > 0) {
+                  return "note";
+                } else if (params.field === "headerFails" && params.value > 0) {
+                  return "red";
+                } else if (
+                  params.field === "logcheck" &&
+                  params.value !== "clean"
+                ) {
+                  return "amber";
+                } else return;
+                // return params.value >= 15 ? "hot" : "cold";
+              }}
+            />
+          ) : null}
+
+          {outputLogReport && outputLogReport.length > 0 && (
+            <Box
+              sx={{
+                "& .warn": {
+                  backgroundColor: "#fff0b3",
+                  color: "#000000",
+                },
+                "& .red": {
+                  backgroundColor: "#ffe0e6",
+                  color: "#000000",
+                },
+              }}
+            >
+              <DataGridPro
+                treeData
+                defaultGroupingExpansionDepth={-1}
+                getTreeDataPath={(row) => row.col1}
+                rows={outputLogReport}
+                columns={colsOutputLogReport}
+                groupingColDef={{
+                  headerName: "Log output",
+                  renderCell: (cellValues) => {
+                    // console.log(cellValues);
+                    const { value, row } = cellValues,
+                      { path } = row;
+                    if (path) {
+                      return (
+                        <>
+                          <Link
+                            href={`${logViewerPrefix}${path}`}
+                            target="_blank"
+                          >
+                            {value}
+                          </Link>
+                        </>
+                      );
+                    } else return null;
+                  },
+                }}
+                getCellClassName={(params) => {
+                  // console.log(params);
+                  if (
+                    params.field === "col2" &&
+                    params.value.startsWith("WARNING")
+                  ) {
+                    return "warn";
+                  } else if (
+                    params.field === "col2" &&
+                    params.value.startsWith("ERROR")
+                  ) {
+                    return "red";
+                  } else return "";
+                }}
+                disableColumnMenu
+                density="compact"
+                rowHeight={30}
+                autoHeight
+                hideFooter={true}
+                apiRef={apiRef}
+                sx={{
+                  ml: 1,
+                  mt: 1,
+                  fontSize: gridFontSize + "em",
+                  "& .header": {
+                    backgroundColor: "#f6f5ea",
+                    lineHeight: 1,
+                    whiteSpace: "normal",
+                  },
+                  "& .MuiDataGrid-columnHeader": {
+                    backgroundColor: "#f6f5ea",
+                    lineHeight: 1,
+                    whiteSpace: "normal",
+                  },
+                  "& .MuiDataGrid-columnHeaderTitle": {
+                    lineHeight: 1,
+                    whiteSpace: "normal",
+                  },
+                  "& .MuiDataGrid-columnHeaderTitleContainer": {
+                    lineHeight: 1,
+                    whiteSpace: "normal",
+                  },
+                }}
+              />
+            </Box>
+          )}
+        </Grid>
+
+        <Grid item xs={6}>
           {info && info.splisturl && (
             <Tooltip
               title={
                 info.splistmessage.split("]").length > 1
-                  ? "View the " + info.splistmessage.split("]")[1].slice(0, -1)
+                  ? "View the " +
+                    info.splistmessage
+                      .split("]")[1]
+                      .slice(0, -1)
+                      .replace("}", "")
                   : info.splistmessage
               }
             >
               <Button
                 size="small"
-                variant="contained"
-                color="info"
+                variant="outlined"
+                sx={{ color: "blue", fontSize: gridFontSize + "em" }}
                 onClick={() => {
                   if (info.splistmessage.split("]").length > 1)
                     window.open(info.splisturl, "_blank");
                   else alert(info.splistmessage);
                 }}
-                sx={{ mr: 3 }}
+                fullWidth
               >
-                Sharepoint List
+                {info.splistmessage.split("]").length > 1
+                  ? info.splistmessage.split("]")[1].slice(0, -1)
+                  : info.splistmessage}
               </Button>
             </Tooltip>
           )}
-          {cro &&
-            cro.map((row, id) => (
-              <Tooltip
-                key={"cro" + id}
-                title={
-                  row.name === "<missing>"
-                    ? "Missing the " + row.doc + " document"
-                    : "Download the document: " +
-                      row.name +
-                      " last modified on " +
-                      row.dateLastModified
-                }
-              >
-                <Button
-                  size="small"
-                  variant="contained"
-                  color={row.name === "<missing>" ? "error" : "info"}
-                  onClick={() => {
-                    if (row.name === "<missing>") return;
-                    const fileName = row.path.split("/").pop(),
-                      fileType = fileName.split(".")[1];
-                    if (fileType === "xlsx")
-                      window.open(fileViewerPrefix + row.path, "_blank");
-                    else window.open(webDavPrefix + row.path, "_blank");
-                  }}
-                  sx={{ mr: 3 }}
-                >
-                  {row.doc}
-                </Button>
-              </Tooltip>
-            ))}
-          {/* <Tooltip
-            title={
-              alternateLayout
-                ? "Switch to one page layout"
-                : "Switch to continuous layout"
-            }
-          >
-            <IconButton
-              size="small"
-              color={alternateLayout ? "primary" : "secondary"}
-              onClick={() => {
-                setAlternateLayout(!alternateLayout);
-              }}
-            >
-              <SwapVertSharp />
-            </IconButton>
-          </Tooltip> */}
-        </Grid2>
-        {/* <Grid2 item xs={6}>
-          <Tooltip title="Reduce size of font">
-            <IconButton
-              onClick={() => {
-                console.log("clicked");
-              }}
-              // sx={{ backgroundColor: buttonBackground }}
-            >
-              <Remove />
-            </IconButton>
-          </Tooltip>
-        </Grid2> */}
 
-        <Grid2 item xs={6}>
-          {graph1 && (
-            <HighchartsReact highcharts={Highcharts} options={graph1} />
-          )}
-          {/* {graph3 && info.EVENTTYPE === "crooversight" && (
-            <HighchartsReact highcharts={Highcharts} options={graph3} />
-          )} */}
-        </Grid2>
-        <Grid2 item xs={6}>
-          {graph2 && info.EVENTTYPE === "crooversight" && (
-            <HighchartsReact
-              highcharts={Highcharts}
-              options={graph2}
-              ref={radialRef}
-            />
-          )}
-          {/* {(!graph2 || info.EVENTTYPE !== "crooversight") && (
-            <Chip
-              sx={{ mt: 6, ml: 12 }}
-              color="info"
-              label="No CRO Oversight Information is available"
-            />
-          )} */}
-        </Grid2>
-
-        <Grid2 item xs={6}>
-          <Container
-            sx={
-              {
-                // height: sectionSizes[1],
-                // maxHeight: sectionSizes[1],
-                // width: windowDimension.winWidth / 2 - 50,
-                // minWidth: windowDimension.winWidth / 2 - 50,
-              }
-            }
-          >
-            {report1a && (
-              <DataGridPro
-                rows={report1a}
-                columns={colsReport1a}
-                disableColumnMenu
-                canUserSort={false}
-                density="compact"
-                rowHeight={42}
-                autoHeight
-                hideFooter={true}
-                defaultGroupingExpansionDepth={-1}
-                sx={{
-                  fontSize: gridFontSize + "em",
-                  "& .note": {
-                    backgroundColor: "#e6f7ff",
-                    color: "#0000ff",
-                  },
-                  "& .amber": {
-                    backgroundColor: "#fff5e6",
-                    color: "#0000ff",
-                  },
-                  "& .red": {
-                    backgroundColor: "#ffe6e6",
-                    color: "#0000ff",
-                  },
-                  "& .header": {
-                    backgroundColor: "rgba(255, 255, 80, .33)",
-                  },
-                  "& .MuiDataGrid-columnHeaderTitle": {
-                    lineHeight: 1,
-                    whiteSpace: "normal",
-                  },
-                  "& .MuiDataGrid-columnHeaderTitleContainer": {
-                    lineHeight: 1,
-                    whiteSpace: "normal",
-                  },
-                }}
-                getCellClassName={(params) => {
-                  if (params.field === "err" && params.value > 0) {
-                    return "red";
-                  } else if (params.field === "war" && params.value > 0) {
-                    return "amber";
-                  } else if (params.field === "un" && params.value > 0) {
-                    return "note";
-                  } else if (params.field === "note" && params.value > 0) {
-                    return "note";
-                  } else if (
-                    params.field === "headerFails" &&
-                    params.value > 0
-                  ) {
-                    return "red";
-                  } else if (
-                    params.field === "logcheck" &&
-                    params.value !== "clean"
-                  ) {
-                    return "amber";
-                  } else return;
-                  // return params.value >= 15 ? "hot" : "cold";
-                }}
-              />
-            )}
-            {report1b && report1b.length > 0 ? (
-              <DataGridPro
-                rows={report1b}
-                columns={colsReport1b}
-                disableColumnMenu
-                canUserSort={false}
-                density="compact"
-                // rowHeight={42}
-                getRowHeight={() => "auto"}
-                autoHeight
-                hideFooter={true}
-                defaultGroupingExpansionDepth={-1}
-                sx={{
-                  fontSize: gridFontSize + "em",
-                  mt: 2,
-                  [`& .${gridClasses.cell}`]: {
-                    py: 1,
-                  },
-                  "& .note": {
-                    backgroundColor: "#e6f7ff",
-                    color: "#0000ff",
-                  },
-                  "& .amber": {
-                    backgroundColor: "#fff5e6",
-                    color: "#0000ff",
-                  },
-                  "& .red": {
-                    backgroundColor: "#ffe6e6",
-                    color: "#0000ff",
-                  },
-                  "& .header": {
-                    backgroundColor: "rgba(255, 255, 80, 0.33)",
-                  },
-                  "& .MuiDataGrid-columnHeaderTitle": {
-                    lineHeight: 1,
-                    whiteSpace: "normal",
-                  },
-                  "& .MuiDataGrid-columnHeaderTitleContainer": {
-                    lineHeight: 1,
-                    whiteSpace: "normal",
-                  },
-                }}
-                getCellClassName={(params) => {
-                  if (params.field === "err" && params.value > 0) {
-                    return "red";
-                  } else if (params.field === "war" && params.value > 0) {
-                    return "amber";
-                  } else if (params.field === "un" && params.value > 0) {
-                    return "note";
-                  } else if (params.field === "note" && params.value > 0) {
-                    return "note";
-                  } else if (
-                    params.field === "headerFails" &&
-                    params.value > 0
-                  ) {
-                    return "red";
-                  } else if (
-                    params.field === "logcheck" &&
-                    params.value !== "clean"
-                  ) {
-                    return "amber";
-                  } else return;
-                  // return params.value >= 15 ? "hot" : "cold";
-                }}
-              />
-            ) : null}
-          </Container>
-        </Grid2>
-        <Grid2 item xs={6}>
           <Box
             sx={
               {
@@ -1578,7 +1615,8 @@ const App = () => {
                 autoHeight
                 hideFooter={true}
                 sx={{
-                  fontSize: gridFontSize + "em",
+                  mt: 1,
+                  fontSize: gridFontSize + 0.05 + "em",
                   "& .note": {
                     backgroundColor: "#e6f7ff",
                     color: "#0000ff",
@@ -1592,7 +1630,7 @@ const App = () => {
                     color: "#0000ff",
                   },
                   "& .header": {
-                    backgroundColor: "rgba(255, 255, 80, 0.33)",
+                    backgroundColor: "#f6f5ea",
                   },
                   "& .MuiDataGrid-columnHeaderTitle": {
                     lineHeight: 1,
@@ -1602,6 +1640,10 @@ const App = () => {
                     lineHeight: 1,
                     whiteSpace: "normal",
                   },
+                  // "& .MuiDataGrid-columnHeader": {
+                  //   minWidth: "10px",
+                  //   color: "red",
+                  // },
                 }}
                 getCellClassName={(params) => {
                   if (params.field === "err" && params.value > 0) {
@@ -1634,57 +1676,8 @@ const App = () => {
               />
             )}
           </Box>
-        </Grid2>
-        <Grid2 item xs={12}>
-          <Container
-            sx={
-              {
-                // height: sectionSizes[2],
-                // maxHeight: sectionSizes[2],
-                // width: windowDimension.winWidth / 2 - 50,
-                // minWidth: windowDimension.winWidth / 2 - 50,
-              }
-            }
-          >
-            {outputLogReport && outputLogReport.length > 0 && (
-              <DataGridPro
-                treeData
-                defaultGroupingExpansionDepth={-1}
-                getTreeDataPath={(row) => row.col1}
-                rows={outputLogReport}
-                columns={colsOutputLogReport}
-                disableColumnMenu
-                density="compact"
-                rowHeight={30}
-                autoHeight
-                hideFooter={true}
-                apiRef={apiRef}
-                sx={{
-                  fontSize: gridFontSize + "em",
-                  "& .header": {
-                    backgroundColor: "rgba(255, 255, 80, 0.33)",
-                    lineHeight: 1,
-                    whiteSpace: "normal",
-                  },
-                  "& .MuiDataGrid-columnHeader": {
-                    backgroundColor: "rgba(255, 255, 80, 0.33)",
-                    lineHeight: 1,
-                    whiteSpace: "normal",
-                  },
-                  "& .MuiDataGrid-columnHeaderTitle": {
-                    lineHeight: 1,
-                    whiteSpace: "normal",
-                  },
-                  "& .MuiDataGrid-columnHeaderTitleContainer": {
-                    lineHeight: 1,
-                    whiteSpace: "normal",
-                  },
-                }}
-              />
-            )}
-          </Container>
-        </Grid2>
-      </Grid2>
+        </Grid>
+      </Grid>
       {openUserInput && (
         <UserInput
           open={openUserInput}
@@ -1694,6 +1687,15 @@ const App = () => {
           rowToCheck={rowToCheck}
           setUserJson={setUserJson}
           idClickedOn={idClickedOn}
+        />
+      )}
+      {openOutputReview && (
+        <OutputReview
+          open={openOutputReview}
+          setOpen={setOpenOutputReview}
+          userJson={userJson}
+          userJsonFile={userJsonFile}
+          outputClickedOn={outputClickedOn}
         />
       )}
     </Box>
