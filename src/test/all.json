@@ -1364,7 +1364,11 @@
       "compound": "argx-113",
       "EVENTTYPE": "crooversight",
       "INDICATION": "pemphigus",
-      "REVENT": "testrun2"
+      "REVENT": "testrun2",
+      "SAPERR1": "0",
+      "SAPERR2": "0",
+      "BSOPERR1": "0",
+      "BSOPERR2": "1"
     }
   ],
   "access": [

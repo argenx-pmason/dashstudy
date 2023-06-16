@@ -21,6 +21,7 @@ import {
   Done,
   Close,
   MenuBookTwoTone,
+  Info,
 } from "@mui/icons-material";
 import UserInput from "./UserInput";
 import OutputReview from "./OutputReview";
@@ -73,6 +74,8 @@ const App = () => {
         winHeight: window.innerHeight,
       });
     },
+    [sapErrMsg, setSapErrMsg] = useState(""),
+    [bsopErrMsg, setBsopErrMsg] = useState(""),
     [openUserInput, setOpenUserInput] = useState(false),
     topSpace = 350,
     gridFontSize = 0.6,
@@ -611,6 +614,16 @@ const App = () => {
     ]);
     const tempInfo = sourceData.info[0];
     setInfo(tempInfo);
+    // set message for BSOP & SAP
+    const { SAPERR1, SAPERR2, BSOPERR1, BSOPERR2 } = tempInfo;
+    let tempSapErrMsg = "",
+      tempBsopErrMsg = "";
+    if (SAPERR1 === "1") tempSapErrMsg += "Too many SAP files. ";
+    if (SAPERR2 === "1") tempSapErrMsg += "SAP filename is too simple.";
+    if (BSOPERR1 === "1") tempBsopErrMsg += "Too many BSOP files. ";
+    if (BSOPERR2 === "1") tempBsopErrMsg += "BSOP file name is too simple.";
+    setSapErrMsg(tempSapErrMsg);
+    setBsopErrMsg(tempBsopErrMsg);
 
     // get iss info if there is a splist on lsaf
     if (mode === "local") setIss(localiss);
@@ -1298,10 +1311,57 @@ const App = () => {
                           fontSize: gridFontSize + "em",
                           width: 40,
                           backgroundColor:
-                            row.name === "<missing>" ? "#ffe0e6" : "#ffffff",
+                            row.name === "<missing>"
+                              ? "#ffe0e6"
+                              : row.doc === "BSOP" && info.BSOPERR1 === "1"
+                              ? "red"
+                              : row.doc === "SAP" && info.SAPERR1 === "1"
+                              ? "red"
+                              : row.doc === "BSOP" && info.BSOPERR2 === "1"
+                              ? "orange"
+                              : row.doc === "SAP" && info.SAPERR2 === "1"
+                              ? "orange"
+                              : "#ffffff",
                         }}
                       >
-                        {row.doc}
+                        {" "}
+                        <Tooltip
+                          title={
+                            row.doc === "SAP"
+                              ? sapErrMsg
+                              : row.doc === "BSOP"
+                              ? bsopErrMsg
+                              : ""
+                          }
+                        >
+                          <Box>
+                            {" "}
+                            {(row.doc === "SAP" &&
+                              (info.SAPERR1 === "1" || info.SAPERR2 === "1")) ||
+                            (row.doc === "BSOP" &&
+                              (info.BSOPERR1 === "1" ||
+                                info.BSOPERR2 === "1")) ? (
+                              <IconButton
+                                variant="outlined"
+                                size="small"
+                                sx={{ color: "#99ccff" }}
+                                onClick={() => {
+                                  if (row.name === "<missing>") return;
+                                  const path = row.path.split("/");
+                                  path.pop();
+                                  window.open(
+                                    fileViewerPrefix + path.join("/"),
+                                    "_blank"
+                                  );
+                                }}
+                                label={"?"}
+                              >
+                                <Info fontSize="small" />
+                              </IconButton>
+                            ) : null}
+                            {row.doc}
+                          </Box>
+                        </Tooltip>
                       </TableCell>
                       <TableCell
                         sx={{ color: "blue", fontSize: gridFontSize + "em" }}
