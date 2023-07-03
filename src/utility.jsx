@@ -98,6 +98,7 @@ export const getJsonFile = (file, setContent) => {
   console.log("getJsonFile - file: ", file);
   fetch(file)
     .then(function (response) {
+      console.log(response)
       if (response.type === "cors" || response.status !== 200) {
         setContent(false);
         return;

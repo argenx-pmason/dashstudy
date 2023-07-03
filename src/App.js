@@ -108,10 +108,19 @@ const App = () => {
     [graph2, setGraph2] = useState(null),
     loadFiles = (url) => {
       fetch(url).then(function (response) {
-        response.text().then(function (text) {
-          const json = JSON.parse(text);
-          setSourceData(json);
-        });
+        console.log(response);
+        response
+          .text()
+          .then(function (text) {
+            if (response.status !== 200) {
+              alert(`${url} failed - response code: ${response.status}`);
+              handlePopClick();
+            }
+            const json = JSON.parse(text);
+            setSourceData(json);
+            return true;
+          })
+          .catch((err) => console.log("fetch failed for " + url + " - " + err));
       });
     },
     [sourceData, setSourceData] = useState(null),
@@ -140,7 +149,8 @@ const App = () => {
     },
     studyListFile =
       "/general/biostat/jobs/dashboard/dev/metadata/dash-study-files.json",
-    [iss, setIss] = useState(null);
+    [iss, setIss] = useState(null),
+    d3ref = createRef();
 
   // load a study if we are in remote mode and have selected a study
   useEffect(() => {
@@ -191,7 +201,9 @@ const App = () => {
       setStudyList(tempStudyList);
       return;
     }
+    // handle remote
     fetch(webDavPrefix + studyListFile).then(function (response) {
+      console.log(response);
       response.text().then(function (text) {
         const json = JSON.parse(text);
         const lsafsearch = json["SASTableData+LSAFSEARCH"],
@@ -224,7 +236,7 @@ const App = () => {
         // if a study wasn't passed in on the URL, then just pick the first available study to show
         if (href.split("?").length === 1) {
           setSelectedStudy(tempStudyList[0].value);
-          loadFiles(webDavPrefix + tempStudyList[0].value);
+          loadFiles(webDavPrefix + tempStudyList[0].value); // read default first study
         } else if (href.split("?").length > 1) {
           const file1 = href.split("?")[1].split("=")[1];
           console.log("file1", file1);
@@ -1259,13 +1271,13 @@ const App = () => {
           )} */}
 
           {graph2 && info.EVENTTYPE === "crooversight" && (
-            <Box sx={{ ml: 5 }}>
-              <Donut />
+            <Box sx={{ ml: 5 }} id="d3ref">
+              <Donut iss={iss} ref={d3ref} />
             </Box>
           )}
 
           {graph1 && (
-            <Box sx={{ height: 200 }}>
+            <Box sx={{ height: 130 }}>
               <HighchartsReact highcharts={Highcharts} options={graph1} />
             </Box>
           )}
