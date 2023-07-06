@@ -20,6 +20,7 @@ const UserInput = (props) => {
       rowToCheck,
       setUserJson,
       idClickedOn,
+      access,
     } = props,
     { output, issuenr, id, col2 } = rowToCheck,
     [comment, setComment] = useState(""),
@@ -58,7 +59,9 @@ const UserInput = (props) => {
         "user",
         user,
         "newContent",
-        newContent
+        newContent,
+        "access",
+        access
       );
       if (ok) localStorage.setItem("user", user);
       const allButNew = userJson ? userJson.filter((row) => row.id !== id) : [],
@@ -114,12 +117,21 @@ const UserInput = (props) => {
             </Grid>
             <Grid item xs={6}>
               <TextField
-                label="User ID"
+                label={access.filter((u) => u.userid === user).length > 0
+                ? "User ID (valid)"
+                : "Enter User ID"}
                 value={user}
                 onChange={(e) => {
                   setUser(e.target.value);
                 }}
-                sx={{ width: "100%" }}
+                color={
+                  access.filter((u) => u.userid === user).length > 0
+                    ? "success"
+                    : "error"
+                }
+                sx={{
+                  width: "100%",
+                }}
               />
             </Grid>
           </Grid>

@@ -14,6 +14,7 @@ import {
   TableCell,
   TableContainer,
   Paper,
+  Chip,
 } from "@mui/material";
 import Grid from "@mui/material/Unstable_Grid2";
 import {
@@ -68,7 +69,7 @@ const App = () => {
     }),
     detectSize = () => {
       calcSectionSizes();
-      console.log("sectionSizes", sectionSizes);
+      // console.log("sectionSizes", sectionSizes);
       detectHW({
         winWidth: window.innerWidth,
         winHeight: window.innerHeight,
@@ -78,9 +79,11 @@ const App = () => {
     [bsopErrMsg, setBsopErrMsg] = useState(""),
     [openUserInput, setOpenUserInput] = useState(false),
     topSpace = 350,
-    gridFontSize = 0.6,
+    gridFontSize = 0.7,
+    rowHeight = 22,
+    amber = "rgba(255, 153, 51, 0.3)",
     [alternateLayout] = useState(true),
-    [sectionSizes, setSectionSizes] = useState([topSpace, 200, 200]),
+    [, setSectionSizes] = useState([topSpace, 200, 200]), // currently not using sectionSizes
     calcSectionSizes = () => {
       const section2 = Math.floor((windowDimension.winHeight - topSpace) / 2),
         section3 = Math.floor((windowDimension.winHeight - topSpace) / 2);
@@ -102,13 +105,14 @@ const App = () => {
     [outputLogReport, setOutputLogReport] = useState(null),
     [colsOutputLogReport, setColsOutputLogReport] = useState(null),
     [info, setInfo] = useState(null),
+    [parent, setParent] = useState(null),
     [cro, setCro] = useState(null),
     [rowToCheck, setRowToCheck] = useState(null),
     [graph1, setGraph1] = useState(null),
     [graph2, setGraph2] = useState(null),
     loadFiles = (url) => {
       fetch(url).then(function (response) {
-        console.log(response);
+        // console.log(response);
         response
           .text()
           .then(function (text) {
@@ -176,6 +180,7 @@ const App = () => {
       const lsafsearch = localstudies["SASTableData+LSAFSEARCH"],
         tempStudyList = lsafsearch
           .map((r) => {
+            // console.log(r)
             const shorter = r.path
               .replace("/clinical/", "")
               .replace("/biostat/staging", "")
@@ -187,7 +192,7 @@ const App = () => {
                 " ... [" +
                 r.dateLastModified +
                 "] ... (" +
-                r.lastModifiedBy +
+                r.formattedsize +
                 ")",
             };
           })
@@ -203,7 +208,7 @@ const App = () => {
     }
     // handle remote
     fetch(webDavPrefix + studyListFile).then(function (response) {
-      console.log(response);
+      // console.log(response);
       response.text().then(function (text) {
         const json = JSON.parse(text);
         const lsafsearch = json["SASTableData+LSAFSEARCH"],
@@ -259,7 +264,7 @@ const App = () => {
 
   // do this when we get new data provided on URL
   useEffect(() => {
-    console.log(`Running in ${mode} mode from ${urlPrefix}`);
+    console.log(`MODE:\t${mode} ---> ${urlPrefix}`);
     // read in data to use, if remote
     if (mode === "remote") {
       // console.log("webDavPrefix", webDavPrefix, "href", href, "mode", mode);
@@ -273,7 +278,7 @@ const App = () => {
 
   // do this when sourceData changes
   useEffect(() => {
-    console.log("INFO:\nsourceData", sourceData);
+    console.log("INFO:\tsourceData", sourceData);
     if (!sourceData) return;
     const tempReport1a = sourceData.report1.map((r, id) => {
         const headerFails = r.headercheck ? r.headercheck.split(" ")[0] : null,
@@ -309,6 +314,7 @@ const App = () => {
         headerName: "SAS program",
         headerClassName: "header",
         width: 80,
+        flex: 1,
         sortable: false,
         renderCell: (cellValues) => {
           const { value, row } = cellValues,
@@ -336,7 +342,7 @@ const App = () => {
         headerName: "Exists",
         description: "Program file exists",
         headerClassName: "header",
-        width: 40,
+        width: 30,
         sortable: false,
       },
       {
@@ -344,6 +350,7 @@ const App = () => {
         headerName: "Job file",
         headerClassName: "header",
         width: 90,
+        flex: 1,
         sortable: false,
         renderCell: (cellValues) => {
           const { value } = cellValues;
@@ -500,14 +507,14 @@ const App = () => {
       },
       {
         field: "pathtxt",
-        headerName: "TXT",
+        headerName: "txt",
         headerClassName: "header",
         sortable: false,
         description: "Was a text file (or image) produced",
         disableColumnMenu: true,
         hideSortIcons: true,
-        maxWidth: 40,
-        minWidth: 25,
+        maxWidth: 20,
+        minWidth: 20,
         width: 25,
         renderCell: (cellValues) => {
           // console.log(cellValues);
@@ -534,10 +541,10 @@ const App = () => {
       },
       {
         field: "pathpdf",
-        headerName: "PDF",
+        headerName: "pdf",
         headerClassName: "header",
-        maxWidth: 50,
-        minWidth: 26,
+        maxWidth: 22,
+        minWidth: 22,
         width: 26,
         description: "Was a PDF file produced",
         disableColumnMenu: true,
@@ -573,7 +580,7 @@ const App = () => {
         renderCell: (cellValues) => {
           const { value, row } = cellValues,
             { pathlog } = row;
-          if (value !== "no log!")
+          if (value !== "no log!") {
             return (
               <>
                 <Tooltip title={`Open log in Log Viewer`}>
@@ -583,6 +590,7 @@ const App = () => {
                 </Tooltip>
               </>
             );
+          } else return <Box sx={{ backgroundColor: amber }}>{value}</Box>;
         },
       },
       {
@@ -625,6 +633,9 @@ const App = () => {
       },
     ]);
     const tempInfo = sourceData.info[0];
+    let tempParent = tempInfo.REPATH.split("/");
+    tempParent.pop();
+    setParent(tempParent.join("/"));
     setInfo(tempInfo);
     // set message for BSOP & SAP
     const { SAPERR1, SAPERR2, BSOPERR1, BSOPERR2 } = tempInfo;
@@ -690,7 +701,7 @@ const App = () => {
     });
     setOutputLogReport(tempOutputLogReport2);
     setColsOutputLogReport([
-      { field: "__tree_data_group__", width: 150 },
+      { field: "__tree_data_group__", width: 250 },
       // {
       //   field: "col1",
       //   headerName: "Log output",
@@ -742,6 +753,7 @@ const App = () => {
         renderCell: (cellValues) => {
           const { value, row } = cellValues,
             { line, id, output, path } = row;
+          if (userJson === null) return null;
           const uj = userJson.filter((r) => r.output === output);
           // console.log("uj", uj, "line", line);
           // if (uj.length > 1) console.log("uj", uj, "line", line);
@@ -759,7 +771,7 @@ const App = () => {
                       setOpenUserInput(true);
                     }}
                   >
-                    <Done />
+                    <Done sx={{ fontSize: 12 }} />
                   </IconButton>
                 </Tooltip>
               );
@@ -776,7 +788,7 @@ const App = () => {
                       setOpenUserInput(true);
                     }}
                   >
-                    <Close />
+                    <Close sx={{ fontSize: 12 }} />
                   </IconButton>
                 </Tooltip>
               );
@@ -793,7 +805,7 @@ const App = () => {
                       setOpenUserInput(true);
                     }}
                   >
-                    <QuestionMark />
+                    <QuestionMark sx={{ fontSize: 12 }} />
                   </IconButton>
                 </Tooltip>
               );
@@ -814,7 +826,7 @@ const App = () => {
                     }}
                     label={"?"}
                   >
-                    <MenuBookTwoTone />
+                    <MenuBookTwoTone sx={{ fontSize: 12 }} />
                   </IconButton>
                 </Tooltip>
               );
@@ -828,23 +840,34 @@ const App = () => {
     const categories1 = Object.keys(sourceData.graph1),
       prog1 = sourceData.graph1["Programs"],
       out1 = sourceData.graph1["Outputs"],
+      expectedProg =
+        prog1.expectedprograms - prog1.issueprograms - prog1.cleanprograms,
+      expectedOut =
+        out1.expectedoutputs - out1.cleanoutputs - out1.issueoutputs,
       series1 = [
         {
           name: "Completed",
-          data: [prog1.cleanprograms, out1.cleanoutputs],
+          data: [
+            prog1.cleanprograms > 0 ? prog1.cleanprograms : null,
+            out1.cleanoutputs > 0 ? out1.cleanoutputs : null,
+          ],
         },
         {
           name: "Expected",
           data: [
-            prog1.expectedprograms - prog1.issueprograms - prog1.cleanprograms,
-            out1.expectedoutputs - out1.cleanoutputs - out1.issueoutputs,
+            expectedProg > 0 ? expectedProg : null,
+            expectedOut > 0 ? expectedOut : null,
           ],
         },
         {
           name: "Issues",
-          data: [prog1.issueprograms, out1.issueoutputs],
+          data: [
+            prog1.issueprograms > 0 ? prog1.issueprograms : null,
+            out1.issueoutputs > 0 ? out1.issueoutputs : null,
+          ],
         },
       ];
+    // console.log(series1);
     setGraph1({
       chart: {
         type: "bar",
@@ -888,7 +911,6 @@ const App = () => {
       },
       series: series1,
     });
-    // console.log(categories1);
 
     // eslint-disable-next-line
   }, [sourceData]);
@@ -1062,7 +1084,7 @@ const App = () => {
     if (!userJson) {
       // make a default structure for user info if we dont have one - e.g. getJsonFile has returned false because there is no user.json file
       const tempUserJson = [];
-      console.log("tempUserJson", tempUserJson);
+      // console.log("tempUserJson", tempUserJson);
       setUserJson(tempUserJson);
     }
   }, [userJson]);
@@ -1111,16 +1133,15 @@ const App = () => {
         if (!outputsWithIssues.includes(x)) outputsWithoutIssues.push(x);
       });
       console.log(
-        "INFO: ",
-        "\nlogsWithIssues",
+        "INFO:\tlogsWithIssues",
         logsWithIssues,
-        "\nallOutputs",
+        "\nINFO:\tallOutputs",
         allOutputs,
-        "\noutputsWithIssues",
+        "\nINFO:\toutputsWithIssues",
         outputsWithIssues,
-        "\noutputsWithoutIssues",
+        "\nINFO:\toutputsWithoutIssues",
         outputsWithoutIssues,
-        "\nuserJson",
+        "\nINFO:\tuserJson",
         userJson
       );
 
@@ -1272,7 +1293,7 @@ const App = () => {
 
           {graph2 && info.EVENTTYPE === "crooversight" && (
             <Box sx={{ ml: 5 }} id="d3ref">
-              <Donut iss={iss} ref={d3ref} />
+              <Donut iss={iss} ref={d3ref} parentInfo={info} />
             </Box>
           )}
 
@@ -1288,22 +1309,21 @@ const App = () => {
                 sx={{ minWidth: 400 }}
                 size="small"
                 aria-label="a dense table"
+                padding="none"
               >
                 <TableHead>
                   <TableRow sx={{ backgroundColor: "#f6f5ea" }}>
-                    <TableCell
-                      sx={{ fontWeight: "bold", fontSize: gridFontSize + "em" }}
-                    >
-                      Document
+                    <TableCell sx={{ fontSize: gridFontSize + "em" }}>
+                      Document&nbsp;&nbsp;
                     </TableCell>
                     <TableCell
-                      sx={{ fontWeight: "bold", fontSize: gridFontSize + "em" }}
+                      sx={{ fontSize: gridFontSize + "em" }}
                       align="left"
                     >
                       Name
                     </TableCell>
                     <TableCell
-                      sx={{ fontWeight: "bold", fontSize: gridFontSize + "em" }}
+                      sx={{ fontSize: gridFontSize + "em" }}
                       align="right"
                     >
                       Last Modified
@@ -1330,50 +1350,48 @@ const App = () => {
                               : row.doc === "SAP" && info.SAPERR1 === "1"
                               ? "red"
                               : row.doc === "BSOP" && info.BSOPERR2 === "1"
-                              ? "orange"
+                              ? amber
                               : row.doc === "SAP" && info.SAPERR2 === "1"
-                              ? "orange"
+                              ? amber
                               : "#ffffff",
                         }}
                       >
-                        {" "}
-                        <Tooltip
-                          title={
-                            row.doc === "SAP"
-                              ? sapErrMsg
-                              : row.doc === "BSOP"
-                              ? bsopErrMsg
-                              : ""
-                          }
-                        >
-                          <Box>
-                            {" "}
-                            {(row.doc === "SAP" &&
-                              (info.SAPERR1 === "1" || info.SAPERR2 === "1")) ||
-                            (row.doc === "BSOP" &&
-                              (info.BSOPERR1 === "1" ||
-                                info.BSOPERR2 === "1")) ? (
-                              <IconButton
-                                variant="outlined"
-                                size="small"
-                                sx={{ color: "#99ccff" }}
-                                onClick={() => {
-                                  if (row.name === "<missing>") return;
-                                  const path = row.path.split("/");
-                                  path.pop();
-                                  window.open(
-                                    fileViewerPrefix + path.join("/"),
-                                    "_blank"
-                                  );
-                                }}
-                                label={"?"}
-                              >
-                                <Info fontSize="small" />
-                              </IconButton>
-                            ) : null}
-                            {row.doc}
-                          </Box>
-                        </Tooltip>
+                        <Box sx={{ width: "50px" }}>
+                          {(row.doc === "SAP" &&
+                            (info.SAPERR1 === "1" || info.SAPERR2 === "1")) ||
+                          (row.doc === "BSOP" &&
+                            (info.BSOPERR1 === "1" ||
+                              info.BSOPERR2 === "1")) ? (
+                            <IconButton
+                              variant="outlined"
+                              size="small"
+                              sx={{ color: "#99ccff" }}
+                              onClick={() => {
+                                if (row.name === "<missing>") return;
+                                const path = row.path.split("/");
+                                path.pop();
+                                window.open(
+                                  fileViewerPrefix + path.join("/"),
+                                  "_blank"
+                                );
+                              }}
+                              label={"?"}
+                            >
+                              <Info fontSize="small" />
+                            </IconButton>
+                          ) : null}
+                          <Tooltip
+                            title={
+                              row.doc === "SAP"
+                                ? sapErrMsg
+                                : row.doc === "BSOP"
+                                ? bsopErrMsg
+                                : ""
+                            }
+                          >
+                            <Box> {row.doc}</Box>
+                          </Tooltip>
+                        </Box>
                       </TableCell>
                       <TableCell
                         sx={{ color: "blue", fontSize: gridFontSize + "em" }}
@@ -1426,20 +1444,23 @@ const App = () => {
               disableColumnMenu
               canUserSort={false}
               density="compact"
-              rowHeight={42}
+              rowHeight={rowHeight}
               autoHeight
               hideFooter={true}
               defaultGroupingExpansionDepth={-1}
               sx={{
                 mt: 1,
                 ml: 1,
+                padding: 0.1,
+                fontWeight: "fontSize=5",
+                fontFamily: "system-ui;",
                 fontSize: gridFontSize + "em",
                 "& .note": {
                   backgroundColor: "#e6f7ff",
                   color: "#0000ff",
                 },
                 "& .amber": {
-                  backgroundColor: "#ffffe6",
+                  backgroundColor: amber,
                   color: "#000000",
                 },
                 "& .red": {
@@ -1448,6 +1469,7 @@ const App = () => {
                 },
                 "& .header": {
                   backgroundColor: "#f6f5ea",
+                  padding: 1,
                 },
                 "& .MuiDataGrid-columnHeaderTitle": {
                   lineHeight: 1,
@@ -1495,6 +1517,7 @@ const App = () => {
               sx={{
                 ml: 1,
                 fontSize: gridFontSize + "em",
+                fontFamily: "system-ui;",
                 mt: 1,
                 [`& .${gridClasses.cell}`]: {
                   py: 1,
@@ -1504,7 +1527,7 @@ const App = () => {
                   color: "#0000ff",
                 },
                 "& .amber": {
-                  backgroundColor: "#fff5e6",
+                  backgroundColor: amber,
                   color: "#0000ff",
                 },
                 "& .red": {
@@ -1600,7 +1623,7 @@ const App = () => {
                 }}
                 disableColumnMenu
                 density="compact"
-                rowHeight={30}
+                rowHeight={rowHeight}
                 autoHeight
                 hideFooter={true}
                 apiRef={apiRef}
@@ -1608,6 +1631,7 @@ const App = () => {
                   ml: 1,
                   mt: 1,
                   fontSize: gridFontSize + "em",
+                  fontFamily: "system-ui;",
                   "& .header": {
                     backgroundColor: "#f6f5ea",
                     lineHeight: 1,
@@ -1663,6 +1687,76 @@ const App = () => {
             </Tooltip>
           )}
 
+          {info && "generic_adam_exists" in info && (
+            <Tooltip
+              title={
+                info.generic_adam_exists === "1"
+                  ? "Directory was found at: " + parent + "/generic_adam"
+                  : "Directory was not found at: " + parent + "/generic_adam"
+              }
+            >
+              <Chip
+                label={
+                  info.generic_adam_exists === "1"
+                    ? "Generic Adam exists"
+                    : "Generic Adam missing"
+                }
+                icon={info.generic_adam_exists === "1" ? <Done /> : <Close />}
+                color={info.generic_adam_exists === "1" ? "success" : "error"}
+                size="small"
+                variant="outlined"
+                sx={{ mt: 1 }}
+              />
+            </Tooltip>
+          )}
+          {info && "generic_adam_meta_exists" in info && (
+            <Tooltip
+              title={
+                info.generic_adam_meta_exists === "1"
+                  ? "Directory was found at: " +
+                    parent +
+                    "/generic_adam/documents/meta"
+                  : "Directory was not found at: " +
+                    parent +
+                    "/generic_adam/documents/meta"
+              }
+            >
+              <Chip
+                label={
+                  info.generic_adam_meta_exists === "1"
+                    ? "Content exists"
+                    : "Content missing"
+                }
+                icon={
+                  info.generic_adam_meta_exists === "1" ? <Done /> : <Close />
+                }
+                color={
+                  info.generic_adam_meta_exists === "1" ? "success" : "error"
+                }
+                size="small"
+                variant="outlined"
+                sx={{ mt: 1, ml: 1 }}
+              />
+            </Tooltip>
+          )}
+          {info && info.generic_adam_lastModified > " " ? (
+            <Tooltip
+              title={
+                "Last modified date for directory: " +
+                parent +
+                "/generic_adam/documents/meta"
+              }
+            >
+              <Chip
+                label={info.generic_adam_lastModified}
+                color={"info"}
+                size="small"
+                variant="outlined"
+                sx={{ mt: 1, ml: 1 }}
+              />
+            </Tooltip>
+          ) : null}
+
           <Box
             sx={
               {
@@ -1683,18 +1777,19 @@ const App = () => {
                 columns={colsReport2}
                 disableColumnMenu
                 density="compact"
-                rowHeight={42}
+                rowHeight={rowHeight}
                 autoHeight
                 hideFooter={true}
                 sx={{
                   mt: 1,
                   fontSize: gridFontSize + 0.05 + "em",
+                  fontFamily: "system-ui;",
                   "& .note": {
                     backgroundColor: "#e6f7ff",
                     color: "#0000ff",
                   },
                   "& .amber": {
-                    backgroundColor: "#fff5e6",
+                    backgroundColor: amber,
                     color: "#0000ff",
                   },
                   "& .red": {
@@ -1712,10 +1807,9 @@ const App = () => {
                     lineHeight: 1,
                     whiteSpace: "normal",
                   },
-                  // "& .MuiDataGrid-columnHeader": {
-                  //   minWidth: "10px",
-                  //   color: "red",
-                  // },
+                  "& .MuiDataGrid-columnHeader": {
+                    padding: "0 0 0 2pt",
+                  },
                 }}
                 getCellClassName={(params) => {
                   if (params.field === "err" && params.value > 0) {
@@ -1759,6 +1853,7 @@ const App = () => {
           rowToCheck={rowToCheck}
           setUserJson={setUserJson}
           idClickedOn={idClickedOn}
+          access={sourceData && sourceData.access ? sourceData.access : null}
         />
       )}
       {openOutputReview && (

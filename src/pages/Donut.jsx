@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from "react";
+import { useState, useRef } from "react";
 import { Chart as ChartJS, ArcElement, Tooltip, Legend } from "chart.js";
 import { Doughnut, getElementAtEvent } from "react-chartjs-2";
 import {
@@ -27,9 +27,9 @@ function Donut(props) {
   //     yAlign: "bottom",
   //   };
   // };
-  const { iss } = props,
+  const { iss, parentInfo } = props,
     chartRef = useRef(),
-    [info, setInfo] = useState(""),
+    // [info, setInfo] = useState(""),
     [title, setTitle] = useState(""),
     [labels, setLabels] = useState([]);
 
@@ -65,7 +65,7 @@ function Donut(props) {
     }, {}),
     typeKeys = Object.keys(type),
     typeValues = typeKeys.map((k) => type[k].count),
-    [showType, setShowType] = useState(true),
+    [showType, setShowType] = useState(false),
     handleChangeType = (event) => {
       setShowType(event.target.checked);
     };
@@ -89,7 +89,7 @@ function Donut(props) {
       setShowStatusByType(event.target.checked);
     };
   // console.log(statusByType, statusByTypeKeys, statusByTypeValues);
-
+  // console.log(statusKeys, statusValues);
   // define parameters for doughnut graph
   const data = {
       labels: statusKeys,
@@ -99,21 +99,26 @@ function Donut(props) {
           label: "Status",
           data: statusValues,
           backgroundColor: [
-            "rgba(249, 200, 14, 0.2)",
-            "rgba(248, 102, 36, 0.2)",
-            "rgba(234, 53, 70, 0.2)",
-            "rgba(102, 46, 155, 0.2)",
-            "rgba(67, 188, 205, 0.2)",
-            "rgba(204, 204, 204, 0.2)",
+            statusKeys.length > 0 && statusKeys[0].includes("Ok")
+              ? "rgba(235, 243, 217, 1)"
+              : "rgba(0, 0, 255, 0.2)",
+            statusKeys.length > 1 && statusKeys[1].includes("Ok")
+              ? "rgba(235, 243, 217, 0.5)"
+              : "rgba(0, 0, 255, 1)",
+            statusKeys.length > 2 && statusKeys[2].includes("Ok")
+              ? "rgba(235, 243, 217, 1)"
+              : "rgba(0, 0, 255, 0.5)",
+            statusKeys.length > 3 && statusKeys[3].includes("Ok")
+              ? "rgba(235, 243, 217, 0.5)"
+              : "rgba(0, 0, 255, 0.25)",
+            statusKeys.length > 4 && statusKeys[4].includes("Ok")
+              ? "rgba(235, 243, 217, 1)"
+              : "rgba(0, 0, 255, 0.75)",
+            statusKeys.length > 5 && statusKeys[5].includes("Ok")
+              ? "rgba(235, 243, 217, 0.5)"
+              : "rgba(0, 0, 255, 0.2)",
           ],
-          borderColor: [
-            "rgba(249, 200, 14, 1)",
-            "rgba(248, 102, 36, 1)",
-            "rgba(234, 53, 70, 1)",
-            "rgba(102, 46, 155, 1)",
-            "rgba(67, 188, 205, 1)",
-            "rgba(204, 204, 204, 1)",
-          ],
+          borderColor: ["gray", "gray", "gray", "gray", "gray", "gray"],
           borderWidth: 1,
           hidden: !showStatus,
         },
@@ -128,14 +133,7 @@ function Donut(props) {
             "rgba(153, 102, 255, 0.2)",
             "rgba(255, 159, 64, 0.2)",
           ],
-          borderColor: [
-            "rgba(255, 99, 132, 1)",
-            "rgba(54, 162, 235, 1)",
-            "rgba(255, 206, 86, 1)",
-            "rgba(75, 192, 192, 1)",
-            "rgba(153, 102, 255, 1)",
-            "rgba(255, 159, 64, 1)",
-          ],
+          borderColor: ["gray", "gray", "gray", "gray", "gray", "gray"],
           borderWidth: 1,
           hidden: !showType,
         },
@@ -154,18 +152,7 @@ function Donut(props) {
             "rgba(114, 239, 221, 0.2)",
             "rgba(128, 255, 219, 0.2)",
           ],
-          borderColor: [
-            "rgba(116, 0, 184, 1)",
-            "rgba(105, 48, 195, 1)",
-            "rgba(94, 96, 206, 1)",
-            "rgba(83, 144, 217, 1)",
-            "rgba(78, 168, 222, 1)",
-            "rgba(72, 191, 227, 1)",
-            "rgba(86, 207, 225, 1)",
-            "rgba(100, 223, 223, 1)",
-            "rgba(114, 239, 221, 1)",
-            "rgba(128, 255, 219, 1)",
-          ],
+          borderColor: ["gray"],
           borderWidth: 1,
           hidden: !showStatusByType,
         },
@@ -224,13 +211,16 @@ function Donut(props) {
                 );
               }
               // console.log(key, info, labels);
-              const multiline = labels
-                .map((r, i) => {
-                  if (i < 10) return r.title;
-                  else if (i === 10) return labels.length + " more items...";
-                  else return null;
-                })
-                .filter((r) => r !== null);
+              const showThisMany = 10,
+                multiline = labels
+                  .map((r, i) => {
+                    if (i < showThisMany) return r.title;
+                    else if (i === showThisMany) {
+                      const remaining = labels.length - showThisMany;
+                      return remaining + " more items...";
+                    } else return null;
+                  })
+                  .filter((r) => r !== null);
               setLabels(multiline);
               return "";
             },
@@ -239,11 +229,11 @@ function Donut(props) {
       },
     };
 
-  // display debuging info
-  useEffect(() => {
-    console.log("info=" + info);
-    console.log(chartRef.current);
-  }, [info]);
+  // // display debuging info
+  // useEffect(() => {
+  //   console.log("info=" + info);
+  //   console.log(chartRef.current);
+  // }, [info]);
 
   return (
     <>
@@ -263,7 +253,62 @@ function Donut(props) {
                     elementAtEvent && elementAtEvent.length > 0
                       ? elementAtEvent[0]
                       : { datasetIndex: null, index: null };
-                setInfo("datasetIndex=" + datasetIndex + ", index=" + index);
+                // setInfo("datasetIndex=" + datasetIndex + ", index=" + index);
+                let filterValue1,
+                  filterField1,
+                  filterValue2,
+                  filterField2,
+                  combinedValue = [];
+                if (datasetIndex === 0) {
+                  filterField1 = "Status";
+                  filterValue1 =
+                    statusKeys[index] === "Not checked"
+                      ? ""
+                      : statusKeys[index];
+                } else if (datasetIndex === 1) {
+                  filterField1 = "Type_";
+                  filterValue1 = typeKeys[index];
+                } else if (datasetIndex === 2) {
+                  combinedValue = statusByTypeKeys[index].split(" - ");
+                  filterField1 = "Status";
+                  filterValue1 =
+                    combinedValue[0] === "Not checked" ? "" : combinedValue[0];
+                  filterField2 = "Type_";
+                  filterValue2 = combinedValue[1];
+                }
+                // console.log(statusByTypeKeys,combinedValue,
+                //   filterField1,
+                //   filterValue1,
+                //   filterField2,
+                //   filterValue2
+                // );
+                if (parentInfo.splistmessage.split("]").length > 1) {
+                  if (combinedValue && combinedValue.length > 1) {
+                    window.open(
+                      parentInfo.splisturl +
+                        "?FilterField1=" +
+                        filterField1 +
+                        "&FilterValue1=" +
+                        filterValue1 +
+                        "&FilterType1=Choice" +
+                        "?FilterField2=" +
+                        filterField2 +
+                        "&FilterValue2=" +
+                        filterValue2 +
+                        "&FilterType2=Choice",
+                      "_blank"
+                    );
+                  } else
+                    window.open(
+                      parentInfo.splisturl +
+                        "?FilterField1=" +
+                        filterField1 +
+                        "&FilterValue1=" +
+                        filterValue1 +
+                        "&FilterType1=Choice",
+                      "_blank"
+                    );
+                } else alert(parentInfo.splistmessage);
               }}
               // onHover={(e) => {
               //   console.log(e);
@@ -309,10 +354,15 @@ function Donut(props) {
               <Checkbox
                 checked={showStatus}
                 onChange={handleChangeStatus}
-                label="Status"
                 size="small"
               />
             }
+            sx={{
+              "& .MuiFormControlLabel-label": {
+                fontFamily: "system-ui",
+                fontSize: "0.9em",
+              },
+            }}
             label="Status"
           />
           <FormControlLabel
@@ -323,6 +373,12 @@ function Donut(props) {
                 size="small"
               />
             }
+            sx={{
+              "& .MuiFormControlLabel-label": {
+                fontFamily: "system-ui",
+                fontSize: "0.9em",
+              },
+            }}
             label="Output Type"
           />
           <FormControlLabel
@@ -333,7 +389,12 @@ function Donut(props) {
                 size="small"
               />
             }
-            sx={{ typography: "h6" }}
+            sx={{
+              "& .MuiFormControlLabel-label": {
+                fontFamily: "system-ui",
+                fontSize: "0.9em",
+              },
+            }}
             label="Status by Output Type"
           />
         </Grid>

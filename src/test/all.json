@@ -606,8 +606,7 @@
       "f_msg": null,
       "issuetype": "",
       "issuenr": 0
-    },
-    {
+    },    {
       "col1": "    1",
       "col2": "677          outdif;* warning; *listall;",
       "path": "",
@@ -1365,10 +1364,13 @@
       "EVENTTYPE": "crooversight",
       "INDICATION": "pemphigus",
       "REVENT": "testrun2",
-      "SAPERR1": "0",
+      "SAPERR1": "1",
       "SAPERR2": "0",
       "BSOPERR1": "0",
-      "BSOPERR2": "1"
+      "BSOPERR2": "0",
+      "generic_adam_exists": "1",
+      "generic_adam_meta_exists": "0",
+      "generic_adam_lastModified": "11Feb2023:17:51:32"
     }
   ],
   "access": [
