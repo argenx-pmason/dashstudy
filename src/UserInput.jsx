@@ -24,6 +24,7 @@ const UserInput = (props) => {
     } = props,
     { output, issuenr, id, col2 } = rowToCheck,
     [comment, setComment] = useState(""),
+    [userName, setUserName] = useState(null),
     [user, setUser] = useState(localStorage.getItem("user") || ""),
     // handleChange = (e, key, field, id) => {
     //   // eslint-disable-next-line
@@ -83,6 +84,14 @@ const UserInput = (props) => {
     // eslint-disable-next-line
   }, [userJson]);
 
+  useEffect(() => {
+    if (access === null) return;
+    const match = access.filter((u) => u.userid === user);
+    if (match.length > 0) setUserName(match[0].Name);
+    else setUserName(null);
+    // eslint-disable-next-line
+  }, [user]);
+
   return (
     <React.Fragment>
       <Dialog
@@ -117,16 +126,20 @@ const UserInput = (props) => {
             </Grid>
             <Grid item xs={6}>
               <TextField
-                label={access.filter((u) => u.userid === user).length > 0
-                ? "User ID (valid)"
-                : "Enter User ID"}
+                label={
+                  access && access.filter((u) => u.userid === user).length > 0
+                    ? "User ID (valid)"
+                    : "Enter User ID"
+                }
                 value={user}
                 onChange={(e) => {
                   setUser(e.target.value);
                 }}
                 color={
-                  access.filter((u) => u.userid === user).length > 0
+                  access && access.filter((u) => u.userid === user).length > 0
                     ? "success"
+                    : access === null
+                    ? "warning"
                     : "error"
                 }
                 sx={{
@@ -134,12 +147,23 @@ const UserInput = (props) => {
                 }}
               />
             </Grid>
+            {userName ? (
+              <Grid item xs={6}>
+                <TextField
+                  label="User Name"
+                  value={userName}
+                  disabled={true}
+                  sx={{ width: "100%" }}
+                />
+              </Grid>
+            ) : null}
           </Grid>
         </DialogContent>
         <DialogActions>
           <Button
             onClick={() => approve(false)}
             variant={"contained"}
+            disabled={access !== null && !Boolean(userName)}
             color={"error"}
           >
             Not OK
@@ -150,6 +174,7 @@ const UserInput = (props) => {
               approve(true);
             }}
             variant={"contained"}
+            disabled={access !== null && !Boolean(userName)}
             color={"success"}
           >
             OK

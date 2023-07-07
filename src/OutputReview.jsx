@@ -5,14 +5,13 @@ import {
   Dialog,
   DialogActions,
   DialogContent,
-  DialogContentText,
   DialogTitle,
   // TextField,
 } from "@mui/material";
 import { DataGridPro } from "@mui/x-data-grid-pro";
 
 const UserInput = (props) => {
-  const { open, setOpen, userJson, userJsonFile, outputClickedOn } = props,
+  const { open, setOpen, userJson,  } = props,
     handleClose = () => {
       setOpen(false);
     },

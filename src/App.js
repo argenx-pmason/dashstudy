@@ -812,7 +812,7 @@ const App = () => {
           } else {
             // console.log(uj);
             if (path > " " && uj.length > 0) {
-              console.log("path", path);
+              // console.log("path", path);
               return (
                 <Tooltip title={"Display review comments and decisions"}>
                   <IconButton
@@ -850,6 +850,8 @@ const App = () => {
           data: [
             prog1.cleanprograms > 0 ? prog1.cleanprograms : null,
             out1.cleanoutputs > 0 ? out1.cleanoutputs : null,
+            // prog1.cleanprograms,
+            // out1.cleanoutputs,
           ],
         },
         {
@@ -857,6 +859,8 @@ const App = () => {
           data: [
             expectedProg > 0 ? expectedProg : null,
             expectedOut > 0 ? expectedOut : null,
+            // expectedProg,
+            // expectedOut,
           ],
         },
         {
@@ -864,11 +868,12 @@ const App = () => {
           data: [
             prog1.issueprograms > 0 ? prog1.issueprograms : null,
             out1.issueoutputs > 0 ? out1.issueoutputs : null,
+            // prog1.issueprograms,
+            // out1.issueoutputs,
           ],
         },
       ];
-    // console.log(series1);
-    setGraph1({
+    const tempGraph = {
       chart: {
         type: "bar",
         height: 120,
@@ -910,7 +915,9 @@ const App = () => {
         },
       },
       series: series1,
-    });
+    };
+    console.log(tempGraph)
+    setGraph1(tempGraph);
 
     // eslint-disable-next-line
   }, [sourceData]);
