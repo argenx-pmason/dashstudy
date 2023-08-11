@@ -53,7 +53,7 @@ import Donut from "./pages/Donut.jsx";
 
 const App = () => {
   LicenseInfo.setLicenseKey(
-    "5b931c69b031b808de26d5902e04c36fTz00Njk0NyxFPTE2ODg4MDI3MDM3MjAsUz1wcm8sTE09c3Vic2NyaXB0aW9uLEtWPTI="
+    "369a1eb75b405178b0ae6c2b51263cacTz03MTMzMCxFPTE3MjE3NDE5NDcwMDAsUz1wcm8sTE09c3Vic2NyaXB0aW9uLEtWPTI="
   );
   // Sunburst(Highcharts);
   // Treemap(Highcharts);
@@ -608,6 +608,7 @@ const App = () => {
         sortable: false,
         renderCell: (cellValues) => {
           const { value } = cellValues;
+          console.log("info", info);
           if (value > " ")
             return (
               <Tooltip title={"Email programmer"}>
@@ -619,8 +620,15 @@ const App = () => {
                         value +
                         "@argenx.com?subject=" +
                         info.retext +
-                        "&body=" +
-                        encodeURIComponent(href),
+                        " (" +
+                        info.statusReportCreateDate +
+                        "," +
+                        info.statusReportCreateTime +
+                        ")&body=" +
+                        encodeURIComponent(href) +
+                        "?file=" +
+                        info.REPATH +
+                        "/documents/meta/dashstudy.json",
                       "_blank"
                     );
                   }}
@@ -916,7 +924,7 @@ const App = () => {
       },
       series: series1,
     };
-    console.log(tempGraph)
+    console.log(tempGraph);
     setGraph1(tempGraph);
 
     // eslint-disable-next-line
@@ -1861,6 +1869,7 @@ const App = () => {
           setUserJson={setUserJson}
           idClickedOn={idClickedOn}
           access={sourceData && sourceData.access ? sourceData.access : null}
+          mode={mode}
         />
       )}
       {openOutputReview && (

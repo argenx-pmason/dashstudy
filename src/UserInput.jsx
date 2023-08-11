@@ -21,6 +21,7 @@ const UserInput = (props) => {
       setUserJson,
       idClickedOn,
       access,
+      mode,
     } = props,
     { output, issuenr, id, col2 } = rowToCheck,
     [comment, setComment] = useState(""),
@@ -62,7 +63,9 @@ const UserInput = (props) => {
         "newContent",
         newContent,
         "access",
-        access
+        access,
+        "mode",
+        mode
       );
       if (ok) localStorage.setItem("user", user);
       const allButNew = userJson ? userJson.filter((row) => row.id !== id) : [],
@@ -127,7 +130,9 @@ const UserInput = (props) => {
             <Grid item xs={6}>
               <TextField
                 label={
-                  access && access.filter((u) => u.userid === user).length > 0
+                  access &&
+                  access.length > 0 &&
+                  access.filter((u) => u.userid === user).length > 0
                     ? "User ID (valid)"
                     : "Enter User ID"
                 }
@@ -163,7 +168,9 @@ const UserInput = (props) => {
           <Button
             onClick={() => approve(false)}
             variant={"contained"}
-            disabled={access !== null && !Boolean(userName)}
+            disabled={
+              access !== null && access.length > 0 && !Boolean(userName)
+            }
             color={"error"}
           >
             Not OK
@@ -174,7 +181,9 @@ const UserInput = (props) => {
               approve(true);
             }}
             variant={"contained"}
-            disabled={access !== null && !Boolean(userName)}
+            disabled={
+              access !== null && access.length > 0 && !Boolean(userName)
+            }
             color={"success"}
           >
             OK
