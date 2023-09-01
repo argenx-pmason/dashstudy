@@ -15,6 +15,12 @@ import {
   TableContainer,
   Paper,
   Chip,
+  Dialog,
+  DialogTitle,
+  DialogContent,
+  List,
+  ListItem,
+  ListItemIcon,
 } from "@mui/material";
 import Grid from "@mui/material/Unstable_Grid2";
 import {
@@ -23,6 +29,7 @@ import {
   Close,
   MenuBookTwoTone,
   Info,
+  ForwardTwoTone,
 } from "@mui/icons-material";
 import UserInput from "./UserInput";
 import OutputReview from "./OutputReview";
@@ -78,6 +85,7 @@ const App = () => {
     [sapErrMsg, setSapErrMsg] = useState(""),
     [bsopErrMsg, setBsopErrMsg] = useState(""),
     [openUserInput, setOpenUserInput] = useState(false),
+    [openInfo, setOpenInfo] = useState(false),
     topSpace = 350,
     gridFontSize = 0.7,
     rowHeight = 22,
@@ -384,8 +392,8 @@ const App = () => {
         sortable: false,
         renderCell: (cellValues) => {
           const { value, row } = cellValues,
-            { sas_program } = row,
-            log = sas_program.split(".")[0] + ".log";
+            { jobname } = row,
+            log = jobname.split(".")[0] + ".log";
           if (value !== "no log!") {
             return (
               <Tooltip title={"View log"}>
@@ -1701,6 +1709,21 @@ const App = () => {
               </Button>
             </Tooltip>
           )}
+          <Tooltip title="Information about the data used in this screen">
+            <IconButton
+              size="small"
+              // aria-label="account of current user"
+              // aria-controls="menu-appbar"
+              // aria-haspopup="true"
+              onClick={() => {
+                setOpenInfo(true);
+              }}
+              color="info"
+              sx={{ mt: 1 }}
+            >
+              <Info />
+            </IconButton>
+          </Tooltip>
 
           {info && "generic_adam_exists" in info && (
             <Tooltip
@@ -1881,6 +1904,46 @@ const App = () => {
           outputClickedOn={outputClickedOn}
         />
       )}
+      {/* Dialog with General info about this screen */}
+      <Dialog fullWidth onClose={() => setOpenInfo(false)} open={openInfo}>
+        <DialogTitle>Info about this screen</DialogTitle>
+        <DialogContent>
+          <List dense>
+            <ListItem>
+              <ListItemIcon>
+                <ForwardTwoTone />
+              </ListItemIcon>
+              <p>
+                Many things on the screen can be hovered over to display
+                information, including any{" "}
+                <span style={{ color: "blue" }}>
+                  <b>blue</b>
+                </span>{" "}
+                text, which can also be clicked on to do something - showing
+                related information on another tab, creating an email, etc.
+              </p>
+            </ListItem>
+          </List>
+          <p>
+            <b>Reviewing messages: </b>If there are errors or warnings in logs
+            for any SAS programs then a table will show those programs in the
+            lower left area of screen. A user can review the messages by
+            clicking on the{" "}
+            <span style={{ color: "blue" }}>
+              <b>?</b>
+            </span>{" "}
+            icon and mark them as{" "}
+            <span style={{ color: "green" }}>
+              <b>OK</b>
+            </span>{" "}
+            or{" "}
+            <span style={{ color: "red" }}>
+              <b>Not OK</b>
+            </span>
+            , along with an explanation.
+          </p>
+        </DialogContent>
+      </Dialog>
     </Box>
   );
 };
