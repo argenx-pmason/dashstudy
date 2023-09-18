@@ -163,22 +163,22 @@ function Donut(props) {
       rotation: 270,
       cutout: "50%",
       spacing: 2,
-      responsive: true,
+      // responsive: true,
       layoutPosition: "bottom",
       // legend: { display: false },
       legend: false,
-      title: {
-        display: true,
-        text: "Status of CRO oversight SharePoint list",
-      },
-      animation: {
-        animateScale: true,
-        animateRotate: true,
-      },
+      // title: {
+      //   display: true,
+      //   text: "Status of CRO oversight SharePoint list",
+      // },
+      // animation: {
+      //   animateScale: true,
+      //   animateRotate: true,
+      // },
       plugins: {
         legend: { display: false },
         tooltip: {
-          enabled: true,
+          // enabled: true,
           // position: "myCustomPositioner",
           callbacks: {
             title: function (arg) {

@@ -184,6 +184,7 @@ const App = () => {
 
   // get list of all studies we have JSON built for
   useEffect(() => {
+    console.log("Processing first time screen opens");
     if (mode === "local") {
       const lsafsearch = localstudies["SASTableData+LSAFSEARCH"],
         tempStudyList = lsafsearch
@@ -233,7 +234,7 @@ const App = () => {
                   " ... [" +
                   r.dateLastModified +
                   "] ... (" +
-                  r.lastModifiedBy +
+                  r.formattedsize +
                   ")",
               };
             })
@@ -362,7 +363,7 @@ const App = () => {
         sortable: false,
         renderCell: (cellValues) => {
           const { value } = cellValues;
-          if (value !== "no job") {
+          if (value !== "no job" && info !== null) {
             return (
               <Tooltip title={"View job XML"}>
                 <Box
@@ -394,7 +395,7 @@ const App = () => {
           const { value, row } = cellValues,
             { jobname } = row,
             log = jobname.split(".")[0] + ".log";
-          if (value !== "no log!") {
+          if (value !== "no log!" && info !== null) {
             return (
               <Tooltip title={"View log"}>
                 <Box
@@ -616,7 +617,7 @@ const App = () => {
         sortable: false,
         renderCell: (cellValues) => {
           const { value } = cellValues;
-          console.log("info", info);
+          // console.log("cellValues", cellValues,'info',info);
           if (value > " ")
             return (
               <Tooltip title={"Email programmer"}>
@@ -649,10 +650,11 @@ const App = () => {
       },
     ]);
     const tempInfo = sourceData.info[0];
+    console.log("tempInfo", tempInfo);
+    setInfo(tempInfo);
     let tempParent = tempInfo.REPATH.split("/");
     tempParent.pop();
     setParent(tempParent.join("/"));
-    setInfo(tempInfo);
     // set message for BSOP & SAP
     const { SAPERR1, SAPERR2, BSOPERR1, BSOPERR2 } = tempInfo;
     let tempSapErrMsg = "",
@@ -769,8 +771,10 @@ const App = () => {
         renderCell: (cellValues) => {
           const { value, row } = cellValues,
             { line, id, output, path } = row;
-          if (userJson === null) return null;
+          // console.log("userJson", userJson);
+          // if (userJson !== null && userJson.length > 0) {
           const uj = userJson.filter((r) => r.output === output);
+          // }
           // console.log("uj", uj, "line", line);
           // if (uj.length > 1) console.log("uj", uj, "line", line);
           if (line > 0) {
@@ -827,7 +831,7 @@ const App = () => {
               );
           } else {
             // console.log(uj);
-            if (path > " " && uj.length > 0) {
+            if (path > " " && uj && uj.length > 0) {
               // console.log("path", path);
               return (
                 <Tooltip title={"Display review comments and decisions"}>
@@ -940,6 +944,7 @@ const App = () => {
 
   // CRO Oversight graph
   useEffect(() => {
+    console.log("CRO Oversight graph");
     if (iss) {
       const lev1Values = iss
           .map((item) => item.status)
@@ -1114,6 +1119,7 @@ const App = () => {
 
   // there is new user JSON data, so we can process it and integrate that into what is shown on screen
   useEffect(() => {
+    console.log("userJson changed");
     if (userJson && sourceData && outputLogReport) {
       const tempOutputLogReport = [...outputLogReport];
       userJson.forEach((item) => {
