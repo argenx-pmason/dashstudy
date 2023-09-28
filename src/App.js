@@ -16,15 +16,25 @@ import {
   Paper,
   Chip,
   Dialog,
+  DialogActions,
   DialogTitle,
   DialogContent,
   List,
   ListItem,
   ListItemIcon,
+  TextField,
+  InputAdornment,
+  Alert,
+  Snackbar,
+  Radio,
+  FormControl,
+  FormControlLabel,
+  RadioGroup,
 } from "@mui/material";
 import Grid from "@mui/material/Unstable_Grid2";
 import {
   QuestionMark,
+  AccountCircle,
   Done,
   Close,
   MenuBookTwoTone,
@@ -32,6 +42,7 @@ import {
   ForwardTwoTone,
 } from "@mui/icons-material";
 import UserInput from "./UserInput";
+import MultipleUserInput from "./MultipleUserInput";
 import OutputReview from "./OutputReview";
 // import Button from "@mui/material-next/Button";
 import Select from "react-select";
@@ -70,6 +81,18 @@ const App = () => {
     mode = href.startsWith("http://localhost") ? "local" : "remote",
     urlPrefix = protocol + "//" + host,
     apiRef = useGridApiRef(),
+    saveUser = () => {
+      localStorage.setItem("username", tempUsername);
+      setOpenUserLogin(false);
+    },
+    [tempUsername, setTempUsername] = useState(""),
+    [openSnackbar, setOpenSnackbar] = useState(false),
+    handleCloseSnackbar = (event, reason) => {
+      if (reason === "clickaway") {
+        return;
+      }
+      setOpenSnackbar(false);
+    },
     [windowDimension, detectHW] = useState({
       winWidth: window.innerWidth,
       winHeight: window.innerHeight,
@@ -85,7 +108,10 @@ const App = () => {
     [sapErrMsg, setSapErrMsg] = useState(""),
     [bsopErrMsg, setBsopErrMsg] = useState(""),
     [openUserInput, setOpenUserInput] = useState(false),
+    [openUserMultipleInput, setOpenUserMultipleInput] = useState(false),
     [openInfo, setOpenInfo] = useState(false),
+    [openUserLogin, setOpenUserLogin] = useState(false),
+    [reviewSection, setReviewSection] = useState(null),
     topSpace = 350,
     gridFontSize = 0.7,
     rowHeight = 22,
@@ -112,6 +138,7 @@ const App = () => {
     [colsReport2, setColsReport2] = useState(null),
     [outputLogReport, setOutputLogReport] = useState(null),
     [colsOutputLogReport, setColsOutputLogReport] = useState(null),
+    [colsReviewSection, setColsReviewSection] = useState(null),
     [info, setInfo] = useState(null),
     [parent, setParent] = useState(null),
     [cro, setCro] = useState(null),
@@ -162,7 +189,26 @@ const App = () => {
     studyListFile =
       "/general/biostat/jobs/dashboard/dev/metadata/dash-study-files.json",
     [iss, setIss] = useState(null),
-    d3ref = createRef();
+    chooseStuff = (e, id, row) => {
+      console.log("chooseStuff> e", e);
+      console.log("chooseStuff> id", id);
+      console.log("chooseStuff> row", row);
+      row.ok = e;
+    };
+
+  let username = localStorage.getItem("username");
+
+  useEffect(() => {
+    console.log("username", username);
+    if (username === null) {
+      setTempUsername("");
+      setOpenUserLogin(true);
+    } else {
+      setTempUsername(username);
+      setOpenUserLogin(false);
+      setOpenSnackbar(true);
+    }
+  }, [username]);
 
   // load a study if we are in remote mode and have selected a study
   useEffect(() => {
@@ -284,7 +330,7 @@ const App = () => {
     } else setSourceData(all);
     // eslint-disable-next-line
   }, [href]);
-
+  // console.log("outputLogReport", outputLogReport);
   // do this when sourceData changes
   useEffect(() => {
     console.log("INFO:\tsourceData", sourceData);
@@ -748,6 +794,58 @@ const App = () => {
         sortable: false,
         flex: 1,
       },
+      // {
+      //   field: "col1",
+      //   // headerName: "❓",
+      //   width: 30,
+      //   sortable: false,
+      //   renderHeader: (params) => {
+      //     return (
+      //       <Tooltip title={"Click below to review multiple lines"}>
+      //         <Box>❓</Box>
+      //       </Tooltip>
+      //     );
+      //   },
+      //   renderCell: (cellValues) => {
+      //     const { row } = cellValues,
+      //       { output, line, id } = row;
+      //     if (line <= 0) {
+      //       return (
+      //         <Tooltip title={"Review multiple lines"}>
+      //           <IconButton
+      //             size="small"
+      //             sx={{ fontSize: 10 }}
+      //             variant="contained"
+      //             color="success"
+      //             onClick={() => {
+      //               console.log(
+      //                 sourceData,
+      //                 "outputLogReport",
+      //                 outputLogReport,
+      //                 "cellValues",
+      //                 cellValues
+      //               );
+      //               const tempReviewSection = outputLogReport
+      //                 .filter((r) => r.output === output && r.col1.length === 2)
+      //                 .map((r) => {
+      //                   return { ok: null, notOk: null, ...r };
+      //                 });
+      //               setReviewSection(tempReviewSection);
+      //               console.log("reviewSection", reviewSection);
+      //               setRowToCheck(row);
+      //               setIdClickedOn(id);
+      //               setOpenUserMultipleInput(true);
+      //             }}
+      //           >
+      //             👀
+      //           </IconButton>
+      //         </Tooltip>
+      //       );
+      //     } else {
+      //       return "";
+      //     }
+      //   },
+      // },
       {
         field: "ok",
         headerName: "OK",
@@ -829,6 +927,71 @@ const App = () => {
                   </IconButton>
                 </Tooltip>
               );
+          } else if (line <= 0) {
+            return (
+              <Tooltip title={"Review multiple lines"}>
+                <IconButton
+                  size="small"
+                  sx={{ fontSize: 10 }}
+                  variant="contained"
+                  color="success"
+                  onClick={() => {
+                    console.log(
+                      "sourceData",
+                      sourceData,
+                      "outputLogReport",
+                      outputLogReport,
+                      "cellValues",
+                      cellValues,
+                      "output",
+                      output
+                    );
+
+                    const tempOutputLogReport = sourceData.outputlogreport.map(
+                        (r, rid) => {
+                          return { id: rid, ...r };
+                        }
+                      ),
+                      tempReviewSection = tempOutputLogReport
+                        .filter((r) => {
+                          return r.output === output && r.issuenr > 0;
+                        })
+                        .map((r) => {
+                          return { id: r.id, ok: "-1", ...r };
+                        });
+                    console.log(
+                      "tempReviewSection",
+                      tempReviewSection,
+                      "userJson",
+                      userJson
+                    );
+                    // fix values of ok based on userJson
+                    if (userJson !== null && userJson.length > 0) {
+                      tempReviewSection.forEach((r) => {
+                        console.log("r", r, "userJson", userJson);
+                        const uj = userJson.filter(
+                          (uj) =>
+                            uj.output === output && uj.issuenr === r.issuenr
+                        );
+                        console.log(uj);
+                        if (uj.length > 0) {
+                          r.ok =
+                            uj[0].ok === "-1" ? "-1" : uj[0].ok ? "1" : "0";
+                        }
+                      });
+                    }
+
+                    setReviewSection(tempReviewSection);
+                    console.log("tempReviewSection", tempReviewSection);
+                    setRowToCheck(row);
+                    setIdClickedOn(id);
+                    setOpenUserMultipleInput(true);
+                  }}
+                >
+                  👀
+                </IconButton>
+              </Tooltip>
+            );
           } else {
             // console.log(uj);
             if (path > " " && uj && uj.length > 0) {
@@ -855,6 +1018,53 @@ const App = () => {
         },
       },
     ]);
+    setColsReviewSection([
+      {
+        field: "col2",
+        headerName: "Messages",
+        headerClassName: "header",
+        width: 300,
+        sortable: false,
+        flex: 1,
+      },
+      {
+        field: "ok",
+        headerName: "OK",
+        width: 200,
+        renderCell: (cellValues) => {
+          const { row } = cellValues,
+            { id, ok } = row;
+          return (
+            <FormControl>
+              <RadioGroup value={ok} row name={"id" + id}>
+                <FormControlLabel
+                  value={"0"}
+                  control={<Radio size="small" color="error" />}
+                  // onChange={chooseStuff2}
+                  onChange={(e) => {
+                    chooseStuff(e.target.value, id, row);
+                  }}
+                />
+                <FormControlLabel
+                  value={"-1"}
+                  control={<Radio size="small" color="info" />}
+                  onChange={(e) => {
+                    chooseStuff(e.target.value, id, row);
+                  }}
+                />
+                <FormControlLabel
+                  value={"1"}
+                  control={<Radio size="small" color="success" />}
+                  onChange={(e) => {
+                    chooseStuff(e.target.value, id, row);
+                  }}
+                />
+              </RadioGroup>
+            </FormControl>
+          );
+        },
+      },
+    ]);
 
     // Programs/Outputs Bar Chart
     const categories1 = Object.keys(sourceData.graph1),
@@ -867,6 +1077,7 @@ const App = () => {
       series1 = [
         {
           name: "Completed",
+          color: "#ebf3d9",
           data: [
             prog1.cleanprograms > 0 ? prog1.cleanprograms : null,
             out1.cleanoutputs > 0 ? out1.cleanoutputs : null,
@@ -876,6 +1087,7 @@ const App = () => {
         },
         {
           name: "Expected",
+          color: "#d7ecfb",
           data: [
             expectedProg > 0 ? expectedProg : null,
             expectedOut > 0 ? expectedOut : null,
@@ -885,6 +1097,7 @@ const App = () => {
         },
         {
           name: "Issues",
+          color: "#ffe0e6",
           data: [
             prog1.issueprograms > 0 ? prog1.issueprograms : null,
             out1.issueoutputs > 0 ? out1.issueoutputs : null,
@@ -910,7 +1123,7 @@ const App = () => {
       xAxis: {
         categories: categories1,
       },
-      colors: ["#ebf3d9", "#d7ecfb", "#ffe0e6"],
+      // colors: ["#ebf3d9", "#ffe0e6", "#d7ecfb"],
       yAxis: {
         min: 0,
         enabled: false,
@@ -1234,6 +1447,30 @@ const App = () => {
         <Grid item xs={6}>
           {info && info.retext && (
             <Box sx={{ display: "flex" }}>
+              <Box sx={{ ml: 1, zIndex: 10 }}>
+                <Tooltip
+                  title={"Choose another reporting event from this study"}
+                >
+                  <Box
+                    sx={{
+                      border: "1px solid #e0e0e0",
+                      borderRadius: "5px",
+                      padding: "2px",
+                      backgroundColor: "#f6f5ea",
+                      color: "blue",
+                      fontSize: gridFontSize + 0.2 + "em",
+                    }}
+                    onClick={() =>
+                      console.log(
+                        "TODO: add list of reporting events to choose from"
+                      )
+                    }
+                  >
+                    123
+                  </Box>
+                </Tooltip>
+              </Box>
+
               {studyList && (
                 <Box sx={{ ml: 1, zIndex: 10, flexGrow: 1 }}>
                   <Tooltip title={"View the root directory with File Viewer"}>
@@ -1321,8 +1558,8 @@ const App = () => {
           )} */}
 
           {graph2 && info.EVENTTYPE === "crooversight" && (
-            <Box sx={{ ml: 5 }} id="d3ref">
-              <Donut iss={iss} ref={d3ref} parentInfo={info} />
+            <Box sx={{ ml: 5 }}>
+              <Donut iss={iss} parentInfo={info} />
             </Box>
           )}
 
@@ -1893,14 +2130,31 @@ const App = () => {
           open={openUserInput}
           setOpen={setOpenUserInput}
           userJson={userJson}
-          userJsonFile={userJsonFile}
-          rowToCheck={rowToCheck}
           setUserJson={setUserJson}
+          userJsonFile={userJsonFile}
+          user={tempUsername}
+          rowToCheck={rowToCheck}
           idClickedOn={idClickedOn}
           access={sourceData && sourceData.access ? sourceData.access : null}
           mode={mode}
         />
       )}
+      {openUserMultipleInput && reviewSection && (
+        <MultipleUserInput
+          open={openUserMultipleInput}
+          setOpen={setOpenUserMultipleInput}
+          userJson={userJson}
+          setUserJson={setUserJson}
+          userJsonFile={userJsonFile}
+          reviewSection={reviewSection} // subset of rows we are reviewing
+          colsReviewSection={colsReviewSection} // column definitions for the subset of rows we are reviewing
+          user={tempUsername}
+          rowToCheck={rowToCheck}
+          // idClickedOn={idClickedOn}
+          access={sourceData && sourceData.access ? sourceData.access : null}
+          mode={mode}
+        />
+      )}{" "}
       {openOutputReview && (
         <OutputReview
           open={openOutputReview}
@@ -1910,8 +2164,88 @@ const App = () => {
           outputClickedOn={outputClickedOn}
         />
       )}
+      {/* dialog that prompts for a user name */}
+      {!username && (
+        <Dialog
+          fullWidth
+          maxWidth="sm"
+          onClose={() => setOpenUserLogin(false)}
+          open={openUserLogin}
+          title={"User Login"}
+        >
+          <DialogTitle>Who are you?</DialogTitle>
+          <DialogContent>
+            {" "}
+            <TextField
+              id="input-with-icon-textfield"
+              label="User Name"
+              placeholder="e.g. pmason"
+              value={tempUsername}
+              onChange={(e) => {
+                setTempUsername(e.target.value);
+              }}
+              InputProps={{
+                startAdornment: (
+                  <InputAdornment position="start">
+                    <AccountCircle />
+                  </InputAdornment>
+                ),
+              }}
+              variant="standard"
+            />
+            {/*  <TextField
+                label={
+                  access &&
+                  access.length > 0 &&
+                  access.filter((u) => u.userid === user).length > 0
+                    ? "User ID (valid)"
+                    : "Enter User ID"
+                }
+                value={user}
+                onChange={(e) => {
+                  setUser(e.target.value);
+                }}
+                color={
+                  access && access.filter((u) => u.userid === user).length > 0
+                    ? "success"
+                    : access === null
+                    ? "warning"
+                    : "error"
+                }
+                sx={{
+                  width: "100%",
+                }}
+              /> */}
+          </DialogContent>
+          <DialogActions>
+            <Button onClick={() => saveUser()}>Save</Button>
+          </DialogActions>
+        </Dialog>
+      )}
+      {tempUsername && (
+        <Snackbar
+          severity="success"
+          open={openSnackbar}
+          autoHideDuration={7000}
+          onClose={handleCloseSnackbar}
+          anchorOrigin={{ vertical: "bottom", horizontal: "right" }}
+        >
+          <Alert
+            onClose={handleCloseSnackbar}
+            severity="success"
+            sx={{ width: "100%" }}
+          >
+            Welcome 👨‍🦲 {username}
+          </Alert>
+        </Snackbar>
+      )}
       {/* Dialog with General info about this screen */}
-      <Dialog fullWidth onClose={() => setOpenInfo(false)} open={openInfo}>
+      <Dialog
+        fullWidth
+        maxWidth="xl"
+        onClose={() => setOpenInfo(false)}
+        open={openInfo}
+      >
         <DialogTitle>Info about this screen</DialogTitle>
         <DialogContent>
           <List dense>

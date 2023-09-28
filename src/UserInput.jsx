@@ -22,11 +22,12 @@ const UserInput = (props) => {
       idClickedOn,
       access,
       mode,
+      user,
     } = props,
     { output, issuenr, id, col2 } = rowToCheck,
     [comment, setComment] = useState(""),
     [userName, setUserName] = useState(null),
-    [user, setUser] = useState(localStorage.getItem("user") || ""),
+    // [user, setUser] = useState(localStorage.getItem("user") || ""),
     // handleChange = (e, key, field, id) => {
     //   // eslint-disable-next-line
     //   const obj = eval(key);
@@ -67,7 +68,7 @@ const UserInput = (props) => {
         "mode",
         mode
       );
-      if (ok) localStorage.setItem("user", user);
+      // if (ok) localStorage.setItem("user", user);
       const allButNew = userJson ? userJson.filter((row) => row.id !== id) : [],
         newJsonContent = [...allButNew, newContent];
       console.log("newJsonContent", newJsonContent);
@@ -82,7 +83,7 @@ const UserInput = (props) => {
     if (idToUse && idToUse[0]) {
       // console.log(idToUse[0].comment, idToUse[0].user);
       setComment(idToUse[0].comment || comment);
-      setUser(idToUse[0].user || user);
+      // setUser(idToUse[0].user || user);
     }
     // eslint-disable-next-line
   }, [userJson]);
@@ -137,9 +138,9 @@ const UserInput = (props) => {
                     : "Enter User ID"
                 }
                 value={user}
-                onChange={(e) => {
-                  setUser(e.target.value);
-                }}
+                // onChange={(e) => {
+                //   setUser(e.target.value);
+                // }}
                 color={
                   access && access.filter((u) => u.userid === user).length > 0
                     ? "success"
