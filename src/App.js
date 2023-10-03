@@ -39,6 +39,7 @@ import {
   Close,
   MenuBookTwoTone,
   Info,
+  Apps,
   ForwardTwoTone,
 } from "@mui/icons-material";
 import UserInput from "./UserInput";
@@ -167,14 +168,23 @@ const App = () => {
     [userJsonFile, setUserJsonFile] = useState(null), // filename of the JSON file for user.json where we store user comments to override data in dashboard
     // popover support
     [popAnchorEl, setPopAnchorEl] = useState(null),
+    [popAnchorEl2, setPopAnchorEl2] = useState(null),
     handlePopClick = (event) => {
       setPopAnchorEl(event.currentTarget);
     },
     handlePopClose = () => {
       setPopAnchorEl(null);
     },
+    handlePopClick2 = (event) => {
+      setPopAnchorEl2(event.currentTarget);
+    },
+    handlePopClose2 = () => {
+      setPopAnchorEl2(null);
+    },
     popOpen = Boolean(popAnchorEl),
+    popOpen2 = Boolean(popAnchorEl2),
     popId = popOpen ? "simple-popover" : undefined,
+    popId2 = popOpen2 ? "simple-popover" : undefined,
     [studyList, setStudyList] = useState(null),
     [selectedStudy, setSelectedStudy] = useState(null),
     [idClickedOn, setIdClickedOn] = useState(null),
@@ -185,6 +195,7 @@ const App = () => {
       document.title = e.label.split("/")[2];
       window.history.pushState({}, "Title", newUrl);
       handlePopClose();
+      handlePopClose2();
     },
     studyListFile =
       "/general/biostat/jobs/dashboard/dev/metadata/dash-study-files.json",
@@ -237,9 +248,10 @@ const App = () => {
           .map((r) => {
             // console.log(r)
             const shorter = r.path
-              .replace("/clinical/", "")
-              .replace("/biostat/staging", "")
-              .replace("/documents/meta/dashstudy.json", "");
+                .replace("/clinical/", "")
+                .replace("/biostat/staging", "")
+                .replace("/documents/meta/dashstudy.json", ""),
+              split = shorter.split("/");
             return {
               value: r.path,
               label:
@@ -249,6 +261,7 @@ const App = () => {
                 "] ... (" +
                 r.formattedsize +
                 ")",
+              study: split[2],
             };
           })
           .filter((val) => {
@@ -270,9 +283,10 @@ const App = () => {
           tempStudyList = lsafsearch
             .map((r) => {
               const shorter = r.path
-                .replace("/clinical/", "")
-                .replace("/biostat/staging", "")
-                .replace("/documents/meta/dashstudy.json", "");
+                  .replace("/clinical/", "")
+                  .replace("/biostat/staging", "")
+                  .replace("/documents/meta/dashstudy.json", ""),
+                split = shorter.split("/");
               return {
                 value: r.path,
                 label:
@@ -282,6 +296,7 @@ const App = () => {
                   "] ... (" +
                   r.formattedsize +
                   ")",
+                study: split[2],
               };
             })
             .filter((val) => {
@@ -870,9 +885,14 @@ const App = () => {
           const { value, row } = cellValues,
             { line, id, output, path } = row;
           // console.log("userJson", userJson);
-          // if (userJson !== null && userJson.length > 0) {
-          const uj = userJson.filter((r) => r.output === output);
-          // }
+          let uj = [];
+          if (
+            userJson !== null &&
+            Object.prototype.toString.call(userJson) === "[object Array]" &&
+            userJson.length > 0
+          ) {
+            uj = userJson.filter((r) => r.output === output);
+          }
           // console.log("uj", uj, "line", line);
           // if (uj.length > 1) console.log("uj", uj, "line", line);
           if (line > 0) {
@@ -959,12 +979,12 @@ const App = () => {
                         .map((r) => {
                           return { id: r.id, ok: "-1", ...r };
                         });
-                    console.log(
-                      "tempReviewSection",
-                      tempReviewSection,
-                      "userJson",
-                      userJson
-                    );
+                    // console.log(
+                    //   "tempReviewSection",
+                    //   tempReviewSection,
+                    //   "userJson",
+                    //   userJson
+                    // );
                     // fix values of ok based on userJson
                     if (userJson !== null && userJson.length > 0) {
                       tempReviewSection.forEach((r) => {
@@ -982,7 +1002,7 @@ const App = () => {
                     }
 
                     setReviewSection(tempReviewSection);
-                    console.log("tempReviewSection", tempReviewSection);
+                    // console.log("tempReviewSection", tempReviewSection);
                     setRowToCheck(row);
                     setIdClickedOn(id);
                     setOpenUserMultipleInput(true);
@@ -1441,36 +1461,80 @@ const App = () => {
     // eslint-disable-next-line
   }, [userJson]);
 
+  // console.log(
+  //   "colsOutputLogReport",
+  //   colsOutputLogReport,
+  //   "outputLogReport",
+  //   outputLogReport
+  // );
+
   return (
     <Box>
       <Grid container spacing={2}>
         <Grid item xs={6}>
           {info && info.retext && (
-            <Box sx={{ display: "flex" }}>
-              <Box sx={{ ml: 1, zIndex: 10 }}>
+            <Box sx={{ ml: 1, zIndex: 10, display: "flex" }}>
+              {studyList && (
                 <Tooltip
                   title={"Choose another reporting event from this study"}
                 >
-                  <Box
+                  <Chip
+                    label={
+                      studyList.filter(
+                        (r) => r.study === info.retext.split("/")[3]
+                      ).length
+                    }
+                    icon={<Apps />}
+                    color={"info"}
+                    size="small"
+                    variant="outlined"
+                    onClick={handlePopClick2}
                     sx={{
-                      border: "1px solid #e0e0e0",
-                      borderRadius: "5px",
+                      mt: 0.3,
                       padding: "2px",
-                      backgroundColor: "#f6f5ea",
-                      color: "blue",
                       fontSize: gridFontSize + 0.2 + "em",
                     }}
-                    onClick={() =>
-                      console.log(
-                        "TODO: add list of reporting events to choose from"
-                      )
-                    }
-                  >
-                    123
-                  </Box>
+                  />
                 </Tooltip>
-              </Box>
-
+              )}
+              <Popover
+                id={popId2}
+                open={popOpen2}
+                anchorEl={popAnchorEl2}
+                onClose={handlePopClose2}
+                anchorOrigin={{
+                  vertical: "center",
+                  horizontal: "left",
+                }}
+                transformOrigin={{
+                  vertical: "center",
+                  horizontal: "left",
+                }}
+              >
+                <Box
+                  sx={{
+                    maxHeight: 600,
+                    height: 600,
+                    width: 800,
+                    maxWidth: 800,
+                  }}
+                >
+                  {studyList && (
+                    <Select
+                      placeholder="Enter text to search"
+                      options={studyList.filter(
+                        (r) => r.study === info.retext.split("/")[3]
+                      )}
+                      value={selectedStudy}
+                      onChange={selectStudy}
+                      menuIsOpen={true}
+                      maxMenuHeight={550}
+                      // size={20}
+                      // pageSize={25}
+                    />
+                  )}
+                </Box>
+              </Popover>
               {studyList && (
                 <Box sx={{ ml: 1, zIndex: 10, flexGrow: 1 }}>
                   <Tooltip title={"View the root directory with File Viewer"}>
@@ -1532,16 +1596,18 @@ const App = () => {
                     maxWidth: 800,
                   }}
                 >
-                  <Select
-                    placeholder="Enter text to search"
-                    options={studyList}
-                    value={selectedStudy}
-                    onChange={selectStudy}
-                    menuIsOpen={true}
-                    maxMenuHeight={550}
-                    // size={20}
-                    // pageSize={25}
-                  />
+                  {studyList && (
+                    <Select
+                      placeholder="Enter text to search"
+                      options={studyList}
+                      value={selectedStudy}
+                      onChange={selectStudy}
+                      menuIsOpen={true}
+                      maxMenuHeight={550}
+                      // size={20}
+                      // pageSize={25}
+                    />
+                  )}
                 </Box>
               </Popover>
             </Box>
@@ -1834,7 +1900,7 @@ const App = () => {
             />
           ) : null}
 
-          {outputLogReport && outputLogReport.length > 0 && (
+          {outputLogReport !== null && outputLogReport.length > 0 && (
             <Box
               sx={{
                 "& .warn": {
@@ -2265,22 +2331,48 @@ const App = () => {
             </ListItem>
           </List>
           <p>
-            <b>Reviewing messages: </b>If there are errors or warnings in logs
-            for any SAS programs then a table will show those programs in the
-            lower left area of screen. A user can review the messages by
-            clicking on the{" "}
-            <span style={{ color: "blue" }}>
-              <b>?</b>
-            </span>{" "}
-            icon and mark them as{" "}
-            <span style={{ color: "green" }}>
-              <b>OK</b>
-            </span>{" "}
-            or{" "}
-            <span style={{ color: "red" }}>
-              <b>Not OK</b>
-            </span>
-            , along with an explanation.
+            <b>Reviewing messages:</b>
+            <br />
+            If there are errors or warnings in logs for any SAS programs then a
+            table will show those programs in the lower left area of screen. A
+            user can review the messages by clicking one of the icons:
+            <ul>
+              <li>
+                <span style={{ color: "blue", fontSize: 20 }}>
+                  <b>👀</b>
+                </span>{" "}
+                - review <b>all</b> of the messages for a program, and mark each
+                one as either
+                <span style={{ color: "red" }}>
+                  <b>Not OK</b>
+                </span>
+                {", "}
+                <span style={{ color: "blue" }}>
+                  <b>Unsure</b>
+                </span>
+                {" or "}
+                or{" "}
+                <span style={{ color: "green" }}>
+                  <b>OK</b>
+                </span>
+                , along with an explanation.
+              </li>
+              <li>
+                <span style={{ color: "blue", fontSize: 20 }}>
+                  <b>?</b>
+                </span>{" "}
+                - review <b>one</b> of the programs marking each message as
+                either
+                <span style={{ color: "green" }}>
+                  <b>OK</b>
+                </span>{" "}
+                or{" "}
+                <span style={{ color: "red" }}>
+                  <b>Not OK</b>
+                </span>
+                , along with an explanation.
+              </li>
+            </ul>
           </p>
         </DialogContent>
       </Dialog>
