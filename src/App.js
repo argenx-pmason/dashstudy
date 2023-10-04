@@ -1046,6 +1046,14 @@ const App = () => {
         width: 300,
         sortable: false,
         flex: 1,
+        renderCell: (cellValues) => {
+          const { value } = cellValues;
+          if (value.startsWith("ERROR:")) {
+            return <Box sx={{ backgroundColor: "lightpink" }}> {value}</Box>;
+          } else if (value.startsWith("WARNING:")) {
+            return <Box sx={{ backgroundColor: "lemonchiffon" }}> {value}</Box>;
+          } else return <Box>{value}</Box>;
+        },
       },
       {
         field: "ok",
@@ -1471,7 +1479,7 @@ const App = () => {
   return (
     <Box>
       <Grid container spacing={2}>
-        <Grid item xs={6}>
+        <Grid xs={6}>
           {info && info.retext && (
             <Box sx={{ ml: 1, zIndex: 10, display: "flex" }}>
               {studyList && (
@@ -1988,7 +1996,7 @@ const App = () => {
           )}
         </Grid>
 
-        <Grid item xs={6}>
+        <Grid xs={6}>
           {info && info.splisturl && (
             <Tooltip
               title={
