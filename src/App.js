@@ -144,7 +144,6 @@ const App = () => {
     [parent, setParent] = useState(null),
     [cro, setCro] = useState(null),
     [rowToCheck, setRowToCheck] = useState(null),
-    [graph1, setGraph1] = useState(null),
     [barChart, setBarChart] = useState(null),
     [donutChart, setDonutChart] = useState(null),
     loadFiles = (url) => {
@@ -1022,7 +1021,7 @@ const App = () => {
       series1 = [
         {
           name: "Completed",
-          color: "#ebf3d9",
+          color: "#ebf3d9", // green
           data: [
             prog1.cleanprograms > 0 ? prog1.cleanprograms : null,
             out1.cleanoutputs > 0 ? out1.cleanoutputs : null,
@@ -1032,7 +1031,7 @@ const App = () => {
         },
         {
           name: "Expected",
-          color: "#d7ecfb",
+          color: "#d7ecfb", // blue
           data: [
             expectedProg > 0 ? expectedProg : null,
             expectedOut > 0 ? expectedOut : null,
@@ -1042,7 +1041,7 @@ const App = () => {
         },
         {
           name: "Issues",
-          color: "#ffe0e6",
+          color: "#ffe0e6", // red
           data: [
             prog1.issueprograms > 0 ? prog1.issueprograms : null,
             out1.issueoutputs > 0 ? out1.issueoutputs : null,
@@ -1138,11 +1137,11 @@ const App = () => {
         statusSummary.push({
           name: prop,
           color: prop.includes("Ok")
-            ? "#ebf3d9"
+            ? "#ebf3d9" // green
             : prop.includes("Updated")
-            ? "#d7ecfb"
+            ? "#d7ecfb" // blue
             : prop.includes("CRO")
-            ? "#ffe0e6"
+            ? "#ffe0e6" // red
             : prop.includes("Sponsor")
             ? "#ffccff"
             : "gray",
@@ -1323,7 +1322,7 @@ const App = () => {
       );
 
       // reconstruct programs/outputs graph by modifying sourceData
-      const { graph1, report1, report2 } = sourceData;
+      const { report1, report2 } = sourceData;
       let cleanprograms = 0,
         expectedprograms = 0,
         issueprograms = 0;
@@ -1352,17 +1351,17 @@ const App = () => {
       const newSeries = [
           {
             name: "Completed",
-            color: "#ebf3d9",
+            color: "#ebf3d9", // green
             data: [cleanprograms, cleanoutputs],
           },
           {
             name: "Issues",
-            color: "#d7ecfb",
+            color: "#ffe0e6", // red
             data: [issueprograms, issueoutputs],
           },
           {
             name: "Expected",
-            color: "#ffe0e6",
+            color: "#d7ecfb", // blue
             data: [
               expectedprograms - issueprograms - cleanprograms,
               expectedoutputs - cleanoutputs - issueoutputs,
@@ -1587,7 +1586,7 @@ const App = () => {
                           width: 40,
                           backgroundColor:
                             row.name === "<missing>"
-                              ? "#ffe0e6"
+                              ? "#ffe0e6" // red (pink actually like elsewhere)
                               : row.doc === "BSOP" && info.BSOPERR1 === "1"
                               ? "red"
                               : row.doc === "SAP" && info.SAPERR1 === "1"
@@ -1714,7 +1713,7 @@ const App = () => {
                   color: "#000000",
                 },
                 "& .red": {
-                  backgroundColor: "#ffe0e6",
+                  backgroundColor: "#ffe0e6", // red
                   color: "#0000ff",
                 },
                 "& .header": {
@@ -1826,7 +1825,7 @@ const App = () => {
                   color: "#000000",
                 },
                 "& .red": {
-                  backgroundColor: "#ffe0e6",
+                  backgroundColor: "#ffe0e6", // red
                   color: "#000000",
                 },
               }}
