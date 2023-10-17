@@ -84,6 +84,7 @@ const App = () => {
     apiRef = useGridApiRef(),
     saveUser = () => {
       localStorage.setItem("username", tempUsername);
+      localStorage.setItem("userFullName", userFullName);
       setOpenUserLogin(false);
     },
     [tempUsername, setTempUsername] = useState(""),
@@ -100,7 +101,6 @@ const App = () => {
     }),
     detectSize = () => {
       calcSectionSizes();
-      // console.log("sectionSizes", sectionSizes);
       detectHW({
         winWidth: window.innerWidth,
         winHeight: window.innerHeight,
@@ -145,10 +145,10 @@ const App = () => {
     [cro, setCro] = useState(null),
     [rowToCheck, setRowToCheck] = useState(null),
     [graph1, setGraph1] = useState(null),
-    [graph2, setGraph2] = useState(null),
+    [barChart, setBarChart] = useState(null),
+    [donutChart, setDonutChart] = useState(null),
     loadFiles = (url) => {
       fetch(url).then(function (response) {
-        // console.log(response);
         response
           .text()
           .then(function (text) {
@@ -189,7 +189,6 @@ const App = () => {
     [selectedStudy, setSelectedStudy] = useState(null),
     [idClickedOn, setIdClickedOn] = useState(null),
     selectStudy = (e) => {
-      // console.log(e);
       setSelectedStudy(e.value);
       const newUrl = href.split("?")[0] + "?file=" + e.value;
       document.title = e.label.split("/")[2];
@@ -205,12 +204,30 @@ const App = () => {
       console.log("chooseStuff> id", id);
       console.log("chooseStuff> row", row);
       row.ok = e;
-    };
+    },
+    [showSaveButton, setShowSaveButton] = useState(false),
+    [userFullName, setUserFullName] = useState(
+      localStorage.getItem("userFullName")
+    ),
+    showGadamDirExists = false; // set to true to show gadam directory exists indicator
+
+  useEffect(() => {
+    if (sourceData === null) return;
+    const matchingUsers = sourceData.access.filter(
+      (r) => r.userid === tempUsername
+    );
+    if (matchingUsers.length > 0) {
+      setShowSaveButton(true);
+      setUserFullName(matchingUsers[0].Name);
+    } else {
+      setShowSaveButton(false);
+      setUserFullName("");
+    }
+  }, [tempUsername]);
 
   let username = localStorage.getItem("username");
 
   useEffect(() => {
-    console.log("username", username);
     if (username === null) {
       setTempUsername("");
       setOpenUserLogin(true);
@@ -241,12 +258,10 @@ const App = () => {
 
   // get list of all studies we have JSON built for
   useEffect(() => {
-    console.log("Processing first time screen opens");
     if (mode === "local") {
       const lsafsearch = localstudies["SASTableData+LSAFSEARCH"],
         tempStudyList = lsafsearch
           .map((r) => {
-            // console.log(r)
             const shorter = r.path
                 .replace("/clinical/", "")
                 .replace("/biostat/staging", "")
@@ -265,18 +280,15 @@ const App = () => {
             };
           })
           .filter((val) => {
-            // console.log(val);
             const parts = val.value.split("/");
             if (parts.length > 7) return parts[7] !== "generic_adam";
             else return true;
           });
-      // console.log("tempStudyList", tempStudyList);
       setStudyList(tempStudyList);
       return;
     }
     // handle remote
     fetch(webDavPrefix + studyListFile).then(function (response) {
-      // console.log(response);
       response.text().then(function (text) {
         const json = JSON.parse(text);
         const lsafsearch = json["SASTableData+LSAFSEARCH"],
@@ -300,9 +312,7 @@ const App = () => {
               };
             })
             .filter((val) => {
-              // console.log(val);
               const parts = val.value.split("/");
-              // console.log(parts);
               if (parts.length > 7) return parts[7] !== "generic_adam";
               else return true;
             });
@@ -337,7 +347,6 @@ const App = () => {
     console.log(`MODE:\t${mode} ---> ${urlPrefix}`);
     // read in data to use, if remote
     if (mode === "remote") {
-      // console.log("webDavPrefix", webDavPrefix, "href", href, "mode", mode);
       if (href.split("?").length > 1) {
         const file1 = href.split("?")[1].split("=")[1];
         loadFiles(webDavPrefix + file1);
@@ -345,7 +354,6 @@ const App = () => {
     } else setSourceData(all);
     // eslint-disable-next-line
   }, [href]);
-  // console.log("outputLogReport", outputLogReport);
   // do this when sourceData changes
   useEffect(() => {
     console.log("INFO:\tsourceData", sourceData);
@@ -587,9 +595,7 @@ const App = () => {
         minWidth: 20,
         width: 25,
         renderCell: (cellValues) => {
-          // console.log(cellValues);
           const { value } = cellValues;
-          // console.log(value);
           if (value) {
             const fileName = value.split("/").pop();
             return (
@@ -678,7 +684,6 @@ const App = () => {
         sortable: false,
         renderCell: (cellValues) => {
           const { value } = cellValues;
-          // console.log("cellValues", cellValues,'info',info);
           if (value > " ")
             return (
               <Tooltip title={"Email programmer"}>
@@ -711,7 +716,6 @@ const App = () => {
       },
     ]);
     const tempInfo = sourceData.info[0];
-    console.log("tempInfo", tempInfo);
     setInfo(tempInfo);
     let tempParent = tempInfo.REPATH.split("/");
     tempParent.pop();
@@ -731,7 +735,6 @@ const App = () => {
     if (mode === "local") setIss(localiss);
     else {
       if (tempInfo.SPLISTONLSAF === "yes" && tempInfo.SPLISTISS) {
-        console.log("loading SPLISTISS", tempInfo);
         fetch(webDavPrefix + tempInfo.SPLISTISS)
           .then(function (response) {
             response.text().then(function (text) {
@@ -781,26 +784,6 @@ const App = () => {
     setOutputLogReport(tempOutputLogReport2);
     setColsOutputLogReport([
       { field: "__tree_data_group__", width: 250 },
-      // {
-      //   field: "col1",
-      //   headerName: "Log output",
-      //   headerClassName: "header",
-      //   sortable: false,
-      //   renderCell: (cellValues) => {
-      //     // console.log(cellValues);
-      //     const { value, row } = cellValues,
-      //       { path } = row;
-      //     if (path) {
-      //       return (
-      //         <>
-      //           <Link href={`${logViewerPrefix}${path}`} target="_blank">
-      //             {value}
-      //           </Link>
-      //         </>
-      //       );
-      //     } else return null;
-      //   },
-      // },
       {
         field: "col2",
         headerName: "Messages",
@@ -809,58 +792,6 @@ const App = () => {
         sortable: false,
         flex: 1,
       },
-      // {
-      //   field: "col1",
-      //   // headerName: "❓",
-      //   width: 30,
-      //   sortable: false,
-      //   renderHeader: (params) => {
-      //     return (
-      //       <Tooltip title={"Click below to review multiple lines"}>
-      //         <Box>❓</Box>
-      //       </Tooltip>
-      //     );
-      //   },
-      //   renderCell: (cellValues) => {
-      //     const { row } = cellValues,
-      //       { output, line, id } = row;
-      //     if (line <= 0) {
-      //       return (
-      //         <Tooltip title={"Review multiple lines"}>
-      //           <IconButton
-      //             size="small"
-      //             sx={{ fontSize: 10 }}
-      //             variant="contained"
-      //             color="success"
-      //             onClick={() => {
-      //               console.log(
-      //                 sourceData,
-      //                 "outputLogReport",
-      //                 outputLogReport,
-      //                 "cellValues",
-      //                 cellValues
-      //               );
-      //               const tempReviewSection = outputLogReport
-      //                 .filter((r) => r.output === output && r.col1.length === 2)
-      //                 .map((r) => {
-      //                   return { ok: null, notOk: null, ...r };
-      //                 });
-      //               setReviewSection(tempReviewSection);
-      //               console.log("reviewSection", reviewSection);
-      //               setRowToCheck(row);
-      //               setIdClickedOn(id);
-      //               setOpenUserMultipleInput(true);
-      //             }}
-      //           >
-      //             👀
-      //           </IconButton>
-      //         </Tooltip>
-      //       );
-      //     } else {
-      //       return "";
-      //     }
-      //   },
-      // },
       {
         field: "ok",
         headerName: "OK",
@@ -884,7 +815,6 @@ const App = () => {
         renderCell: (cellValues) => {
           const { value, row } = cellValues,
             { line, id, output, path } = row;
-          // console.log("userJson", userJson);
           let uj = [];
           if (
             userJson !== null &&
@@ -893,8 +823,6 @@ const App = () => {
           ) {
             uj = userJson.filter((r) => r.output === output);
           }
-          // console.log("uj", uj, "line", line);
-          // if (uj.length > 1) console.log("uj", uj, "line", line);
           if (line > 0) {
             if (value) {
               return (
@@ -979,21 +907,13 @@ const App = () => {
                         .map((r) => {
                           return { id: r.id, ok: "-1", ...r };
                         });
-                    // console.log(
-                    //   "tempReviewSection",
-                    //   tempReviewSection,
-                    //   "userJson",
-                    //   userJson
-                    // );
                     // fix values of ok based on userJson
                     if (userJson !== null && userJson.length > 0) {
                       tempReviewSection.forEach((r) => {
-                        console.log("r", r, "userJson", userJson);
                         const uj = userJson.filter(
                           (uj) =>
                             uj.output === output && uj.issuenr === r.issuenr
                         );
-                        console.log(uj);
                         if (uj.length > 0) {
                           r.ok =
                             uj[0].ok === "-1" ? "-1" : uj[0].ok ? "1" : "0";
@@ -1002,7 +922,6 @@ const App = () => {
                     }
 
                     setReviewSection(tempReviewSection);
-                    // console.log("tempReviewSection", tempReviewSection);
                     setRowToCheck(row);
                     setIdClickedOn(id);
                     setOpenUserMultipleInput(true);
@@ -1013,9 +932,7 @@ const App = () => {
               </Tooltip>
             );
           } else {
-            // console.log(uj);
             if (path > " " && uj && uj.length > 0) {
-              // console.log("path", path);
               return (
                 <Tooltip title={"Display review comments and decisions"}>
                   <IconButton
@@ -1057,7 +974,7 @@ const App = () => {
       },
       {
         field: "ok",
-        headerName: "OK",
+        headerName: "Evaluation",
         width: 200,
         renderCell: (cellValues) => {
           const { row } = cellValues,
@@ -1177,8 +1094,8 @@ const App = () => {
       },
       series: series1,
     };
-    console.log(tempGraph);
-    setGraph1(tempGraph);
+    console.log("tempGraph (barChart)", tempGraph);
+    setBarChart(tempGraph);
 
     // eslint-disable-next-line
   }, [sourceData]);
@@ -1235,7 +1152,6 @@ const App = () => {
           },
         });
       }
-      // console.log("statusSummary", statusSummary);
 
       // summarise by type, counting how many
       data2Detail.forEach(function (d) {
@@ -1261,9 +1177,8 @@ const App = () => {
           },
         });
       }
-      // console.log("typeSummary", typeSummary);
 
-      setGraph2({
+      setDonutChart({
         chart: {
           plotBackgroundColor: null,
           plotBorderWidth: 0,
@@ -1320,20 +1235,15 @@ const App = () => {
   }, [iss]);
 
   useEffect(() => {
-    // console.log("radialRef", radialRef);
     if (radialRef.current) {
       const { container } = radialRef.current;
       if (container.current) {
         container.current.style.scale = 2;
         container.current.style.top = "50%";
-        // radialRef.setAttribute("viewBox", "0 0 550 60");
-        // container.current.children[0].viewBox = "0 0 391 60";
-        // container.current.children[0].children[0].viewBox = "0 0 391 60";
-        // container.current.style.position = "relative";
       }
     }
     // eslint-disable-next-line
-  }, [graph2]);
+  }, [donutChart]);
 
   // if we have new info, then we are on a new study and so can get the JSON with any user comments
   useEffect(() => {
@@ -1353,7 +1263,6 @@ const App = () => {
     if (!userJson) {
       // make a default structure for user info if we dont have one - e.g. getJsonFile has returned false because there is no user.json file
       const tempUserJson = [];
-      // console.log("tempUserJson", tempUserJson);
       setUserJson(tempUserJson);
     }
   }, [userJson]);
@@ -1383,7 +1292,6 @@ const App = () => {
         if (row.output !== lastOutput) {
           // new section
           allOutputs.push(row.output);
-          // console.log(lastOutput, row.output, currentIssuesInLog);
           if (lastOutput !== "" && currentIssuesInLog > 0) {
             // does previous section have issues
             logsWithIssues++; // count the logs with issues
@@ -1392,7 +1300,6 @@ const App = () => {
           currentIssuesInLog = 0; // reset number of issues for the current log
         }
         if (row.issuenr > 0 && !row.ok) currentIssuesInLog++; // add one to the issues
-        // console.log(row.issuenr, !row.ok, currentIssuesInLog);
         lastOutput = row.output;
       });
       if (lastOutput !== "" && currentIssuesInLog > 0) {
@@ -1435,7 +1342,6 @@ const App = () => {
           ? output.pathlog.split("/").pop()
           : output.datasetlogpath.split("/").pop();
         expectedoutputs++;
-        // console.log("logName", logName, "output.logcheck", output.logcheck);
         if (
           output.logcheck === "clean" ||
           outputsWithoutIssues.includes(logName)
@@ -1463,25 +1369,19 @@ const App = () => {
             ],
           },
         ],
-        newGraph1 = { ...graph1, series: newSeries };
-      setGraph1(newGraph1);
+        newBarChart = { ...barChart, series: newSeries };
+      console.log("newBarChart", newBarChart);
+      setBarChart(newBarChart);
     }
     // eslint-disable-next-line
   }, [userJson]);
-
-  // console.log(
-  //   "colsOutputLogReport",
-  //   colsOutputLogReport,
-  //   "outputLogReport",
-  //   outputLogReport
-  // );
 
   return (
     <Box>
       <Grid container spacing={2}>
         <Grid xs={6}>
           {info && info.retext && (
-            <Box sx={{ ml: 1, zIndex: 10, display: "flex" }}>
+            <Box sx={{ ml: 1, mt: 0.1, zIndex: 10, display: "flex" }}>
               {studyList && (
                 <Tooltip
                   title={"Choose another reporting event from this study"}
@@ -1530,9 +1430,12 @@ const App = () => {
                   {studyList && (
                     <Select
                       placeholder="Enter text to search"
-                      options={studyList.filter(
-                        (r) => r.study === info.retext.split("/")[3]
-                      )}
+                      options={studyList
+                        .filter((r) => r.study === info.retext.split("/")[3])
+                        .sort((a, b) => {
+                          if (a.value < b.value) return -1;
+                          else return 1;
+                        })}
                       value={selectedStudy}
                       onChange={selectStudy}
                       menuIsOpen={true}
@@ -1544,7 +1447,7 @@ const App = () => {
                 </Box>
               </Popover>
               {studyList && (
-                <Box sx={{ ml: 1, zIndex: 10, flexGrow: 1 }}>
+                <Box sx={{ ml: 2, mt: 0.7, zIndex: 10, flexGrow: 1 }}>
                   <Tooltip title={"View the root directory with File Viewer"}>
                     <Box
                       sx={{
@@ -1561,7 +1464,7 @@ const App = () => {
                 </Box>
               )}
               {studyList && (
-                <Box sx={{ zIndex: 10, flexGrow: 1 }}>
+                <Box sx={{ zIndex: 10, flexGrow: 1, mt: 0.7 }}>
                   <Tooltip
                     title={
                       "Choose another study (generic adam studies are not shown)"
@@ -1621,25 +1524,25 @@ const App = () => {
             </Box>
           )}
 
-          {/* {graph2 && info.EVENTTYPE === "crooversight" && (
+          {/* {donutChart && info.EVENTTYPE === "crooversight" && (
             <Box sx={{ mt: 1 }}>
               <HighchartsReact
                 highcharts={Highcharts}
-                options={graph2}
+                options={donutChart}
                 ref={radialRef}
               />
             </Box>
           )} */}
 
-          {graph2 && info.EVENTTYPE === "crooversight" && (
+          {donutChart && info.EVENTTYPE === "crooversight" && (
             <Box sx={{ ml: 5 }}>
               <Donut iss={iss} parentInfo={info} />
             </Box>
           )}
 
-          {graph1 && (
+          {barChart && (
             <Box sx={{ height: 130 }}>
-              <HighchartsReact highcharts={Highcharts} options={graph1} />
+              <HighchartsReact highcharts={Highcharts} options={barChart} />
             </Box>
           )}
 
@@ -1697,29 +1600,6 @@ const App = () => {
                         }}
                       >
                         <Box sx={{ width: "50px" }}>
-                          {(row.doc === "SAP" &&
-                            (info.SAPERR1 === "1" || info.SAPERR2 === "1")) ||
-                          (row.doc === "BSOP" &&
-                            (info.BSOPERR1 === "1" ||
-                              info.BSOPERR2 === "1")) ? (
-                            <IconButton
-                              variant="outlined"
-                              size="small"
-                              sx={{ color: "#99ccff" }}
-                              onClick={() => {
-                                if (row.name === "<missing>") return;
-                                const path = row.path.split("/");
-                                path.pop();
-                                window.open(
-                                  fileViewerPrefix + path.join("/"),
-                                  "_blank"
-                                );
-                              }}
-                              label={"?"}
-                            >
-                              <Info fontSize="small" />
-                            </IconButton>
-                          ) : null}
                           <Tooltip
                             title={
                               row.doc === "SAP"
@@ -1729,7 +1609,37 @@ const App = () => {
                                 : ""
                             }
                           >
-                            <Box> {row.doc}</Box>
+                            {(row.doc === "SAP" &&
+                              (info.SAPERR1 !== "0" || info.SAPERR2 !== "0")) ||
+                            (row.doc === "BSOP" &&
+                              (info.BSOPERR1 !== "0" ||
+                                info.BSOPERR2 !== "0")) ? (
+                              <IconButton
+                                variant="outlined"
+                                size="small"
+                                sx={{ color: "#99ccff" }}
+                                onClick={() => {
+                                  if (row.name === "<missing>") return;
+                                  const path = row.path.split("/");
+                                  path.pop();
+                                  window.open(
+                                    fileViewerPrefix + path.join("/"),
+                                    "_blank"
+                                  );
+                                }}
+                                label={"?"}
+                              >
+                                <Info fontSize="small" />
+                              </IconButton>
+                            ) : null}
+                            <Box>
+                              {" "}
+                              {row.doc.startsWith("SAP")
+                                ? "SAP"
+                                : row.doc.startsWith("BSOP")
+                                ? "BSOP"
+                                : row.doc}
+                            </Box>
                           </Tooltip>
                         </Box>
                       </TableCell>
@@ -1930,7 +1840,6 @@ const App = () => {
                 groupingColDef={{
                   headerName: "Log output",
                   renderCell: (cellValues) => {
-                    // console.log(cellValues);
                     const { value, row } = cellValues,
                       { path } = row;
                     if (path) {
@@ -1948,7 +1857,6 @@ const App = () => {
                   },
                 }}
                 getCellClassName={(params) => {
-                  // console.log(params);
                   if (
                     params.field === "col2" &&
                     params.value.startsWith("WARNING")
@@ -2042,7 +1950,7 @@ const App = () => {
             </IconButton>
           </Tooltip>
 
-          {info && "generic_adam_exists" in info && (
+          {showGadamDirExists && info && "generic_adam_exists" in info && (
             <Tooltip
               title={
                 info.generic_adam_exists === "1"
@@ -2053,8 +1961,8 @@ const App = () => {
               <Chip
                 label={
                   info.generic_adam_exists === "1"
-                    ? "Generic Adam exists"
-                    : "Generic Adam missing"
+                    ? "Generic Adam directory exists"
+                    : "Generic Adam directory missing"
                 }
                 icon={info.generic_adam_exists === "1" ? <Done /> : <Close />}
                 color={info.generic_adam_exists === "1" ? "success" : "error"}
@@ -2079,8 +1987,8 @@ const App = () => {
               <Chip
                 label={
                   info.generic_adam_meta_exists === "1"
-                    ? "Content exists"
-                    : "Content missing"
+                    ? "Generic Adam checks have been run"
+                    : "Generic Adam checks need to be run"
                 }
                 icon={
                   info.generic_adam_meta_exists === "1" ? <Done /> : <Close />
@@ -2185,7 +2093,6 @@ const App = () => {
                   const rowIndex = outputLogReport
                     .map((e) => e.output)
                     .indexOf(logName);
-                  console.log(row, logName, rowIndex);
 
                   apiRef.current.scrollToIndexes({
                     rowIndex: rowIndex,
@@ -2247,7 +2154,14 @@ const App = () => {
           open={openUserLogin}
           title={"User Login"}
         >
-          <DialogTitle>Who are you?</DialogTitle>
+          <DialogTitle>
+            <Box>
+              {" "}
+              {userFullName && userFullName.length > 0
+                ? `Hi ${userFullName}! Now you are recognized you can press SAVE.`
+                : "Who are you?"}
+            </Box>
+          </DialogTitle>
           <DialogContent>
             {" "}
             <TextField
@@ -2292,7 +2206,14 @@ const App = () => {
               /> */}
           </DialogContent>
           <DialogActions>
-            <Button onClick={() => saveUser()}>Save</Button>
+            {tempUsername &&
+              tempUsername > "" &&
+              sourceData.access &&
+              sourceData.access.length > 0 && (
+                <Button disabled={!showSaveButton} onClick={() => saveUser()}>
+                  Save
+                </Button>
+              )}
           </DialogActions>
         </Dialog>
       )}
@@ -2309,7 +2230,7 @@ const App = () => {
             severity="success"
             sx={{ width: "100%" }}
           >
-            Welcome 👨‍🦲 {username}
+            Welcome 👨‍🦲 {userFullName} ({username})
           </Alert>
         </Snackbar>
       )}
@@ -2350,7 +2271,7 @@ const App = () => {
                   <b>👀</b>
                 </span>{" "}
                 - review <b>all</b> of the messages for a program, and mark each
-                one as either
+                one as either:{" "}
                 <span style={{ color: "red" }}>
                   <b>Not OK</b>
                 </span>
@@ -2370,7 +2291,7 @@ const App = () => {
                   <b>?</b>
                 </span>{" "}
                 - review <b>one</b> of the programs marking each message as
-                either
+                either:{" "}
                 <span style={{ color: "green" }}>
                   <b>OK</b>
                 </span>{" "}
