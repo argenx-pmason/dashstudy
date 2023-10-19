@@ -222,6 +222,7 @@ const App = () => {
       setShowSaveButton(false);
       setUserFullName("");
     }
+    // eslint-disable-next-line
   }, [tempUsername]);
 
   let username = localStorage.getItem("username");
@@ -461,13 +462,16 @@ const App = () => {
         sortable: false,
         renderCell: (cellValues) => {
           const { value, row } = cellValues,
-            { jobname } = row,
+            { jobname, logcheck } = row,
             log = jobname.split(".")[0] + ".log";
+          let backgroundColor = "#ffffff";
+          if (logcheck !== "no log!" && logcheck !== "clean")
+            backgroundColor = "#ffe0e6";
           if (value !== "no log!" && info !== null) {
             return (
               <Tooltip title={"View log"}>
                 <Box
-                  sx={{ color: "blue" }}
+                  sx={{ backgroundColor: backgroundColor, color: "blue" }}
                   onClick={() => {
                     window.open(
                       logViewerPrefix + info.REPATH + "/log/" + log,
@@ -491,6 +495,16 @@ const App = () => {
         headerClassName: "header",
         width: 100,
         sortable: false,
+        renderCell: (cellValues) => {
+          const { value, row } = cellValues,
+            { headerFails } = row;
+          // console.log(cellValues);
+          if (Number(headerFails) > 0) {
+            return <Box sx={{ backgroundColor: "#ffe0e6" }}>{value}</Box>;
+          } else {
+            return <Box>{value}</Box>;
+          }
+        },
       },
     ]);
     setReport1b(tempReport1b);
@@ -724,8 +738,10 @@ const App = () => {
     let tempSapErrMsg = "",
       tempBsopErrMsg = "";
     if (SAPERR1 === "1") tempSapErrMsg += "Too many SAP files. ";
+    if (SAPERR1 === "-1") tempSapErrMsg += "Missing SAP file. ";
     if (SAPERR2 === "1") tempSapErrMsg += "SAP filename is too simple.";
     if (BSOPERR1 === "1") tempBsopErrMsg += "Too many BSOP files. ";
+    if (BSOPERR1 === "-1") tempBsopErrMsg += "Missing BSOP file. ";
     if (BSOPERR2 === "1") tempBsopErrMsg += "BSOP file name is too simple.";
     setSapErrMsg(tempSapErrMsg);
     setBsopErrMsg(tempBsopErrMsg);
@@ -762,11 +778,25 @@ const App = () => {
       }
     }
 
-    const title0 = sourceData.info[0].study,
-      title1 = "|" + sourceData.info[0].REVENT,
-      title2a = "|" + sourceData.info[0].REPATH.split("/").pop(),
-      title2 = title1 !== title2a ? title2a : "",
+    const title0 = sourceData.info[0].study.replace("argx-", ""),
+      title1 = "|" + sourceData.info[0].INDICATION,
+      title2a = "|" + sourceData.info[0].REPATH.split("/").at(-2),
+      title2b = "|" + sourceData.info[0].REPATH.split("/").pop(),
+      title2 =
+        title1 !== title2a && title2a !== "staging"
+          ? title2a + title2b
+          : title2b,
       title = title0 + title1 + title2;
+    // console.log(
+    //   "--->",
+    //   sourceData.info[0],
+    //   title0,
+    //   title1,
+    //   title2,
+    //   title2a,
+    //   title2b,
+    //   title
+    // );
     document.title = title;
     setCro(sourceData.croosdocs);
     let lastLog;
@@ -1328,9 +1358,17 @@ const App = () => {
         issueprograms = 0;
       report1.forEach((program) => {
         expectedprograms++;
-        if (program.logcheck === "clean") {
-          cleanprograms++;
-        } else if (program.logcheck !== "no log!") issueprograms++;
+        if (program.logcheck !== "clean" && program.logcheck !== "no log!")
+          issueprograms++; // log check
+        else if (
+          program.headerfailmess !== "All pass" &&
+          program.headerfailmess !== ""
+        )
+          issueprograms++; // header check
+        else if (program.logcheck === "clean") {
+          cleanprograms++; // no problems in log or header, so clean
+        }
+        // console.log("***", cleanprograms, expectedprograms, issueprograms);
       });
 
       let cleanoutputs = 0,
@@ -1648,7 +1686,7 @@ const App = () => {
                         <Tooltip
                           key={"cro" + id}
                           title={
-                            row.name === "<missing>"
+                            row.name === "<missing>" || row.name === "missing"
                               ? "Missing the " + row.doc + " document"
                               : "Download the document: " +
                                 row.name +
