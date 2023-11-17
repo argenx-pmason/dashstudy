@@ -1,0 +1,15 @@
+<html>
+  <head>
+    <script>
+      const url = window.location.href,
+        path = url.match(/\/clinical.*/), // find path starting with /clinical
+        path2 = path[0].replace(/\/[^\/]*$/, ""), // drop filename from end of path
+        newDash =
+          "https://xarprod.ondemand.sas.com/lsaf/filedownload/sdd%3A///general/biostat/tools/dashstudy/index.html?file=" +
+          path2 +
+          "/meta/dashstudy.json";
+      console.log(url, path, path2, newDash);
+      window.open(newDash, "_self");
+    </script>
+  </head>
+</html>
