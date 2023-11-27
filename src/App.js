@@ -127,7 +127,7 @@ const App = () => {
     [outputClickedOn, setOutputClickedOn] = useState(null),
     [openOutputReview, setOpenOutputReview] = useState(null),
     logViewerPrefix =
-      "https://xarprod.ondemand.sas.com/lsaf/filedownload/sdd:/general/biostat/tools/logviewer/index.html?log=",
+      "https://xarprod.ondemand.sas.com/lsaf/filedownload/sdd:/general/biostat/tools/logviewer2/index.html?log=",
     fileViewerPrefix =
       "https://xarprod.ondemand.sas.com/lsaf/filedownload/sdd:/general/biostat/tools/fileviewer/index.html?file=",
     webDavPrefix = "https://xarprod.ondemand.sas.com/lsaf/webdav/repo",
