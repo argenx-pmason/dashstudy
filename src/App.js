@@ -39,6 +39,7 @@ import {
   Close,
   MenuBookTwoTone,
   Info,
+  Google,
   Apps,
   ForwardTwoTone,
 } from "@mui/icons-material";
@@ -208,7 +209,7 @@ const App = () => {
     [userFullName, setUserFullName] = useState(
       localStorage.getItem("userFullName")
     ),
-    showGadamDirExists = false; // set to true to show gadam directory exists indicator
+    showGadamDirExists = true; // set to true to show gadam directory exists indicator
 
   useEffect(() => {
     if (sourceData === null) return;
@@ -1974,9 +1975,6 @@ const App = () => {
           <Tooltip title="Information about the data used in this screen">
             <IconButton
               size="small"
-              // aria-label="account of current user"
-              // aria-controls="menu-appbar"
-              // aria-haspopup="true"
               onClick={() => {
                 setOpenInfo(true);
               }}
@@ -1986,6 +1984,30 @@ const App = () => {
               <Info />
             </IconButton>
           </Tooltip>
+
+          {showGadamDirExists && info && info.generic_adam_exists === "1" && (
+            <Tooltip title="Show GADAM creation report - if available">
+              <IconButton
+                size="small"
+                onClick={() => {
+                  const parent = info.REPATH.split("/");
+                  parent.pop();
+                  window.open(
+                    webDavPrefix +
+                      parent.join("/") +
+                      "/generic_adam/qc/qc_" +
+                      info.study +
+                      ".html",
+                    "_blank"
+                  );
+                }}
+                color="info"
+                sx={{ mt: 1 }}
+              >
+                <Google />
+              </IconButton>
+            </Tooltip>
+          )}
 
           {showGadamDirExists && info && "generic_adam_exists" in info && (
             <Tooltip
@@ -2036,6 +2058,9 @@ const App = () => {
                 size="small"
                 variant="outlined"
                 sx={{ mt: 1, ml: 1 }}
+                onClick={() => {
+                  setOpenInfo(true);
+                }}
               />
             </Tooltip>
           )}
@@ -2285,7 +2310,7 @@ const App = () => {
               <ListItemIcon>
                 <ForwardTwoTone />
               </ListItemIcon>
-              <p>
+              <Box sx={{ border: 1, padding: 1 }}>
                 Many things on the screen can be hovered over to display
                 information, including any{" "}
                 <span style={{ color: "blue" }}>
@@ -2293,53 +2318,134 @@ const App = () => {
                 </span>{" "}
                 text, which can also be clicked on to do something - showing
                 related information on another tab, creating an email, etc.
-              </p>
+              </Box>
             </ListItem>
+
+            <ListItem>
+              <ListItemIcon>
+                <ForwardTwoTone />
+              </ListItemIcon>
+              <Box sx={{ border: 0.5, padding: 1 }}>
+                <b>Reviewing messages: </b>
+                If there are errors or warnings in logs for any SAS programs
+                then a table will show those programs in the lower left area of
+                screen. A user can review the messages by clicking one of the
+                icons:
+                <ul>
+                  <li>
+                    <span style={{ color: "blue", fontSize: 20 }}>
+                      <b>👀</b>
+                    </span>{" "}
+                    - review <b>all</b> of the messages for a program, and mark
+                    each one as either:{" "}
+                    <span style={{ color: "red" }}>
+                      <b>Not OK</b>
+                    </span>
+                    {", "}
+                    <span style={{ color: "blue" }}>
+                      <b>Unsure</b>
+                    </span>
+                    {" or "}
+                    or{" "}
+                    <span style={{ color: "green" }}>
+                      <b>OK</b>
+                    </span>
+                    , along with an explanation.
+                  </li>
+                  <li>
+                    <span style={{ color: "blue", fontSize: 20 }}>
+                      <b>?</b>
+                    </span>{" "}
+                    - review <b>one</b> of the programs marking each message as
+                    either:{" "}
+                    <span style={{ color: "green" }}>
+                      <b>OK</b>
+                    </span>{" "}
+                    or{" "}
+                    <span style={{ color: "red" }}>
+                      <b>Not OK</b>
+                    </span>
+                    , along with an explanation.
+                  </li>
+                </ul>
+              </Box>
+            </ListItem>
+            {info && info.generic_adam_meta_exists === "0" ? (
+              <ListItem>
+                <ListItemIcon>
+                  <ForwardTwoTone />
+                </ListItemIcon>
+                <Box sx={{ border: 1, padding: 1 }}>
+                  The generic_adam programs in{" "}
+                  <b>...[study]/staging/testrun[n]/generic_adam</b> can be
+                  created by running the job{" "}
+                  <b>
+                    /general/biostat/jobs/gadam_ongoing_studies/prod/jobs/job_gadam_dryrun_setup.job.
+                  </b>
+                  <p />
+                  <ul>
+                    <li>
+                      {" "}
+                      The first 3 parameters (paths) need to be defined as
+                      follows:
+                      <ol>
+                        <li>
+                          The path to the test run folder in which the
+                          generic_adam should be setup
+                        </li>{" "}
+                        <li>
+                          The path to the folder holding the sdtm data used for
+                          the setup (something like
+                          <i>../data_received/sdtm_YYYYMMDD</i>)
+                        </li>
+                        <li>
+                          {" "}
+                          The path to the folder holding the CRO-provided adam
+                          data (to be compared against) used for the setup
+                          (something like <i>../data_received/adam_YYYYMMDD</i>)
+                        </li>
+                      </ol>
+                      <br />
+                    </li>
+                    <li>
+                      {" "}
+                      The next 4 parameters are by default set to N – this means
+                      the generic adam programs and jobs are just setup but not
+                      run. Setting them to Y results in actually running the
+                      programs to
+                      <ol>
+                        <li>
+                          Create the datasets in
+                          ../testrun[n]/generic_adam/adam/tmp
+                        </li>
+                        <li>
+                          QC (compare) these datasets against those in
+                          ../data_received/adam_YYYYMMDD (path specified by 3rd
+                          parameter)
+                        </li>
+                        <li>
+                          Copying the datasets from ../generic_adam/adam/tmp to
+                          ../testrun[n]/generic_adam/adam if internal
+                          consistency checks pass.
+                        </li>
+                        <li>
+                          Creating a few tables (exposure, AE, ECG) from the
+                          generic_dam datasets into
+                          ../testrun[n]/generic_adam/output/pdf
+                        </li>
+                      </ol>{" "}
+                      <br />
+                    </li>
+                    <li>
+                      Parameter “force” should be set to “Y” to re-run the
+                      programs after an initial run, when outputs already exist
+                      and have later dates than their input data.
+                    </li>
+                  </ul>
+                </Box>
+              </ListItem>
+            ) : null}
           </List>
-          <p>
-            <b>Reviewing messages:</b>
-            <br />
-            If there are errors or warnings in logs for any SAS programs then a
-            table will show those programs in the lower left area of screen. A
-            user can review the messages by clicking one of the icons:
-            <ul>
-              <li>
-                <span style={{ color: "blue", fontSize: 20 }}>
-                  <b>👀</b>
-                </span>{" "}
-                - review <b>all</b> of the messages for a program, and mark each
-                one as either:{" "}
-                <span style={{ color: "red" }}>
-                  <b>Not OK</b>
-                </span>
-                {", "}
-                <span style={{ color: "blue" }}>
-                  <b>Unsure</b>
-                </span>
-                {" or "}
-                or{" "}
-                <span style={{ color: "green" }}>
-                  <b>OK</b>
-                </span>
-                , along with an explanation.
-              </li>
-              <li>
-                <span style={{ color: "blue", fontSize: 20 }}>
-                  <b>?</b>
-                </span>{" "}
-                - review <b>one</b> of the programs marking each message as
-                either:{" "}
-                <span style={{ color: "green" }}>
-                  <b>OK</b>
-                </span>{" "}
-                or{" "}
-                <span style={{ color: "red" }}>
-                  <b>Not OK</b>
-                </span>
-                , along with an explanation.
-              </li>
-            </ul>
-          </p>
         </DialogContent>
       </Dialog>
     </Box>
