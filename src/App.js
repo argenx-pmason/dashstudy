@@ -39,9 +39,11 @@ import {
   Close,
   MenuBookTwoTone,
   Info,
+  OpenInNew,
   Google,
   Apps,
   ForwardTwoTone,
+  ArrowDropDown,
 } from "@mui/icons-material";
 import UserInput from "./UserInput";
 import MultipleUserInput from "./MultipleUserInput";
@@ -1485,43 +1487,51 @@ const App = () => {
                 </Box>
               </Popover>
               {studyList && (
-                <Box sx={{ ml: 2, mt: 0.7, zIndex: 10, flexGrow: 1 }}>
-                  <Tooltip title={"View the root directory with File Viewer"}>
-                    <Box
-                      sx={{
-                        color: "blue",
-                        fontSize: gridFontSize + 0.2 + "em",
-                      }}
-                      onClick={() =>
-                        window.open(fileViewerPrefix + info.REPATH, "_blank")
-                      }
-                    >
-                      {info.retext}
-                    </Box>
-                  </Tooltip>
-                </Box>
-              )}
-              {studyList && (
-                <Box sx={{ zIndex: 10, flexGrow: 1, mt: 0.7 }}>
-                  <Tooltip
-                    title={
-                      "Choose another study (generic adam studies are not shown)"
+                <>
+                  {" "}
+                  <Box
+                    sx={{
+                      color: "blue",
+                      // mt: 1,
+                      ml: 2,
+                      fontSize: gridFontSize + 0.2 + "em",
+                    }}
+                    onClick={() =>
+                      window.open(fileViewerPrefix + info.REPATH, "_blank")
                     }
                   >
-                    <Box
-                      sx={{
-                        color: "blue",
-                        fontSize: gridFontSize + 0.2 + "em",
-                      }}
-                      onClick={handlePopClick}
-                    >
-                      {"Status report created on " +
-                        info.statusReportCreateDate +
-                        " at " +
-                        info.statusReportCreateTime}
-                    </Box>
-                  </Tooltip>
-                </Box>
+                    {info.REPATH + "/documents/newdash.html"}
+                    <Tooltip title={"View the root directory with File Viewer"}>
+                      <IconButton size="small" color="info">
+                        <OpenInNew sx={{ border: 1, fontSize: 16 }} />
+                      </IconButton>
+                    </Tooltip>
+                  </Box>
+                </>
+              )}
+              <Box sx={{ flexGrow: 1 }} />
+              {studyList && (
+                <Tooltip
+                  title={
+                    "Choose another study (generic adam studies are not shown)"
+                  }
+                >
+                  <Box
+                    sx={{
+                      color: "blue",
+                      fontSize: gridFontSize + 0.2 + "em",
+                    }}
+                    onClick={handlePopClick}
+                  >
+                    {"Status report created on " +
+                      info.statusReportCreateDate +
+                      " at " +
+                      info.statusReportCreateTime}
+                    <IconButton size="small" color="info">
+                      <ArrowDropDown sx={{ border: 1, fontSize: 16 }} />
+                    </IconButton>
+                  </Box>
+                </Tooltip>
               )}
               <Popover
                 id={popId}
