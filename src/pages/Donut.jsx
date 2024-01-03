@@ -194,7 +194,7 @@ function Donut(props) {
             label: function (arg) {
               const { dataIndex, datasetIndex } = arg;
               let key, info, labels;
-              // console.log(statusKeys, dataIndex, datasetIndex);
+              // console.log(arg, statusKeys, dataIndex, datasetIndex);
               if (datasetIndex === 0) {
                 key = statusKeys[dataIndex];
                 info = status[key];
@@ -239,7 +239,7 @@ function Donut(props) {
     <>
       <Grid container>
         <Grid item xs={3}>
-          <Box sx={{ height: "200px" }}>
+          <Box sx={{ height: "200px" }} onMouseLeave={() => setTitle(null)}>
             <Doughnut
               options={options}
               data={data}

@@ -116,6 +116,8 @@ const App = () => {
     [openInfo, setOpenInfo] = useState(false),
     [openUserLogin, setOpenUserLogin] = useState(false),
     [reviewSection, setReviewSection] = useState(null),
+    [listLastModified, setListLastModified] = useState(null),
+    [timeSinceRefresh, setTimeSinceRefresh] = useState(null),
     topSpace = 350,
     gridFontSize = 0.7,
     rowHeight = 22,
@@ -214,6 +216,7 @@ const App = () => {
     showGadamDirExists = true; // set to true to show gadam directory exists indicator
 
   useEffect(() => {
+    console.log("window", window);
     if (sourceData === null) return;
     const matchingUsers = sourceData.access.filter(
       (r) => r.userid === tempUsername
@@ -357,6 +360,7 @@ const App = () => {
     } else setSourceData(all);
     // eslint-disable-next-line
   }, [href]);
+
   // do this when sourceData changes
   useEffect(() => {
     console.log("INFO:\tsourceData", sourceData);
@@ -611,13 +615,15 @@ const App = () => {
         minWidth: 20,
         width: 25,
         renderCell: (cellValues) => {
-          const { value } = cellValues;
-          if (value) {
-            const fileName = value.split("/").pop();
+          const { value, row } = cellValues,
+            { pathsvg } = row,
+            pathToUse = pathsvg ? pathsvg : value;
+          if (pathToUse) {
+            const fileName = pathToUse.split("/").pop();
             return (
               <>
                 <Tooltip title={`Open ${fileName} as plain text`}>
-                  <Link href={`${webDavPrefix}${value}`} target="_blank">
+                  <Link href={`${webDavPrefix}${pathToUse}`} target="_blank">
                     Y
                   </Link>
                 </Tooltip>
@@ -749,6 +755,37 @@ const App = () => {
     setSapErrMsg(tempSapErrMsg);
     setBsopErrMsg(tempBsopErrMsg);
 
+    // if we have listLastRefreshed then set the info we want to display based on it
+    if (tempInfo.listLastRefreshed) {
+      const listLastRefreshed = Number(tempInfo.listLastRefreshed),
+        listLastRefreshedDate = new Date(listLastRefreshed);
+      setListLastModified(
+        "SharePoint list last modification time: " +
+          listLastRefreshedDate.toUTCString()
+      );
+      let rest = Math.floor((Date.now() - listLastRefreshed) / 1000);
+      const s = rest % 60;
+      rest = Math.floor(rest / 60);
+      const m = rest % 60;
+      rest = Math.floor(rest / 60);
+      const h = rest % 24,
+        d = Math.floor(rest / 24);
+      setTimeSinceRefresh(
+        "Time since last refresh SharePoint list content: " +
+          d +
+          " days, " +
+          h +
+          " hours, " +
+          m +
+          " minutes, " +
+          s +
+          " seconds"
+      );
+    } else {
+      setListLastModified(null);
+      setTimeSinceRefresh(null);
+    }
+
     // get iss info if there is a splist on lsaf
     if (mode === "local") setIss(localiss);
     else {
@@ -803,16 +840,18 @@ const App = () => {
     document.title = title;
     setCro(sourceData.croosdocs);
     let lastLog;
-    const tempOutputLogReport2 = tempOutputLogReport.map((row) => {
-      if (row.path) {
-        lastLog = row.col1;
-        row.col1 = [row.col1];
-        return row;
-      } else {
-        row.col1 = [lastLog, row.col1];
-        return row;
-      }
-    });
+    const tempOutputLogReport2 = tempOutputLogReport
+      .map((row) => {
+        if (row.path) {
+          lastLog = row.col1;
+          row.col1 = [row.col1];
+          return row;
+        } else {
+          row.col1 = [lastLog, row.col1];
+          return row;
+        }
+      })
+      .filter((row) => row.jsonfile !== "log_.json" && row.output !== ".log");
     setOutputLogReport(tempOutputLogReport2);
     setColsOutputLogReport([
       { field: "__tree_data_group__", width: 250 },
@@ -1982,6 +2021,13 @@ const App = () => {
               </Button>
             </Tooltip>
           )}
+          <Box sx={{ flex: 1, mt: 0.5 }}>
+            {listLastModified !== null ? listLastModified + ", " : null}
+          </Box>
+          <Box sx={{ flex: 1, mt: 0.5 }}>
+            {timeSinceRefresh !== null ? timeSinceRefresh : null}
+          </Box>
+
           <Tooltip title="Information about the data used in this screen">
             <IconButton
               size="small"
