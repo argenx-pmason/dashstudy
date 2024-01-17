@@ -131,11 +131,11 @@ const App = () => {
     },
     [outputClickedOn, setOutputClickedOn] = useState(null),
     [openOutputReview, setOpenOutputReview] = useState(null),
+    webDavPrefix = urlPrefix + "/lsaf/webdav/repo",
     logViewerPrefix =
-      "https://xarprod.ondemand.sas.com/lsaf/filedownload/sdd:/general/biostat/tools/logviewer2/index.html?log=",
+      webDavPrefix + "/general/biostat/tools/logviewer2/index.html?log=",
     fileViewerPrefix =
-      "https://xarprod.ondemand.sas.com/lsaf/filedownload/sdd:/general/biostat/tools/fileviewer/index.html?file=",
-    webDavPrefix = "https://xarprod.ondemand.sas.com/lsaf/webdav/repo",
+      webDavPrefix + "/general/biostat/tools/fileviewer/index.html?file=",
     [report1a, setReport1a] = useState(null),
     [colsReport1a, setColsReport1a] = useState(null),
     [report1b, setReport1b] = useState(null),
@@ -792,19 +792,23 @@ const App = () => {
       if (tempInfo.SPLISTONLSAF === "yes" && tempInfo.SPLISTISS) {
         fetch(webDavPrefix + tempInfo.SPLISTISS)
           .then(function (response) {
-            response.text().then(function (text) {
-              if (text.includes("HTTP Status 404 – Not Found")) {
-                console.log("splist was not found: ", tempInfo.SPLISTISS);
-                setIss(null);
-                return;
-              }
-              const modifiedText = text
-                .replace("var embeddedData =", "")
-                .replace("];", "]");
-              const json = JSON.parse(modifiedText);
-              console.log("SPLISTISS", json);
-              if (json) setIss(json);
-            });
+            if (!response.ok) {
+              console.log("Fetch of SPLISTISS failed:", response);
+            } else {
+              response.text().then(function (text) {
+                if (text.includes("HTTP Status 404 – Not Found")) {
+                  console.log("splist was not found: ", tempInfo.SPLISTISS);
+                  setIss(null);
+                  return;
+                }
+                const modifiedText = text
+                  .replace("var embeddedData =", "")
+                  .replace("];", "]");
+                const json = JSON.parse(modifiedText);
+                console.log("SPLISTISS", json);
+                if (json) setIss(json);
+              });
+            }
           })
           .catch((err) =>
             console.log(

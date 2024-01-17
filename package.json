@@ -2,7 +2,7 @@
   "name": "dashstudy",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://xarprod.ondemand.sas.com/lsaf/filedownload/sdd%3A///general/biostat/tools/dashstudy",
+  "homepage": "https://xartest.ondemand.sas.com/lsaf/filedownload/sdd%3A///general/biostat/tools/dashstudy",
   "dependencies": {
     "@emotion/react": "^11.10.5",
     "@emotion/styled": "^11.10.5",
