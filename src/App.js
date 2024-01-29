@@ -408,7 +408,12 @@ const App = () => {
             return (
               <Tooltip title={"View program"}>
                 <Box
-                  sx={{ color: "blue" }}
+                  sx={{
+                    color: "blue",
+                    "&:hover": {
+                      cursor: "pointer",
+                    },
+                  }}
                   onClick={() => {
                     window.open(fileViewerPrefix + path, "_blank");
                   }}
@@ -443,7 +448,12 @@ const App = () => {
             return (
               <Tooltip title={"View job XML"}>
                 <Box
-                  sx={{ color: "blue" }}
+                  sx={{
+                    color: "blue",
+                    "&:hover": {
+                      cursor: "pointer",
+                    },
+                  }}
                   onClick={() => {
                     window.open(
                       fileViewerPrefix + info.REPATH + "/jobs/" + value,
@@ -478,7 +488,13 @@ const App = () => {
             return (
               <Tooltip title={"View log"}>
                 <Box
-                  sx={{ backgroundColor: backgroundColor, color: "blue" }}
+                  sx={{
+                    backgroundColor: backgroundColor,
+                    color: "blue",
+                    "&:hover": {
+                      cursor: "pointer",
+                    },
+                  }}
                   onClick={() => {
                     window.open(
                       logViewerPrefix + info.REPATH + "/log/" + log,
@@ -528,7 +544,12 @@ const App = () => {
           return (
             <Tooltip title={"View program"}>
               <Box
-                sx={{ color: "blue" }}
+                sx={{
+                  color: "blue",
+                  "&:hover": {
+                    cursor: "pointer",
+                  },
+                }}
                 onClick={() => {
                   window.open(fileViewerPrefix + path, "_blank");
                 }}
@@ -710,7 +731,12 @@ const App = () => {
             return (
               <Tooltip title={"Email programmer"}>
                 <Box
-                  sx={{ color: "blue" }}
+                  sx={{
+                    color: "blue",
+                    "&:hover": {
+                      cursor: "pointer",
+                    },
+                  }}
                   onClick={() => {
                     window.open(
                       "mailto:" +
@@ -1538,6 +1564,9 @@ const App = () => {
                       // mt: 1,
                       ml: 2,
                       fontSize: gridFontSize + 0.2 + "em",
+                      "&:hover": {
+                        cursor: "pointer",
+                      },
                     }}
                     onClick={() =>
                       window.open(fileViewerPrefix + info.REPATH, "_blank")
@@ -1563,6 +1592,9 @@ const App = () => {
                     sx={{
                       color: "blue",
                       fontSize: gridFontSize + 0.2 + "em",
+                      "&:hover": {
+                        cursor: "pointer",
+                      },
                     }}
                     onClick={handlePopClick}
                   >
@@ -1735,7 +1767,13 @@ const App = () => {
                         </Box>
                       </TableCell>
                       <TableCell
-                        sx={{ color: "blue", fontSize: gridFontSize + "em" }}
+                        sx={{
+                          color: "blue",
+                          fontSize: gridFontSize + "em",
+                          "&:hover": {
+                            cursor: "pointer",
+                          },
+                        }}
                       >
                         <Tooltip
                           key={"cro" + id}
