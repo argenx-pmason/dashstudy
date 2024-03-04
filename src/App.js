@@ -2423,6 +2423,23 @@ const App = () => {
               <ListItemIcon>
                 <ForwardTwoTone />
               </ListItemIcon>
+              <Box sx={{ border: 1, padding: 1 }}>
+                Take a look at this document that explains this screen some
+                more:{" "}
+                <a
+                  href={`https://argenxbvba.sharepoint.com/:w:/r/sites/Biostatistics/_layouts/15/Doc.aspx?sourcedoc=%7BE44FDE72-2590-4798-A0A5-4E1D45AEE2A0%7D&file=Project%20status%20and%20progress%20tracking.docx&nav=eyJjIjoxNzIyNDk1NDB9`}
+                  target="_blank"
+                  rel="noreferrer"
+                >
+                  Project Status and Project Tracking Guide
+                </a>
+              </Box>
+            </ListItem>
+
+            <ListItem>
+              <ListItemIcon>
+                <ForwardTwoTone />
+              </ListItemIcon>
               <Box sx={{ border: 0.5, padding: 1 }}>
                 <b>Reviewing messages: </b>
                 If there are errors or warnings in logs for any SAS programs
