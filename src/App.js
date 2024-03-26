@@ -114,6 +114,7 @@ const App = () => {
     [openUserInput, setOpenUserInput] = useState(false),
     [openUserMultipleInput, setOpenUserMultipleInput] = useState(false),
     [openInfo, setOpenInfo] = useState(false),
+    [compareInfo, setCompareInfo] = useState(null),
     [openUserLogin, setOpenUserLogin] = useState(false),
     [reviewSection, setReviewSection] = useState(null),
     [listLastModified, setListLastModified] = useState(null),
@@ -145,6 +146,7 @@ const App = () => {
     [outputLogReport, setOutputLogReport] = useState(null),
     [colsOutputLogReport, setColsOutputLogReport] = useState(null),
     [colsReviewSection, setColsReviewSection] = useState(null),
+    [colsCompare, setColsCompare] = useState(null),
     [info, setInfo] = useState(null),
     [parent, setParent] = useState(null),
     [cro, setCro] = useState(null),
@@ -213,6 +215,7 @@ const App = () => {
     [userFullName, setUserFullName] = useState(
       localStorage.getItem("userFullName")
     ),
+    [showAdamQc, setShowAdamQc] = useState(false),
     showGadamDirExists = true; // set to true to show gadam directory exists indicator
 
   useEffect(() => {
@@ -578,7 +581,7 @@ const App = () => {
     ]);
 
     setReport2(tempReport2);
-    setColsReport2([
+    let tempColsReport2 = [
       {
         field: "section",
         headerName: "SAP",
@@ -621,6 +624,38 @@ const App = () => {
                   </Typography>
                 </Tooltip>
               );
+          }
+        },
+      },
+      {
+        field: "compare_match",
+        headerName: "cm",
+        headerClassName: "header",
+        sortable: false,
+        description: "Compare info available",
+        disableColumnMenu: true,
+        hideSortIcons: true,
+        maxWidth: 20,
+        minWidth: 20,
+        width: 20,
+        renderCell: (cellValues) => {
+          const { value, row } = cellValues,
+            { compare_label2, pathlst } = row;
+          if (value) {
+            // replace /output/ with /output/compare/ in text
+            const filePath = pathlst.replace(
+              "/output/",
+              "/output/compare/compare_"
+            );
+            let flag = "D";
+            if (compare_label2 === "OK : Match") flag = "M";
+            return (
+              <Tooltip title={`Compare status is "${compare_label2}"`}>
+                <Link href={`${fileViewerPrefix}${filePath}`} target="_blank">
+                  {flag}
+                </Link>
+              </Tooltip>
+            );
           }
         },
       },
@@ -762,7 +797,77 @@ const App = () => {
             );
         },
       },
+      {
+        field: "qcstatus",
+        headerName: "QC Status",
+        headerClassName: "header",
+        sortable: false,
+        description: "QC status from SharePoint list",
+        disableColumnMenu: true,
+        hideSortIcons: true,
+        width: 90,
+      },
+    ];
+    // work out if we need to remove the qc status column, if all the values are blank
+    const allBlank = tempReport2.every((r) => r["qcstatus"] === "");
+    if (allBlank) {
+      tempColsReport2 = tempColsReport2.filter(
+        (item) => item["field"] !== "qcstatus"
+      );
+    }
+    // remove the compare column if we dont have anything in the compare array
+    if (sourceData.compare && sourceData.compare.length === 0) {
+      tempColsReport2 = tempColsReport2.filter(
+        (item) => item["field"] !== "compare_match"
+      );
+    }
+    setColsReport2(tempColsReport2);
+    // define the columns from sourceData.compare[0]
+    setColsCompare([
+      {
+        field: "label1",
+        headerName: "Output",
+        headerClassName: "header",
+        width: 400,
+      },
+      {
+        field: "label2",
+        headerName: "Status",
+        headerClassName: "header",
+        width: 200,
+      },
+      {
+        field: "comobs",
+        headerName: "comobs",
+        headerClassName: "header",
+      },
+      {
+        field: "n1obs",
+        headerName: "Obs in 1",
+        headerClassName: "header",
+      },
+      {
+        field: "n2obs",
+        headerName: "Obs in 1",
+        headerClassName: "header",
+      },
+      {
+        field: "obsdiff",
+        headerName: "obsdiff",
+        headerClassName: "header",
+      },
+      {
+        field: "vardiff",
+        headerName: "vardiff",
+        headerClassName: "header",
+      },
+      {
+        field: "diff",
+        headerName: "diff",
+        headerClassName: "header",
+      },
     ]);
+
     const tempInfo = sourceData.info[0];
     setInfo(tempInfo);
     let tempParent = tempInfo.REPATH.split("/");
@@ -1198,6 +1303,8 @@ const App = () => {
     console.log("tempGraph (barChart)", tempGraph);
     setBarChart(tempGraph);
 
+    // check if path has qc_adam/documents in it, in which case we set a flag to show the ADaM QC section
+    setShowAdamQc(tempInfo.REPATH.includes("/qc_adam"));
     // eslint-disable-next-line
   }, [sourceData]);
 
@@ -1699,7 +1806,7 @@ const App = () => {
                 <TableBody>
                   {cro.map((row, id) => (
                     <TableRow
-                      key={row.name}
+                      key={row.name || id}
                       sx={{
                         "&:last-child td, &:last-child th": { border: 0 },
                       }}
@@ -2107,29 +2214,32 @@ const App = () => {
             </Tooltip>
           )}
 
-          {showGadamDirExists && info && "generic_adam_exists" in info && (
-            <Tooltip
-              title={
-                info.generic_adam_exists === "1"
-                  ? "Directory was found at: " + parent + "/generic_adam"
-                  : "Directory was not found at: " + parent + "/generic_adam"
-              }
-            >
-              <Chip
-                label={
+          {showAdamQc &&
+            showGadamDirExists &&
+            info &&
+            "generic_adam_exists" in info && (
+              <Tooltip
+                title={
                   info.generic_adam_exists === "1"
-                    ? "Generic Adam directory exists"
-                    : "Generic Adam directory missing"
+                    ? "Directory was found at: " + parent + "/generic_adam"
+                    : "Directory was not found at: " + parent + "/generic_adam"
                 }
-                icon={info.generic_adam_exists === "1" ? <Done /> : <Close />}
-                color={info.generic_adam_exists === "1" ? "success" : "error"}
-                size="small"
-                variant="outlined"
-                sx={{ mt: 1 }}
-              />
-            </Tooltip>
-          )}
-          {info && "generic_adam_meta_exists" in info && (
+              >
+                <Chip
+                  label={
+                    info.generic_adam_exists === "1"
+                      ? "Generic Adam directory exists"
+                      : "Generic Adam directory missing"
+                  }
+                  icon={info.generic_adam_exists === "1" ? <Done /> : <Close />}
+                  color={info.generic_adam_exists === "1" ? "success" : "error"}
+                  size="small"
+                  variant="outlined"
+                  sx={{ mt: 1 }}
+                />
+              </Tooltip>
+            )}
+          {showAdamQc && info && "generic_adam_meta_exists" in info && (
             <Tooltip
               title={
                 info.generic_adam_meta_exists === "1"
@@ -2162,7 +2272,7 @@ const App = () => {
               />
             </Tooltip>
           )}
-          {info && info.generic_adam_lastModified > " " ? (
+          {showAdamQc && info && info.generic_adam_lastModified > " " ? (
             <Tooltip
               title={
                 "Last modified date for directory: " +
@@ -2176,6 +2286,25 @@ const App = () => {
                 size="small"
                 variant="outlined"
                 sx={{ mt: 1, ml: 1 }}
+              />
+            </Tooltip>
+          ) : null}
+
+          {sourceData && sourceData.compare && sourceData.compare.length > 0 ? (
+            <Tooltip
+              title={
+                "View report of analysis of PROC COMPARE output for this study"
+              }
+            >
+              <Chip
+                label={"Comparisons"}
+                color={"info"}
+                size="small"
+                variant="outlined"
+                sx={{ mt: 1, ml: 1 }}
+                onClick={() => {
+                  setCompareInfo(true);
+                }}
               />
             </Tooltip>
           ) : null}
@@ -2561,6 +2690,28 @@ const App = () => {
               </ListItem>
             ) : null}
           </List>
+        </DialogContent>
+      </Dialog>
+      <Dialog
+        fullWidth
+        maxWidth="xl"
+        onClose={() => setCompareInfo(false)}
+        open={compareInfo}
+      >
+        <DialogTitle>Info from Proc Compare(s)</DialogTitle>
+        <DialogContent>
+          {colsCompare && (
+            <DataGridPro
+              rows={sourceData.compare}
+              columns={colsCompare}
+              disableColumnMenu
+              density="compact"
+              rowHeight={rowHeight}
+              autoHeight
+              hideFooter={true}
+              getRowId={(row) => row.output_file}
+            />
+          )}
         </DialogContent>
       </Dialog>
     </Box>
