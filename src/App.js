@@ -44,6 +44,8 @@ import {
   Apps,
   ForwardTwoTone,
   ArrowDropDown,
+  ArticleTwoTone,
+  FolderCopyTwoTone,
 } from "@mui/icons-material";
 import UserInput from "./UserInput";
 import MultipleUserInput from "./MultipleUserInput";
@@ -134,7 +136,7 @@ const App = () => {
     [openOutputReview, setOpenOutputReview] = useState(null),
     webDavPrefix = urlPrefix + "/lsaf/webdav/repo",
     logViewerPrefix =
-      webDavPrefix + "/general/biostat/tools/logviewer2/index.html?log=",
+      webDavPrefix + "/general/biostat/tools/logviewer/index.html?log=",
     fileViewerPrefix =
       webDavPrefix + "/general/biostat/tools/fileviewer/index.html?file=",
     [report1a, setReport1a] = useState(null),
@@ -142,7 +144,11 @@ const App = () => {
     [report1b, setReport1b] = useState(null),
     [colsReport1b, setColsReport1b] = useState(null),
     [report2, setReport2] = useState(null),
+    [gotLot, setGotLot] = useState(false),
+    [report2lot, setReport2lot] = useState(null),
+    [report2noLot, setReport2noLot] = useState(null),
     [colsReport2, setColsReport2] = useState(null),
+    [colsReport2noLot, setColsReport2noLot] = useState(null),
     [outputLogReport, setOutputLogReport] = useState(null),
     [colsOutputLogReport, setColsOutputLogReport] = useState(null),
     [colsReviewSection, setColsReviewSection] = useState(null),
@@ -233,6 +239,16 @@ const App = () => {
     }
     // eslint-disable-next-line
   }, [tempUsername]);
+
+  useEffect(() => {
+    if (report2 === null) return;
+    if (report2.length === 0) return;
+    if ("in_lot" in report2[0]) {
+      setGotLot(true);
+      setReport2noLot(report2.filter((r) => r.in_lot === 0));
+      setReport2lot(report2.filter((r) => r.in_lot === 1));
+    } else setGotLot(false);
+  }, [report2]);
 
   let username = localStorage.getItem("username");
 
@@ -816,12 +832,26 @@ const App = () => {
       );
     }
     // remove the compare column if we dont have anything in the compare array
-    if (sourceData.compare && sourceData.compare.length === 0) {
+    if (
+      !("compare" in sourceData) ||
+      (sourceData.compare && sourceData.compare.length === 0)
+    ) {
       tempColsReport2 = tempColsReport2.filter(
         (item) => item["field"] !== "compare_match"
       );
     }
     setColsReport2(tempColsReport2);
+    tempColsReport2 = tempColsReport2.filter(
+      (item) =>
+        ![
+          "section",
+          "compare_match",
+          "logcheck",
+          "programmer",
+          "qcstatus",
+        ].includes(item["field"])
+    );
+    setColsReport2noLot(tempColsReport2);
     // define the columns from sourceData.compare[0]
     setColsCompare([
       {
@@ -848,7 +878,7 @@ const App = () => {
       },
       {
         field: "n2obs",
-        headerName: "Obs in 1",
+        headerName: "Obs in 2",
         headerClassName: "header",
       },
       {
@@ -864,6 +894,16 @@ const App = () => {
       {
         field: "diff",
         headerName: "diff",
+        headerClassName: "header",
+      },
+      {
+        field: "vars1",
+        headerName: "Vars in 1",
+        headerClassName: "header",
+      },
+      {
+        field: "vars2",
+        headerName: "Vars in 2",
         headerClassName: "header",
       },
     ]);
@@ -962,16 +1002,6 @@ const App = () => {
           ? title2a + title2b
           : title2b,
       title = title0 + title1 + title2;
-    // console.log(
-    //   "--->",
-    //   sourceData.info[0],
-    //   title0,
-    //   title1,
-    //   title2,
-    //   title2a,
-    //   title2b,
-    //   title
-    // );
     document.title = title;
     setCro(sourceData.croosdocs);
     let lastLog;
@@ -1547,7 +1577,6 @@ const App = () => {
         else if (program.logcheck === "clean") {
           cleanprograms++; // no problems in log or header, so clean
         }
-        // console.log("***", cleanprograms, expectedprograms, issueprograms);
       });
 
       let cleanoutputs = 0,
@@ -2190,29 +2219,64 @@ const App = () => {
             </IconButton>
           </Tooltip>
 
-          {showGadamDirExists && info && info.generic_adam_exists === "1" && (
-            <Tooltip title="Show GADAM creation report - if available">
-              <IconButton
-                size="small"
-                onClick={() => {
-                  const parent = info.REPATH.split("/");
-                  parent.pop();
-                  window.open(
-                    webDavPrefix +
-                      parent.join("/") +
-                      "/generic_adam/qc/qc_" +
-                      info.study +
-                      ".html",
-                    "_blank"
-                  );
-                }}
-                color="info"
-                sx={{ mt: 1 }}
-              >
-                <Google />
-              </IconButton>
-            </Tooltip>
-          )}
+          <Tooltip title="View the SAS log that produced this dashboard">
+            <IconButton
+              size="small"
+              onClick={() => {
+                window.open(
+                  logViewerPrefix +
+                    info.REPATH +
+                    "/documents/meta/dashboard.log",
+                  "_blank"
+                );
+              }}
+              color="info"
+              sx={{ mt: 1 }}
+            >
+              <ArticleTwoTone />
+            </IconButton>
+          </Tooltip>
+
+          <Tooltip title="Copy path of the reporting event folder to the clipboard">
+            <IconButton
+              size="small"
+              onClick={() => {
+                navigator.clipboard.writeText(info.REPATH);
+              }}
+              color="info"
+              sx={{ mt: 1 }}
+            >
+              <FolderCopyTwoTone />
+            </IconButton>
+          </Tooltip>
+
+          {showGadamDirExists &&
+            info &&
+            info.generic_adam_exists === "1" &&
+            info.hasOwnProperty("generic_adam_qc_exists") &&
+            info.generic_adam_qc_exists === "1" && (
+              <Tooltip title="Show GADAM creation report - if available">
+                <IconButton
+                  size="small"
+                  onClick={() => {
+                    const parent = info.REPATH.split("/");
+                    parent.pop();
+                    window.open(
+                      webDavPrefix +
+                        parent.join("/") +
+                        "/generic_adam/qc/qc_" +
+                        info.study +
+                        ".html",
+                      "_blank"
+                    );
+                  }}
+                  color="info"
+                  sx={{ mt: 1 }}
+                >
+                  <Google />
+                </IconButton>
+              </Tooltip>
+            )}
 
           {showAdamQc &&
             showGadamDirExists &&
@@ -2309,24 +2373,153 @@ const App = () => {
             </Tooltip>
           ) : null}
 
-          <Box
-            sx={
-              {
-                // border: 2,
-                // m: 1,
-                // fontSize: fontSize,
-                // height: sectionSizes[1],
-                // maxHeight: sectionSizes[1],
-                // width: windowDimension.winWidth - 50,
-                // minWidth: windowDimension.winWidth - 50,
-                // overflow: "auto",
-              }
-            }
-          >
-            {report2 && (
+          <Box>
+            {!gotLot && report2 && (
               <DataGridPro
                 rows={report2}
                 columns={colsReport2}
+                disableColumnMenu
+                density="compact"
+                rowHeight={rowHeight}
+                autoHeight
+                hideFooter={true}
+                sx={{
+                  mt: 1,
+                  fontSize: gridFontSize + 0.05 + "em",
+                  fontFamily: "system-ui;",
+                  "& .note": {
+                    backgroundColor: "#e6f7ff",
+                    color: "#0000ff",
+                  },
+                  "& .amber": {
+                    backgroundColor: amber,
+                    color: "#0000ff",
+                  },
+                  "& .red": {
+                    backgroundColor: "#ffe6e6",
+                    color: "#0000ff",
+                  },
+                  "& .header": {
+                    backgroundColor: "#f6f5ea",
+                  },
+                  "& .MuiDataGrid-columnHeaderTitle": {
+                    lineHeight: 1,
+                    whiteSpace: "normal",
+                  },
+                  "& .MuiDataGrid-columnHeaderTitleContainer": {
+                    lineHeight: 1,
+                    whiteSpace: "normal",
+                  },
+                  "& .MuiDataGrid-columnHeader": {
+                    padding: "0 0 0 2pt",
+                  },
+                }}
+                getCellClassName={(params) => {
+                  if (params.field === "err" && params.value > 0) {
+                    return "red";
+                  } else if (params.field === "war" && params.value > 0) {
+                    return "amber";
+                  } else if (params.field === "un" && params.value > 0) {
+                    return "note";
+                  } else if (params.field === "note" && params.value > 0) {
+                    return "note";
+                  } else return;
+                }}
+                onRowClick={(params) => {
+                  const { row } = params,
+                    { pathlog } = row;
+                  let logName = "";
+                  if (pathlog) logName = pathlog.split("/").pop();
+                  const rowIndex = outputLogReport
+                    .map((e) => e.output)
+                    .indexOf(logName);
+
+                  apiRef.current.scrollToIndexes({
+                    rowIndex: rowIndex,
+                    colIndex: 0,
+                  });
+                  // apiRef.current.setCellFocus({ id: rowIndex, field: "ok" });
+                  window.find(logName);
+                }}
+              />
+            )}
+          </Box>
+          <Box>
+            {gotLot && report2lot && (
+              <DataGridPro
+                rows={report2lot}
+                columns={colsReport2}
+                disableColumnMenu
+                density="compact"
+                rowHeight={rowHeight}
+                autoHeight
+                hideFooter={true}
+                sx={{
+                  mt: 1,
+                  fontSize: gridFontSize + 0.05 + "em",
+                  fontFamily: "system-ui;",
+                  "& .note": {
+                    backgroundColor: "#e6f7ff",
+                    color: "#0000ff",
+                  },
+                  "& .amber": {
+                    backgroundColor: amber,
+                    color: "#0000ff",
+                  },
+                  "& .red": {
+                    backgroundColor: "#ffe6e6",
+                    color: "#0000ff",
+                  },
+                  "& .header": {
+                    backgroundColor: "#f6f5ea",
+                  },
+                  "& .MuiDataGrid-columnHeaderTitle": {
+                    lineHeight: 1,
+                    whiteSpace: "normal",
+                  },
+                  "& .MuiDataGrid-columnHeaderTitleContainer": {
+                    lineHeight: 1,
+                    whiteSpace: "normal",
+                  },
+                  "& .MuiDataGrid-columnHeader": {
+                    padding: "0 0 0 2pt",
+                  },
+                }}
+                getCellClassName={(params) => {
+                  if (params.field === "err" && params.value > 0) {
+                    return "red";
+                  } else if (params.field === "war" && params.value > 0) {
+                    return "amber";
+                  } else if (params.field === "un" && params.value > 0) {
+                    return "note";
+                  } else if (params.field === "note" && params.value > 0) {
+                    return "note";
+                  } else return;
+                }}
+                onRowClick={(params) => {
+                  const { row } = params,
+                    { pathlog } = row;
+                  let logName = "";
+                  if (pathlog) logName = pathlog.split("/").pop();
+                  const rowIndex = outputLogReport
+                    .map((e) => e.output)
+                    .indexOf(logName);
+
+                  apiRef.current.scrollToIndexes({
+                    rowIndex: rowIndex,
+                    colIndex: 0,
+                  });
+                  // apiRef.current.setCellFocus({ id: rowIndex, field: "ok" });
+                  window.find(logName);
+                }}
+              />
+            )}
+          </Box>
+          <Box>
+            {gotLot && report2noLot && colsReport2noLot && (
+              <DataGridPro
+                rows={report2noLot}
+                columns={colsReport2noLot}
                 disableColumnMenu
                 density="compact"
                 rowHeight={rowHeight}
