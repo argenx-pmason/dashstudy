@@ -44,6 +44,7 @@ import {
   Apps,
   ForwardTwoTone,
   ArrowDropDown,
+  Splitscreen,
   ArticleTwoTone,
   FolderCopyTwoTone,
 } from "@mui/icons-material";
@@ -91,6 +92,11 @@ const App = () => {
       localStorage.setItem("username", tempUsername);
       localStorage.setItem("userFullName", userFullName);
       setOpenUserLogin(false);
+    },
+    [panelWidth, setPanelWidth] = useState(6),
+    toggleSplitscreen = () => {
+      if (panelWidth === 6) setPanelWidth(12);
+      else setPanelWidth(6);
     },
     [tempUsername, setTempUsername] = useState(""),
     [openSnackbar, setOpenSnackbar] = useState(false),
@@ -172,7 +178,9 @@ const App = () => {
             setSourceData(json);
             return true;
           })
-          .catch((err) => console.log("fetch failed for " + url + " - " + err));
+          .catch((err) =>
+            console.error("fetch failed for " + url + " - " + err)
+          );
       });
     },
     [sourceData, setSourceData] = useState(null),
@@ -225,7 +233,7 @@ const App = () => {
     showGadamDirExists = true; // set to true to show gadam directory exists indicator
 
   useEffect(() => {
-    console.log("window", window);
+    // console.log("window", window);
     if (sourceData === null) return;
     const matchingUsers = sourceData.access.filter(
       (r) => r.userid === tempUsername
@@ -382,7 +390,8 @@ const App = () => {
 
   // do this when sourceData changes
   useEffect(() => {
-    console.log("INFO:\tsourceData", sourceData);
+    if (sourceData === null) return;
+    console.log("------->\tsourceData", sourceData);
     if (!sourceData) return;
     const tempReport1a = sourceData.report1.map((r, id) => {
         const headerFails = r.headercheck ? r.headercheck.split(" ")[0] : null,
@@ -447,11 +456,36 @@ const App = () => {
         },
       },
       {
+        field: "version",
+        headerName: "Ver",
+        headerClassName: "header",
+        description: "Program version",
+        width: 25,
+        sortable: false,
+        renderCell: (cellValues) => {
+          const { value, row } = cellValues,
+            { isVersioned } = row;
+          if (isVersioned === 0) {
+            return (
+              <Tooltip title={"Program is not versioned"}>
+                <Box>✖</Box>
+              </Tooltip>
+            );
+          } else {
+            return (
+              <Tooltip title={"Version of program"}>
+                <Box>{value}</Box>
+              </Tooltip>
+            );
+          }
+        },
+      },
+      {
         field: "sasprog_exist",
         headerName: "Exists",
         description: "Program file exists",
         headerClassName: "header",
-        width: 30,
+        width: 25,
         sortable: false,
       },
       {
@@ -656,9 +690,9 @@ const App = () => {
         width: 20,
         renderCell: (cellValues) => {
           const { value, row } = cellValues,
-            { compare_label2, pathlst } = row;
+            { compare_label2, gadam_compare_path, pathlst } = row;
           if (value) {
-            // replace /output/ with /output/compare/ in text
+            // replace /output/ with /output/compare/ in text for TLF compare
             const filePath = pathlst.replace(
               "/output/",
               "/output/compare/compare_"
@@ -668,6 +702,19 @@ const App = () => {
             return (
               <Tooltip title={`Compare status is "${compare_label2}"`}>
                 <Link href={`${fileViewerPrefix}${filePath}`} target="_blank">
+                  {flag}
+                </Link>
+              </Tooltip>
+            );
+          } else {
+            let flag = "";
+            if (gadam_compare_path > " ") flag = "G";
+            return (
+              <Tooltip title={`Compare status is "${compare_label2}"`}>
+                <Link
+                  href={`${fileViewerPrefix}${gadam_compare_path}`}
+                  target="_blank"
+                >
                   {flag}
                 </Link>
               </Tooltip>
@@ -833,8 +880,11 @@ const App = () => {
     }
     // remove the compare column if we dont have anything in the compare array
     if (
-      !("compare" in sourceData) ||
-      (sourceData.compare && sourceData.compare.length === 0)
+      sourceData.report2 &&
+      sourceData.report2.length > 0 &&
+      (!("compare" in sourceData) ||
+        (sourceData.compare && sourceData.compare.length === 0)) &&
+      !("gadam_compare_path" in sourceData.report2[0])
     ) {
       tempColsReport2 = tempColsReport2.filter(
         (item) => item["field"] !== "compare_match"
@@ -1586,13 +1636,15 @@ const App = () => {
         const logName = output.pathlog
           ? output.pathlog.split("/").pop()
           : output.datasetlogpath.split("/").pop();
-        expectedoutputs++;
+        if (output.in_lot) expectedoutputs++;
         if (
           output.logcheck === "clean" ||
           outputsWithoutIssues.includes(logName)
         ) {
-          cleanoutputs++;
-        } else if (output.logcheck !== "no log!") issueoutputs++;
+          if (output.in_lot) cleanoutputs++;
+        } else if (output.logcheck !== "no log!") {
+          if (output.in_lot) issueoutputs++;
+        }
       });
       const newSeries = [
           {
@@ -1624,7 +1676,7 @@ const App = () => {
   return (
     <Box>
       <Grid container spacing={2}>
-        <Grid xs={6}>
+        <Grid xs={panelWidth}>
           {info && info.retext && (
             <Box sx={{ ml: 1, mt: 0.1, zIndex: 10, display: "flex" }}>
               {studyList && (
@@ -1650,6 +1702,21 @@ const App = () => {
                   />
                 </Tooltip>
               )}
+              <Tooltip title={"Toggle split screen"}>
+                <Chip
+                  label={"Split"}
+                  icon={<Splitscreen />}
+                  color={"info"}
+                  size="small"
+                  variant={panelWidth === 12 ? "outlined" : "filled"}
+                  onClick={toggleSplitscreen}
+                  sx={{
+                    mt: 0.3,
+                    padding: "2px",
+                    fontSize: gridFontSize + 0.2 + "em",
+                  }}
+                />
+              </Tooltip>
               <Popover
                 id={popId2}
                 open={popOpen2}
@@ -2516,75 +2583,78 @@ const App = () => {
             )}
           </Box>
           <Box>
-            {gotLot && report2noLot && colsReport2noLot && (
-              <DataGridPro
-                rows={report2noLot}
-                columns={colsReport2noLot}
-                disableColumnMenu
-                density="compact"
-                rowHeight={rowHeight}
-                autoHeight
-                hideFooter={true}
-                sx={{
-                  mt: 1,
-                  fontSize: gridFontSize + 0.05 + "em",
-                  fontFamily: "system-ui;",
-                  "& .note": {
-                    backgroundColor: "#e6f7ff",
-                    color: "#0000ff",
-                  },
-                  "& .amber": {
-                    backgroundColor: amber,
-                    color: "#0000ff",
-                  },
-                  "& .red": {
-                    backgroundColor: "#ffe6e6",
-                    color: "#0000ff",
-                  },
-                  "& .header": {
-                    backgroundColor: "#f6f5ea",
-                  },
-                  "& .MuiDataGrid-columnHeaderTitle": {
-                    lineHeight: 1,
-                    whiteSpace: "normal",
-                  },
-                  "& .MuiDataGrid-columnHeaderTitleContainer": {
-                    lineHeight: 1,
-                    whiteSpace: "normal",
-                  },
-                  "& .MuiDataGrid-columnHeader": {
-                    padding: "0 0 0 2pt",
-                  },
-                }}
-                getCellClassName={(params) => {
-                  if (params.field === "err" && params.value > 0) {
-                    return "red";
-                  } else if (params.field === "war" && params.value > 0) {
-                    return "amber";
-                  } else if (params.field === "un" && params.value > 0) {
-                    return "note";
-                  } else if (params.field === "note" && params.value > 0) {
-                    return "note";
-                  } else return;
-                }}
-                onRowClick={(params) => {
-                  const { row } = params,
-                    { pathlog } = row;
-                  let logName = "";
-                  if (pathlog) logName = pathlog.split("/").pop();
-                  const rowIndex = outputLogReport
-                    .map((e) => e.output)
-                    .indexOf(logName);
+            {gotLot &&
+              report2noLot &&
+              report2noLot.length > 0 &&
+              colsReport2noLot && (
+                <DataGridPro
+                  rows={report2noLot}
+                  columns={colsReport2noLot}
+                  disableColumnMenu
+                  density="compact"
+                  rowHeight={rowHeight}
+                  autoHeight
+                  hideFooter={true}
+                  sx={{
+                    mt: 1,
+                    fontSize: gridFontSize + 0.05 + "em",
+                    fontFamily: "system-ui;",
+                    "& .note": {
+                      backgroundColor: "#e6f7ff",
+                      color: "#0000ff",
+                    },
+                    "& .amber": {
+                      backgroundColor: amber,
+                      color: "#0000ff",
+                    },
+                    "& .red": {
+                      backgroundColor: "#ffe6e6",
+                      color: "#0000ff",
+                    },
+                    "& .header": {
+                      backgroundColor: "#f6f5ea",
+                    },
+                    "& .MuiDataGrid-columnHeaderTitle": {
+                      lineHeight: 1,
+                      whiteSpace: "normal",
+                    },
+                    "& .MuiDataGrid-columnHeaderTitleContainer": {
+                      lineHeight: 1,
+                      whiteSpace: "normal",
+                    },
+                    "& .MuiDataGrid-columnHeader": {
+                      padding: "0 0 0 2pt",
+                    },
+                  }}
+                  getCellClassName={(params) => {
+                    if (params.field === "err" && params.value > 0) {
+                      return "red";
+                    } else if (params.field === "war" && params.value > 0) {
+                      return "amber";
+                    } else if (params.field === "un" && params.value > 0) {
+                      return "note";
+                    } else if (params.field === "note" && params.value > 0) {
+                      return "note";
+                    } else return;
+                  }}
+                  onRowClick={(params) => {
+                    const { row } = params,
+                      { pathlog } = row;
+                    let logName = "";
+                    if (pathlog) logName = pathlog.split("/").pop();
+                    const rowIndex = outputLogReport
+                      .map((e) => e.output)
+                      .indexOf(logName);
 
-                  apiRef.current.scrollToIndexes({
-                    rowIndex: rowIndex,
-                    colIndex: 0,
-                  });
-                  // apiRef.current.setCellFocus({ id: rowIndex, field: "ok" });
-                  window.find(logName);
-                }}
-              />
-            )}
+                    apiRef.current.scrollToIndexes({
+                      rowIndex: rowIndex,
+                      colIndex: 0,
+                    });
+                    // apiRef.current.setCellFocus({ id: rowIndex, field: "ok" });
+                    window.find(logName);
+                  }}
+                />
+              )}
           </Box>
         </Grid>
       </Grid>

@@ -88,9 +88,9 @@ export const updateJsonFile = (file, content) => {
             console.log("text", text);
           });
         })
-        .catch((err) => console.log("PUT err: ", err));
+        .catch((err) => console.error("PUT err: ", err));
     })
-    .catch((err) => console.log("DELETE err: ", err));
+    .catch((err) => console.error("DELETE err: ", err));
 };
 
 // get a JSON file and use setContent to content from file, or else to false
@@ -98,10 +98,10 @@ export const getJsonFile = (file, setContent) => {
   console.log("getJsonFile - file: ", file);
   fetch(file)
     .then(function (response) {
-      console.log(response);
+      // console.log(response);
       if (response.type === "cors" || response.status !== 200) {
         setContent(false);
-        console.log("getJsonFile fetch failed: ", response);
+        console.error("getJsonFile fetch failed: ", response);
         return;
       }
       response.text().then(function (text) {
@@ -111,7 +111,7 @@ export const getJsonFile = (file, setContent) => {
       });
     })
     .catch((err) => {
-      console.log("getJsonFile - err: ", err);
+      console.error("getJsonFile - err: ", err);
       setContent(false);
     });
 };
