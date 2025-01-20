@@ -142,9 +142,9 @@ const App = () => {
     [openOutputReview, setOpenOutputReview] = useState(null),
     webDavPrefix = urlPrefix + "/lsaf/webdav/repo",
     logViewerPrefix =
-      webDavPrefix + "/general/biostat/tools/logviewer/index.html?log=",
+      webDavPrefix + "/general/biostat/apps/logviewer/index.html?log=",
     fileViewerPrefix =
-      webDavPrefix + "/general/biostat/tools/fileviewer/index.html?file=",
+      webDavPrefix + "/general/biostat/apps/fileviewer/index.html?file=",
     [report1a, setReport1a] = useState(null),
     [colsReport1a, setColsReport1a] = useState(null),
     [report1b, setReport1b] = useState(null),

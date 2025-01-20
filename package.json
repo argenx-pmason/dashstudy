@@ -2,7 +2,7 @@
   "name": "dashstudy",
   "version": "0.1.0",
   "private": true,
-  "homepage": "/lsaf/filedownload/sdd%3A///general/biostat/tools/dashstudy",
+  "homepage": "/lsaf/filedownload/sdd%3A///general/biostat/apps/dashstudy",
   "dependencies": {
     "@emotion/react": "^11.10.5",
     "@emotion/styled": "^11.10.5",
