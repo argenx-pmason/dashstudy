@@ -633,7 +633,7 @@ const App = () => {
     setReport2(tempReport2);
     let tempColsReport2 = [
       {
-        field: "section",
+        field: "Section",
         headerName: "SAP",
         description: "SAP section",
         headerClassName: "header",
@@ -2230,7 +2230,9 @@ const App = () => {
                     lineHeight: 1,
                     whiteSpace: "normal",
                   },
-                }}
+                  "& .MuiDataGrid-cell": {
+                    padding: "0 0 0 2pt",
+                  },                }}
               />
             </Box>
           )}
@@ -2480,6 +2482,9 @@ const App = () => {
                   "& .MuiDataGrid-columnHeader": {
                     padding: "0 0 0 2pt",
                   },
+                  "& .MuiDataGrid-cell": {
+                    padding: "0 0 0 2pt",
+                  },
                 }}
                 getCellClassName={(params) => {
                   if (params.field === "err" && params.value > 0) {
@@ -2551,7 +2556,9 @@ const App = () => {
                   "& .MuiDataGrid-columnHeader": {
                     padding: "0 0 0 2pt",
                   },
-                }}
+                  "& .MuiDataGrid-cell": {
+                    padding: "0 0 0 2pt",
+                  },                }}
                 getCellClassName={(params) => {
                   if (params.field === "err" && params.value > 0) {
                     return "red";
@@ -2625,7 +2632,9 @@ const App = () => {
                     "& .MuiDataGrid-columnHeader": {
                       padding: "0 0 0 2pt",
                     },
-                  }}
+                    "& .MuiDataGrid-cell": {
+                      padding: "0 0 0 2pt",
+                    },                  }}
                   getCellClassName={(params) => {
                     if (params.field === "err" && params.value > 0) {
                       return "red";
