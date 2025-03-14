@@ -802,7 +802,7 @@ const App = () => {
               <>
                 <Tooltip title={`Open log in Log Viewer`}>
                   <Link href={`${logViewerPrefix}${pathlog}`} target="_blank">
-                    {value}
+                    {value ? value : pathlog ? "???" : ""}
                   </Link>
                 </Tooltip>
               </>
@@ -2232,7 +2232,8 @@ const App = () => {
                   },
                   "& .MuiDataGrid-cell": {
                     padding: "0 0 0 2pt",
-                  },                }}
+                  },
+                }}
               />
             </Box>
           )}
@@ -2558,7 +2559,8 @@ const App = () => {
                   },
                   "& .MuiDataGrid-cell": {
                     padding: "0 0 0 2pt",
-                  },                }}
+                  },
+                }}
                 getCellClassName={(params) => {
                   if (params.field === "err" && params.value > 0) {
                     return "red";
@@ -2634,7 +2636,8 @@ const App = () => {
                     },
                     "& .MuiDataGrid-cell": {
                       padding: "0 0 0 2pt",
-                    },                  }}
+                    },
+                  }}
                   getCellClassName={(params) => {
                     if (params.field === "err" && params.value > 0) {
                       return "red";
